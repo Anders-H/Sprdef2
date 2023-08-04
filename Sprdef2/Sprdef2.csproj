@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddSpriteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSpriteDialog.Designer.cs">
+      <DependentUpon>AddSpriteDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     <Compile Include="SpriteEditorWindow.Designer.cs">
       <DependentUpon>SpriteEditorWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddSpriteDialog.resx">
+      <DependentUpon>AddSpriteDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

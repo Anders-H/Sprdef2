@@ -20,11 +20,26 @@ namespace Sprdef2
 
         private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var s = new SpriteRoot(false);
+            bool multicolor;
+            using (var add = new AddSpriteDialog())
+            {
+                if (add.ShowDialog() != DialogResult.OK)
+                    return;
+
+                multicolor = add.Multicolor;
+            }
+
+            var s = new SpriteRoot(multicolor);
             Sprites.Add(s);
             var x = new SpriteEditorWindow();
+            x.Sprite = s;
             x.MdiParent = this;
             x.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
