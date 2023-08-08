@@ -104,10 +104,10 @@
             this.Controls.Add(this.optColor1);
             this.Controls.Add(this.optColor0);
             this.Controls.Add(this.spriteEditorControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.DoubleBuffered = true;
             this.Name = "SpriteEditorWindow";
             this.Text = "Sprite";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SpriteEditorWindow_Paint);
             this.ResumeLayout(false);
 
         }

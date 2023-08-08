@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 using EditStateSprite;
 
 namespace Sprdef2
@@ -40,7 +41,7 @@ namespace Sprdef2
 
         private void spriteEditorControl1_SpriteChanged(object sender, SpriteChangedEventArgs e)
         {
-
+            Invalidate();
         }
 
         private void optColor0_CheckedChanged(object sender, System.EventArgs e)
@@ -61,6 +62,14 @@ namespace Sprdef2
         private void optColor3_CheckedChanged(object sender, System.EventArgs e)
         {
             spriteEditorControl1.Focus();
+        }
+
+        private void SpriteEditorWindow_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.Clear(Color.DarkGray);
+            var x = spriteEditorControl1.Width + spriteEditorControl1.Left + 5;
+            var y = spriteEditorControl1.Top;
+            Sprite.ColorMap.PaintPreview(e.Graphics, x, y);
         }
     }
 }
