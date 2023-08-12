@@ -42,11 +42,11 @@
             this.spriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lvSpriteList = new System.Windows.Forms.ListView();
             this.picPreview = new System.Windows.Forms.PictureBox();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.SuspendLayout();
@@ -151,6 +151,13 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.optionsToolStripMenuItem.Text = "Options...";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -171,12 +178,16 @@
             // lvSpriteList
             // 
             this.lvSpriteList.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lvSpriteList.FullRowSelect = true;
             this.lvSpriteList.HideSelection = false;
             this.lvSpriteList.Location = new System.Drawing.Point(0, 49);
+            this.lvSpriteList.MultiSelect = false;
             this.lvSpriteList.Name = "lvSpriteList";
             this.lvSpriteList.Size = new System.Drawing.Size(121, 543);
             this.lvSpriteList.TabIndex = 5;
             this.lvSpriteList.UseCompatibleStateImageBehavior = false;
+            this.lvSpriteList.View = System.Windows.Forms.View.List;
+            this.lvSpriteList.SelectedIndexChanged += new System.EventHandler(this.lvSpriteList_SelectedIndexChanged);
             // 
             // picPreview
             // 
@@ -186,13 +197,6 @@
             this.picPreview.Size = new System.Drawing.Size(253, 543);
             this.picPreview.TabIndex = 6;
             this.picPreview.TabStop = false;
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.optionsToolStripMenuItem.Text = "Options...";
-            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

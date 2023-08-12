@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpriteEditorWindow));
             this.spriteEditorControl1 = new EditStateSprite.SpriteEditorControl();
             this.optColor0 = new System.Windows.Forms.RadioButton();
             this.optColor1 = new System.Windows.Forms.RadioButton();
@@ -105,9 +106,11 @@
             this.Controls.Add(this.optColor0);
             this.Controls.Add(this.spriteEditorControl1);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SpriteEditorWindow";
             this.Text = "Sprite";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SpriteEditorWindow_Paint);
+            this.Enter += new System.EventHandler(this.SpriteEditorWindow_Enter);
             this.ResumeLayout(false);
 
         }

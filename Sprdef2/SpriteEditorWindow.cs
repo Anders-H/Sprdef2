@@ -46,21 +46,25 @@ namespace Sprdef2
 
         private void optColor0_CheckedChanged(object sender, System.EventArgs e)
         {
+            spriteEditorControl1.SetCurrentColorIndex(0);
             spriteEditorControl1.Focus();
         }
 
         private void optColor1_CheckedChanged(object sender, System.EventArgs e)
         {
+            spriteEditorControl1.SetCurrentColorIndex(1);
             spriteEditorControl1.Focus();
         }
 
         private void optColor2_CheckedChanged(object sender, System.EventArgs e)
         {
+            spriteEditorControl1.SetCurrentColorIndex(2);
             spriteEditorControl1.Focus();
         }
 
         private void optColor3_CheckedChanged(object sender, System.EventArgs e)
         {
+            spriteEditorControl1.SetCurrentColorIndex(3);
             spriteEditorControl1.Focus();
         }
 
@@ -70,6 +74,11 @@ namespace Sprdef2
             var x = spriteEditorControl1.Width + spriteEditorControl1.Left + 5;
             var y = spriteEditorControl1.Top;
             Sprite.ColorMap.PaintPreview(e.Graphics, x, y);
+        }
+
+        private void SpriteEditorWindow_Enter(object sender, System.EventArgs e)
+        {
+            ((MainWindow)MdiParent).SpriteWindowChanged(Sprite);
         }
     }
 }
