@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Policy;
 using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
@@ -43,14 +44,19 @@ namespace Sprdef2
                 PreviewZoom = PreviewZoom
             };
 
-            Sprites.Add(s);
-            var x = new SpriteEditorWindow();
-            x.ConnectSprite(s);
-            x.MdiParent = this;
-            x.Show();
+            FireWindowForSprite(s);
             var item = lvSpriteList.Items.Add($@"Sprite {Sprites.Count} ({(s.MultiColor ? "multicolor" : "monochrome")})");
             item.Tag = s;
             item.Selected = true;
+        }
+
+        public void FireWindowForSprite(SpriteRoot sprite)
+        {
+            Sprites.Add(sprite);
+            var x = new SpriteEditorWindow();
+            x.ConnectSprite(sprite);
+            x.MdiParent = this;
+            x.Show();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -71,6 +77,7 @@ namespace Sprdef2
                 MessageBox.Show(this, @"Activate a sprite window first.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,6 +106,8 @@ namespace Sprdef2
 
             _changingFocusBecauseOfSpriteListUsage = true;
 
+            var found = false;
+
             if (lvSpriteList.SelectedItems.Count > 0)
             {
                 var s1 = (SpriteRoot)lvSpriteList.SelectedItems[0].Tag;
@@ -116,8 +125,15 @@ namespace Sprdef2
                     sew.BringToFront();
                     sew.Focus();
                     ActivateMdiChild(sew);
+                    found = true;
                     break;
                 }
+            }
+
+            if (!found && lvSpriteList.SelectedItems.Count > 0 )
+            {
+                var s1 = (SpriteRoot)lvSpriteList.SelectedItems[0].Tag;
+                FireWindowForSprite(s1);
             }
 
             _changingFocusBecauseOfSpriteListUsage = false;
