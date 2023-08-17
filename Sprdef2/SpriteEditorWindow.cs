@@ -35,14 +35,14 @@ namespace Sprdef2
                 optColor2.BackColor = BackColor;
                 optColor3.BackColor = BackColor;
             }
+            ReconnectSprite();
+        }
 
+        public void ReconnectSprite() =>
             spriteEditorControl1.ConnectSprite(Sprite);
-        }
 
-        private void spriteEditorControl1_SpriteChanged(object sender, SpriteChangedEventArgs e)
-        {
+        private void spriteEditorControl1_SpriteChanged(object sender, SpriteChangedEventArgs e) =>
             Invalidate();
-        }
 
         private void optColor0_CheckedChanged(object sender, System.EventArgs e)
         {

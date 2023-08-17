@@ -78,6 +78,15 @@ namespace Sprdef2
                 return;
             }
 
+            var c = (SpriteEditorWindow)ActiveMdiChild;
+
+            using (var x = new PropertiesDialog())
+            {
+                x.Sprite = c.Sprite;
+                x.ShowDialog(this);
+                c.ReconnectSprite();
+                c.Invalidate();
+            }
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
