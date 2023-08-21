@@ -64,28 +64,37 @@ namespace Sprdef2
             Close();
         }
 
-        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        private bool CanManipulateCurrentSprite(string text, out SpriteEditorWindow w)
         {
+            w = null;
+
             if (Sprites.Count <= 0)
             {
-                MessageBox.Show(this, @"This project does not contain any sprites yet.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                MessageBox.Show(this, @"This project does not contain any sprites yet.", text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
 
             if (ActiveMdiChild == null || ActiveMdiChild.GetType() != typeof(SpriteEditorWindow))
             {
-                MessageBox.Show(this, @"Activate a sprite window first.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                MessageBox.Show(this, @"Activate a sprite window first.", text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
 
-            var c = (SpriteEditorWindow)ActiveMdiChild;
+            w = (SpriteEditorWindow)ActiveMdiChild;
+            return true;
+        }
+
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Properties", out var w))
+                return;
 
             using (var x = new PropertiesDialog())
             {
-                x.Sprite = c.Sprite;
+                x.Sprite = w.Sprite;
                 x.ShowDialog(this);
-                c.ReconnectSprite();
-                c.Invalidate();
+                w.ReconnectSprite();
+                w.Invalidate();
             }
         }
 
@@ -169,5 +178,53 @@ namespace Sprdef2
 
             _changingFocusBecauseOfSpriteWindowChange = false;
         }
+
+        private void scrollUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Scroll up", out var w))
+                return;
+
+            w.Scroll(FourWayDirection.Up);
+            w.Focus();
+        }
+
+        private void scrollRightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Scroll right", out var w))
+                return;
+
+            w.Scroll(FourWayDirection.Right);
+            w.Focus();
+        }
+
+        private void scrollDownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Scroll down", out var w))
+                return;
+
+            w.Scroll(FourWayDirection.Down);
+            w.Focus();
+        }
+
+        private void scrollLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Scroll left", out var w))
+                return;
+
+            w.Scroll(FourWayDirection.Left);
+            w.Focus();
+        }
+
+        private void btnScrollUp_Click(object sender, EventArgs e) =>
+            scrollUpToolStripMenuItem_Click(sender, e);
+
+        private void btnScrollRight_Click(object sender, EventArgs e) =>
+            scrollRightToolStripMenuItem_Click(sender, e);
+
+        private void btnScrollDown_Click(object sender, EventArgs e) =>
+            scrollDownToolStripMenuItem_Click(sender, e);
+
+        private void btnScrollLeft_Click(object sender, EventArgs e) =>
+            scrollLeftToolStripMenuItem_Click(sender, e);
     }
 }

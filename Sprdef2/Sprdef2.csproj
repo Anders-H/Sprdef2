@@ -104,6 +104,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SpriteEditorWindow.resx">
       <DependentUpon>SpriteEditorWindow.cs</DependentUpon>
@@ -123,6 +124,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\112_UpArrowLong_Blue_16x16_72.png" />
+    <None Include="Resources\112_RightArrowLong_Blue_16x16_72.png" />
+    <None Include="Resources\112_DownArrowLong_Blue_16x16_72.png" />
+    <None Include="Resources\112_LeftArrowLong_Blue_16x16_72.png" />
     <Content Include="Sprdef2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

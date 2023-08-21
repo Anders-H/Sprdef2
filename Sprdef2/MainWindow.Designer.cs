@@ -46,8 +46,18 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lvSpriteList = new System.Windows.Forms.ListView();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.picPreview = new System.Windows.Forms.PictureBox();
+            this.btnScrollUp = new System.Windows.Forms.ToolStripButton();
+            this.btnScrollRight = new System.Windows.Forms.ToolStripButton();
+            this.btnScrollDown = new System.Windows.Forms.ToolStripButton();
+            this.btnScrollLeft = new System.Windows.Forms.ToolStripButton();
+            this.scrollUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scrollRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scrollDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scrollLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,6 +126,11 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scrollUpToolStripMenuItem,
+            this.scrollRightToolStripMenuItem,
+            this.scrollDownToolStripMenuItem,
+            this.scrollLeftToolStripMenuItem,
+            this.toolStripMenuItem2,
             this.propertiesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -124,7 +139,7 @@
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.propertiesToolStripMenuItem.Text = "Properties...";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
@@ -161,6 +176,11 @@
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnScrollUp,
+            this.btnScrollRight,
+            this.btnScrollDown,
+            this.btnScrollLeft});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(941, 25);
@@ -189,6 +209,11 @@
             this.lvSpriteList.View = System.Windows.Forms.View.List;
             this.lvSpriteList.SelectedIndexChanged += new System.EventHandler(this.lvSpriteList_SelectedIndexChanged);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            // 
             // picPreview
             // 
             this.picPreview.Dock = System.Windows.Forms.DockStyle.Right;
@@ -197,6 +222,78 @@
             this.picPreview.Size = new System.Drawing.Size(253, 543);
             this.picPreview.TabIndex = 6;
             this.picPreview.TabStop = false;
+            // 
+            // btnScrollUp
+            // 
+            this.btnScrollUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnScrollUp.Image = global::Sprdef2.Properties.Resources._112_UpArrowLong_Blue_16x16_72;
+            this.btnScrollUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnScrollUp.Name = "btnScrollUp";
+            this.btnScrollUp.Size = new System.Drawing.Size(23, 22);
+            this.btnScrollUp.Text = "Scroll up";
+            this.btnScrollUp.Click += new System.EventHandler(this.btnScrollUp_Click);
+            // 
+            // btnScrollRight
+            // 
+            this.btnScrollRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnScrollRight.Image = global::Sprdef2.Properties.Resources._112_RightArrowLong_Blue_16x16_72;
+            this.btnScrollRight.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnScrollRight.Name = "btnScrollRight";
+            this.btnScrollRight.Size = new System.Drawing.Size(23, 22);
+            this.btnScrollRight.Text = "toolStripButton1";
+            this.btnScrollRight.Click += new System.EventHandler(this.btnScrollRight_Click);
+            // 
+            // btnScrollDown
+            // 
+            this.btnScrollDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnScrollDown.Image = global::Sprdef2.Properties.Resources._112_DownArrowLong_Blue_16x16_72;
+            this.btnScrollDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnScrollDown.Name = "btnScrollDown";
+            this.btnScrollDown.Size = new System.Drawing.Size(23, 22);
+            this.btnScrollDown.Text = "toolStripButton1";
+            this.btnScrollDown.Click += new System.EventHandler(this.btnScrollDown_Click);
+            // 
+            // btnScrollLeft
+            // 
+            this.btnScrollLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnScrollLeft.Image = global::Sprdef2.Properties.Resources._112_LeftArrowLong_Blue_16x16_72;
+            this.btnScrollLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnScrollLeft.Name = "btnScrollLeft";
+            this.btnScrollLeft.Size = new System.Drawing.Size(23, 22);
+            this.btnScrollLeft.Text = "toolStripButton1";
+            this.btnScrollLeft.Click += new System.EventHandler(this.btnScrollLeft_Click);
+            // 
+            // scrollUpToolStripMenuItem
+            // 
+            this.scrollUpToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_UpArrowLong_Blue_16x16_72;
+            this.scrollUpToolStripMenuItem.Name = "scrollUpToolStripMenuItem";
+            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollUpToolStripMenuItem.Text = "Scroll up";
+            this.scrollUpToolStripMenuItem.Click += new System.EventHandler(this.scrollUpToolStripMenuItem_Click);
+            // 
+            // scrollRightToolStripMenuItem
+            // 
+            this.scrollRightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_RightArrowLong_Blue_16x16_72;
+            this.scrollRightToolStripMenuItem.Name = "scrollRightToolStripMenuItem";
+            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollRightToolStripMenuItem.Text = "Scroll right";
+            this.scrollRightToolStripMenuItem.Click += new System.EventHandler(this.scrollRightToolStripMenuItem_Click);
+            // 
+            // scrollDownToolStripMenuItem
+            // 
+            this.scrollDownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_DownArrowLong_Blue_16x16_72;
+            this.scrollDownToolStripMenuItem.Name = "scrollDownToolStripMenuItem";
+            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollDownToolStripMenuItem.Text = "Scroll down";
+            this.scrollDownToolStripMenuItem.Click += new System.EventHandler(this.scrollDownToolStripMenuItem_Click);
+            // 
+            // scrollLeftToolStripMenuItem
+            // 
+            this.scrollLeftToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_LeftArrowLong_Blue_16x16_72;
+            this.scrollLeftToolStripMenuItem.Name = "scrollLeftToolStripMenuItem";
+            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollLeftToolStripMenuItem.Text = "Scroll left";
+            this.scrollLeftToolStripMenuItem.Click += new System.EventHandler(this.scrollLeftToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -215,6 +312,8 @@
             this.Text = "Sprdef 2";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -241,6 +340,15 @@
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scrollUpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btnScrollUp;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem scrollRightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scrollDownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scrollLeftToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btnScrollRight;
+        private System.Windows.Forms.ToolStripButton btnScrollDown;
+        private System.Windows.Forms.ToolStripButton btnScrollLeft;
     }
 }
 
