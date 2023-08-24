@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Policy;
 using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
@@ -8,6 +7,7 @@ namespace Sprdef2
 {
     public partial class MainWindow : Form
     {
+        private string _filename;
         private bool _changingFocusBecauseOfSpriteListUsage;
         private bool _changingFocusBecauseOfSpriteWindowChange;
         public static Palette Palette { get; }
@@ -226,5 +226,57 @@ namespace Sprdef2
 
         private void btnScrollLeft_Click(object sender, EventArgs e) =>
             scrollLeftToolStripMenuItem_Click(sender, e);
+
+        public string Filename
+        {
+            get => _filename;
+            set
+            {
+                _filename = value;
+                Text = string.IsNullOrWhiteSpace(_filename) ? "Sprdef 2" : $"Sprdef 2 - [{_filename}]";
+            }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(this, @"Are you sure you want to create a new document? All current unsaved sprites will be lost.", @"New", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                return;
+
+            foreach (var mdiChild in MdiChildren)
+            {
+                mdiChild.Close();
+            }
+
+            Sprites.Clear();
+            lvSpriteList.Items.Clear();
+
+            Filename = "";
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.WindowsShutDown || e.CloseReason == CloseReason.TaskManagerClosing)
+                return;
+
+            if (MessageBox.Show(this, @"Are you sure you want to quit? All current unsaved sprites will be lost.", @"Quit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                e.Cancel = true;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(this, @"Are you sure you want to open another document? All current unsaved sprites will be lost.", @"Open", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                return;
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
