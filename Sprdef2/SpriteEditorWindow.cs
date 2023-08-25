@@ -81,7 +81,7 @@ namespace Sprdef2
             ((MainWindow)MdiParent).SpriteWindowChanged(Sprite);
         }
 
-        public void Scroll(FourWayDirection direction) =>
+        public new void Scroll(FourWayDirection direction) =>
             spriteEditorControl1.Scroll(direction);
     }
 }

@@ -267,6 +267,10 @@ namespace Sprdef2
             if (MessageBox.Show(this, @"Are you sure you want to open another document? All current unsaved sprites will be lost.", @"Open", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return;
 
+            using (var x = new OpenFileDialog())
+            {
+
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -278,5 +282,29 @@ namespace Sprdef2
         {
 
         }
+
+        private void flipLeftrightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Flip left-right", out var w))
+                return;
+
+            // w.Flip
+            w.Focus();
+        }
+
+        private void flipTopdownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Flip top-down", out var w))
+                return;
+
+            // w.Flip
+            w.Focus();
+        }
+
+        private void btnFlipLeftRight_Click(object sender, EventArgs e) =>
+            flipLeftrightToolStripMenuItem_Click(sender, e);
+
+        private void btnFlipTopDown_Click(object sender, EventArgs e) =>
+            flipTopdownToolStripMenuItem_Click(sender, e);
     }
 }

@@ -124,10 +124,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="version.txt" />
+    <None Include="README.md" />
+    <None Include="releasenotes.md" />
     <None Include="Resources\112_UpArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\112_RightArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\112_DownArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\112_LeftArrowLong_Blue_16x16_72.png" />
+    <None Include="Resources\FlipHorizontalHS.png" />
+    <None Include="Resources\FlipVerticalHS.png" />
     <Content Include="Sprdef2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
