@@ -269,7 +269,37 @@ namespace Sprdef2
 
             using (var x = new OpenFileDialog())
             {
+                x.Title = @"Open document";
+                x.Filter = @"Sprdef 2 documents (*.sprdef)|*.sprdef|All files (*.*)|*.*";
 
+                if (x.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    var loadedSprites = new SpriteList();
+                    loadedSprites.Load(x.FileName);
+
+                    foreach (var mdiChild in MdiChildren)
+                    {
+                        mdiChild.Close();
+                    }
+
+                    Sprites = loadedSprites;
+                    lvSpriteList.Items.Clear();
+                    Filename = x.FileName;
+
+                    foreach (var s in Sprites)
+                    {
+                        var item = lvSpriteList.Items.Add($@"Sprite {Sprites.Count} ({(s.MultiColor ? "multicolor" : "monochrome")})");
+                        item.Tag = s;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, $@"Load failed. {ex.Message}", @"Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
