@@ -305,12 +305,43 @@ namespace Sprdef2
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(Filename))
+            {
+                saveAsToolStripMenuItem_Click(sender, e);
+                return;
+            }
 
+            Save(Filename);
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (var x = new SaveFileDialog())
+            {
+                x.Title = @"Save document";
+                x.Filter = @"Sprdef 2 documents (*.sprdef)|*.sprdef|All files (*.*)|*.*";
 
+                if (!string.IsNullOrWhiteSpace(Filename))
+                    x.FileName = Filename;
+
+                if (x.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                Save(x.FileName);
+            }
+        }
+
+        private void Save(string filename)
+        {
+            try
+            {
+                Sprites.Save(filename);
+                Filename = filename;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $@"Save failed. {ex.Message}", @"Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void flipLeftrightToolStripMenuItem_Click(object sender, EventArgs e)
