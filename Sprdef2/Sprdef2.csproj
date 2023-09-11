@@ -124,6 +124,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\add2-16.png" />
+    <None Include="Resources\NewDocumentHS.png" />
+    <None Include="Resources\openHS.png" />
+    <None Include="Resources\saveHS.png" />
     <Content Include="version.txt" />
     <None Include="README.md" />
     <None Include="releasenotes.md" />

@@ -83,5 +83,27 @@ namespace Sprdef2
 
         public new void Scroll(FourWayDirection direction) =>
             spriteEditorControl1.Scroll(direction);
+
+        public void Flip(TwoWayDirection direction) =>
+            spriteEditorControl1.Flip(direction);
+
+        private void btnProperties_Click(object sender, System.EventArgs e)
+        {
+            ((MainWindow)MdiParent).propertiesToolStripMenuItem_Click(sender, e);
+        }
+
+        private void btnPalette_Click(object sender, System.EventArgs e)
+        {
+            spriteEditorControl1.PickPaletteColors(this);
+
+            optColor0.BackColor = MainWindow.Palette.GetColor(Sprite.SpriteColorPalette[0]);
+            optColor1.BackColor = MainWindow.Palette.GetColor(Sprite.SpriteColorPalette[1]);
+
+            if (!Sprite.MultiColor)
+                return;
+
+            optColor2.BackColor = MainWindow.Palette.GetColor(Sprite.SpriteColorPalette[2]);
+            optColor3.BackColor = MainWindow.Palette.GetColor(Sprite.SpriteColorPalette[3]);
+        }
     }
 }

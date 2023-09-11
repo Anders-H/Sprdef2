@@ -84,7 +84,7 @@ namespace Sprdef2
             return true;
         }
 
-        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        public void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!CanManipulateCurrentSprite("Properties", out var w))
                 return;
@@ -349,7 +349,7 @@ namespace Sprdef2
             if (!CanManipulateCurrentSprite("Flip left-right", out var w))
                 return;
 
-            // w.Flip
+            w.Flip(TwoWayDirection.LeftRight);
             w.Focus();
         }
 
@@ -358,7 +358,7 @@ namespace Sprdef2
             if (!CanManipulateCurrentSprite("Flip top-down", out var w))
                 return;
 
-            // w.Flip
+            w.Flip(TwoWayDirection.TopDown);
             w.Focus();
         }
 
@@ -367,5 +367,17 @@ namespace Sprdef2
 
         private void btnFlipTopDown_Click(object sender, EventArgs e) =>
             flipTopdownToolStripMenuItem_Click(sender, e);
+
+        private void btnAddSprite_Click(object sender, EventArgs e) =>
+            addSpriteToolStripMenuItem_Click(sender, e);
+
+        private void btnNew_Click(object sender, EventArgs e) =>
+            newToolStripMenuItem_Click(sender, e);
+
+        private void btnOpen_Click(object sender, EventArgs e) =>
+            openToolStripMenuItem_Click(sender, e);
+
+        private void btnSave_Click(object sender, EventArgs e) =>
+            saveToolStripMenuItem_Click(sender, e);
     }
 }

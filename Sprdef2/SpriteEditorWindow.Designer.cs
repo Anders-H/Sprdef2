@@ -34,6 +34,8 @@
             this.optColor1 = new System.Windows.Forms.RadioButton();
             this.optColor2 = new System.Windows.Forms.RadioButton();
             this.optColor3 = new System.Windows.Forms.RadioButton();
+            this.btnProperties = new System.Windows.Forms.Button();
+            this.btnPalette = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // spriteEditorControl1
@@ -95,11 +97,33 @@
             this.optColor3.UseVisualStyleBackColor = true;
             this.optColor3.CheckedChanged += new System.EventHandler(this.optColor3_CheckedChanged);
             // 
+            // btnProperties
+            // 
+            this.btnProperties.Location = new System.Drawing.Point(196, 4);
+            this.btnProperties.Name = "btnProperties";
+            this.btnProperties.Size = new System.Drawing.Size(84, 23);
+            this.btnProperties.TabIndex = 5;
+            this.btnProperties.Text = "Properties...";
+            this.btnProperties.UseVisualStyleBackColor = true;
+            this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
+            // 
+            // btnPalette
+            // 
+            this.btnPalette.Location = new System.Drawing.Point(284, 4);
+            this.btnPalette.Name = "btnPalette";
+            this.btnPalette.Size = new System.Drawing.Size(80, 23);
+            this.btnPalette.TabIndex = 6;
+            this.btnPalette.Text = "Palette...";
+            this.btnPalette.UseVisualStyleBackColor = true;
+            this.btnPalette.Click += new System.EventHandler(this.btnPalette_Click);
+            // 
             // SpriteEditorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 349);
+            this.Controls.Add(this.btnPalette);
+            this.Controls.Add(this.btnProperties);
             this.Controls.Add(this.optColor3);
             this.Controls.Add(this.optColor2);
             this.Controls.Add(this.optColor1);
@@ -122,5 +146,7 @@
         private System.Windows.Forms.RadioButton optColor1;
         private System.Windows.Forms.RadioButton optColor2;
         private System.Windows.Forms.RadioButton optColor3;
+        private System.Windows.Forms.Button btnProperties;
+        private System.Windows.Forms.Button btnPalette;
     }
 }
