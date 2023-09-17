@@ -89,11 +89,17 @@ namespace Sprdef2
             if (!CanManipulateCurrentSprite("Properties", out var w))
                 return;
 
+            var isMulticolor = w.Sprite.MultiColor;
+
             using (var x = new PropertiesDialog())
             {
                 x.Sprite = w.Sprite;
                 x.ShowDialog(this);
-                w.ReconnectSprite();
+                
+                if (x.MultiColor != isMulticolor)
+                    w.ToggleColorMode();
+
+                w.ConnectSprite(w.Sprite);
                 w.Invalidate();
             }
         }

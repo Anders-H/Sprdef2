@@ -6,6 +6,7 @@ namespace Sprdef2
     public partial class PropertiesDialog : Form
     {
         public SpriteRoot Sprite { get; set; }
+        public bool MultiColor { get; private set; }
 
         public PropertiesDialog()
         {
@@ -19,14 +20,7 @@ namespace Sprdef2
 
         private void btnOk_Click(object sender, System.EventArgs e)
         {
-            if (chkMulticolor.Checked != Sprite.MultiColor)
-            {
-                if (chkMulticolor.Checked)
-                    Sprite.ConvertToMultiColor();
-                else
-                    Sprite.ConvertToMonochrome();
-            }
-
+            MultiColor = chkMulticolor.Checked;
             DialogResult = DialogResult.OK;
         }
     }

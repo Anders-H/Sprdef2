@@ -38,6 +38,9 @@ namespace Sprdef2
             ReconnectSprite();
         }
 
+        public void ToggleColorMode() =>
+            spriteEditorControl1.ToggleColorMode();
+
         public void ReconnectSprite() =>
             spriteEditorControl1.ConnectSprite(Sprite);
 
