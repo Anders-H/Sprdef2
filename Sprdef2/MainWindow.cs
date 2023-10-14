@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
@@ -8,6 +9,7 @@ namespace Sprdef2
     public partial class MainWindow : Form
     {
         private string _filename;
+        private int _previewSpriteIndex;
         private bool _changingFocusBecauseOfSpriteListUsage;
         private bool _changingFocusBecauseOfSpriteWindowChange;
         public static Palette Palette { get; }
@@ -25,6 +27,7 @@ namespace Sprdef2
         {
             _changingFocusBecauseOfSpriteListUsage = false;
             _changingFocusBecauseOfSpriteWindowChange = false;
+            _previewSpriteIndex = -1;
             InitializeComponent();
         }
 
@@ -41,7 +44,9 @@ namespace Sprdef2
 
             var s = new SpriteRoot(multicolor)
             {
-                PreviewZoom = PreviewZoom
+                PreviewZoom = PreviewZoom,
+                PreviewOffsetX = 30,
+                PreviewOffsetY = 30,
             };
 
             FireWindowForSprite(s);
@@ -385,5 +390,25 @@ namespace Sprdef2
 
         private void btnSave_Click(object sender, EventArgs e) =>
             saveToolStripMenuItem_Click(sender, e);
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            picPreview.Invalidate();
+        }
+
+        private void picPreview_Paint(object sender, PaintEventArgs e)
+        {
+            if (Sprites.Count <= 0)
+                return;
+
+            _previewSpriteIndex++;
+
+            if (_previewSpriteIndex >= Sprites.Count)
+                _previewSpriteIndex = 0;
+
+            var s = Sprites[_previewSpriteIndex];
+
+            s.ColorMap.PaintPreview(e.Graphics);
+        }
     }
 }
