@@ -31,6 +31,8 @@
             this.chkMulticolor = new System.Windows.Forms.CheckBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chkExpandX = new System.Windows.Forms.CheckBox();
+            this.chkExpandY = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chkMulticolor
@@ -48,7 +50,7 @@
             this.btnOk.Location = new System.Drawing.Point(140, 160);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 1;
+            this.btnOk.TabIndex = 3;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -59,9 +61,29 @@
             this.btnCancel.Location = new System.Drawing.Point(220, 160);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // chkExpandX
+            // 
+            this.chkExpandX.AutoSize = true;
+            this.chkExpandX.Location = new System.Drawing.Point(8, 32);
+            this.chkExpandX.Name = "chkExpandX";
+            this.chkExpandX.Size = new System.Drawing.Size(72, 17);
+            this.chkExpandX.TabIndex = 1;
+            this.chkExpandX.Text = "Expand X";
+            this.chkExpandX.UseVisualStyleBackColor = true;
+            // 
+            // chkExpandY
+            // 
+            this.chkExpandY.AutoSize = true;
+            this.chkExpandY.Location = new System.Drawing.Point(8, 56);
+            this.chkExpandY.Name = "chkExpandY";
+            this.chkExpandY.Size = new System.Drawing.Size(72, 17);
+            this.chkExpandY.TabIndex = 2;
+            this.chkExpandY.Text = "Expand Y";
+            this.chkExpandY.UseVisualStyleBackColor = true;
             // 
             // PropertiesDialog
             // 
@@ -70,6 +92,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(304, 190);
+            this.Controls.Add(this.chkExpandY);
+            this.Controls.Add(this.chkExpandX);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.chkMulticolor);
@@ -91,5 +115,7 @@
         private System.Windows.Forms.CheckBox chkMulticolor;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox chkExpandX;
+        private System.Windows.Forms.CheckBox chkExpandY;
     }
 }
