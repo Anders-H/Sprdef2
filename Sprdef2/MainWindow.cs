@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
@@ -44,13 +43,14 @@ namespace Sprdef2
 
             var s = new SpriteRoot(multicolor)
             {
+                Name = $@"Sprite {Sprites.Count} ({(multicolor ? "multicolor" : "monochrome")})",
                 PreviewZoom = PreviewZoom,
                 PreviewOffsetX = 30,
                 PreviewOffsetY = 30,
             };
 
             FireWindowForSprite(s);
-            var item = lvSpriteList.Items.Add($@"Sprite {Sprites.Count} ({(s.MultiColor ? "multicolor" : "monochrome")})");
+            var item = lvSpriteList.Items.Add(s.Name);
             item.Tag = s;
             item.Selected = true;
         }
@@ -105,6 +105,16 @@ namespace Sprdef2
                     w.ToggleColorMode();
 
                 w.ConnectSprite(w.Sprite);
+
+                foreach (ListViewItem item in lvSpriteList.Items)
+                {
+                    if (item.Tag != w.Sprite)
+                        continue;
+
+                    item.Text = w.Sprite.Name;
+                    break;
+                }
+
                 w.Invalidate();
             }
         }
@@ -410,5 +420,50 @@ namespace Sprdef2
 
             s.ColorMap.PaintPreview(e.Graphics);
         }
+
+        private void removeSpriteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CanManipulateCurrentSprite("Remove sprite", out var w))
+                return;
+
+            if (MessageBox.Show(this, @"Are you sure you want to remove the selected sprite from this file?", @"Remove sprite", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                return;
+
+            timer1.Enabled = false;
+            Refresh();
+
+            var sprite = w.Sprite;
+
+            foreach (ListViewItem listViewItem in lvSpriteList.Items)
+            {
+                if (!(listViewItem.Tag is SpriteRoot s))
+                    continue;
+
+                if (sprite == s)
+                {
+                    lvSpriteList.Items.Remove(listViewItem);
+                    break;
+                }
+            }
+
+            foreach (var mdiChild in MdiChildren)
+            {
+                if (!(mdiChild is SpriteEditorWindow win))
+                    continue;
+
+                if (win.Sprite == sprite)
+                {
+                    mdiChild.Close();
+                    break;
+                }
+            }
+
+            Sprites.Remove(sprite);
+            Refresh();
+            timer1.Enabled = true;
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e) =>
+            removeSpriteToolStripMenuItem_Click(sender, e);
     }
 }

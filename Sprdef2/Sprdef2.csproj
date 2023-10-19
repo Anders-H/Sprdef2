@@ -36,8 +36,8 @@
     <ApplicationIcon>Sprdef2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EditStateSprite, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EditStateSprite.1.7.0\lib\net48\EditStateSprite.dll</HintPath>
+    <Reference Include="EditStateSprite, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EditStateSprite.1.11.0\lib\net48\EditStateSprite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -128,6 +128,7 @@
     <None Include="Resources\NewDocumentHS.png" />
     <None Include="Resources\openHS.png" />
     <None Include="Resources\saveHS.png" />
+    <None Include="Resources\112_Minus_Orange_16x16_72.png" />
     <Content Include="version.txt" />
     <None Include="README.md" />
     <None Include="releasenotes.md" />

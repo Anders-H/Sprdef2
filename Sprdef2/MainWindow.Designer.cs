@@ -40,6 +40,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,8 +71,9 @@
             this.btnFlipTopDown = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lvSpriteList = new System.Windows.Forms.ListView();
-            this.picPreview = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.picPreview = new System.Windows.Forms.PictureBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
@@ -150,7 +152,8 @@
             // spriteToolStripMenuItem
             // 
             this.spriteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addSpriteToolStripMenuItem});
+            this.addSpriteToolStripMenuItem,
+            this.removeSpriteToolStripMenuItem});
             this.spriteToolStripMenuItem.Name = "spriteToolStripMenuItem";
             this.spriteToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.spriteToolStripMenuItem.Text = "&Sprite";
@@ -159,9 +162,17 @@
             // 
             this.addSpriteToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.add2_16;
             this.addSpriteToolStripMenuItem.Name = "addSpriteToolStripMenuItem";
-            this.addSpriteToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.addSpriteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addSpriteToolStripMenuItem.Text = "Add sprite...";
             this.addSpriteToolStripMenuItem.Click += new System.EventHandler(this.addSpriteToolStripMenuItem_Click);
+            // 
+            // removeSpriteToolStripMenuItem
+            // 
+            this.removeSpriteToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_Minus_Orange_16x16_72;
+            this.removeSpriteToolStripMenuItem.Name = "removeSpriteToolStripMenuItem";
+            this.removeSpriteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.removeSpriteToolStripMenuItem.Text = "Remove sprite";
+            this.removeSpriteToolStripMenuItem.Click += new System.EventHandler(this.removeSpriteToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -282,6 +293,7 @@
             this.btnSave,
             this.toolStripSeparator3,
             this.btnAddSprite,
+            this.toolStripButton1,
             this.toolStripSeparator2,
             this.btnScrollUp,
             this.btnScrollRight,
@@ -433,6 +445,12 @@
             this.lvSpriteList.View = System.Windows.Forms.View.List;
             this.lvSpriteList.SelectedIndexChanged += new System.EventHandler(this.lvSpriteList_SelectedIndexChanged);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // picPreview
             // 
             this.picPreview.Dock = System.Windows.Forms.DockStyle.Right;
@@ -443,11 +461,15 @@
             this.picPreview.TabStop = false;
             this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
             // 
-            // timer1
+            // toolStripButton1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 3000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::Sprdef2.Properties.Resources._112_Minus_Orange_16x16_72;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "Remove sprite";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // MainWindow
             // 
@@ -520,6 +542,8 @@
         private System.Windows.Forms.ToolStripButton btnOpen;
         private System.Windows.Forms.ToolStripButton btnSave;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem removeSpriteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 

@@ -15,6 +15,7 @@ namespace Sprdef2
 
         private void PropertiesDialog_Load(object sender, System.EventArgs e)
         {
+            txtSpriteName.Text = Sprite.Name;
             chkMulticolor.Checked = Sprite.MultiColor;
             chkExpandX.Checked = Sprite.ExpandX;
             chkExpandY.Checked = Sprite.ExpandY;
@@ -22,6 +23,7 @@ namespace Sprdef2
 
         private void btnOk_Click(object sender, System.EventArgs e)
         {
+            Sprite.Name = txtSpriteName.Text.Trim();
             MultiColor = chkMulticolor.Checked;
             Sprite.ExpandX = chkExpandX.Checked;
             Sprite.ExpandY = chkExpandY.Checked;
