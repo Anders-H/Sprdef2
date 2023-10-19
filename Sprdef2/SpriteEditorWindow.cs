@@ -82,6 +82,7 @@ namespace Sprdef2
         private void SpriteEditorWindow_Enter(object sender, System.EventArgs e)
         {
             ((MainWindow)MdiParent).SpriteWindowChanged(Sprite);
+            spriteEditorControl1.Focus();
         }
 
         public new void Scroll(FourWayDirection direction) =>
@@ -107,6 +108,10 @@ namespace Sprdef2
 
             optColor2.BackColor = MainWindow.Palette.GetColor(Sprite.SpriteColorPalette[2]);
             optColor3.BackColor = MainWindow.Palette.GetColor(Sprite.SpriteColorPalette[3]);
+            spriteEditorControl1.Focus();
         }
+
+        public void FocusEditor() =>
+            spriteEditorControl1.Focus();
     }
 }

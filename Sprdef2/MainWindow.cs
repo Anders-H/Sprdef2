@@ -94,6 +94,7 @@ namespace Sprdef2
             if (!CanManipulateCurrentSprite("Properties", out var w))
                 return;
 
+            w.FocusEditor();
             var isMulticolor = w.Sprite.MultiColor;
 
             using (var x = new PropertiesDialog())
@@ -117,6 +118,7 @@ namespace Sprdef2
 
                 w.Invalidate();
             }
+            w.FocusEditor();
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -465,5 +467,29 @@ namespace Sprdef2
 
         private void toolStripButton1_Click(object sender, EventArgs e) =>
             removeSpriteToolStripMenuItem_Click(sender, e);
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Sprites.Count <= 0)
+            {
+                MessageBox.Show(this, @"There are no sprites to export.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (var x = new PickSpritesDialog())
+            {
+                x.Sprites = Sprites;
+
+                if (x.ShowDialog() != DialogResult.OK)
+                    return;
+
+                var selectedSprites = x.SelectedSprites;
+
+                if (selectedSprites.Count <= 0)
+                {
+                    MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
     }
 }

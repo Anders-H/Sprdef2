@@ -70,6 +70,12 @@
     <Compile Include="OptionsDialog.Designer.cs">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="PickSpritesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PickSpritesDialog.Designer.cs">
+      <DependentUpon>PickSpritesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesDialog.cs">
       <SubType>Form</SubType>
@@ -129,6 +135,7 @@
     <None Include="Resources\openHS.png" />
     <None Include="Resources\saveHS.png" />
     <None Include="Resources\112_Minus_Orange_16x16_72.png" />
+    <None Include="Resources\PropertiesHS.png" />
     <Content Include="version.txt" />
     <None Include="README.md" />
     <None Include="releasenotes.md" />
