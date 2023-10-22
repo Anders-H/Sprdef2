@@ -36,8 +36,8 @@
     <ApplicationIcon>Sprdef2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EditStateSprite, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EditStateSprite.1.11.0\lib\net48\EditStateSprite.dll</HintPath>
+    <Reference Include="EditStateSprite, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EditStateSprite.1.12.0\lib\net48\EditStateSprite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,6 +58,7 @@
     <Compile Include="AddSpriteDialog.Designer.cs">
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="BasicSprite.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,11 +71,11 @@
     <Compile Include="OptionsDialog.Designer.cs">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="PickSpritesDialog.cs">
+    <Compile Include="ExportSpritesBasicDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PickSpritesDialog.Designer.cs">
-      <DependentUpon>PickSpritesDialog.cs</DependentUpon>
+    <Compile Include="ExportSpritesBasicDialog.Designer.cs">
+      <DependentUpon>ExportSpritesBasicDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesDialog.cs">
@@ -90,6 +91,12 @@
     <Compile Include="SpriteEditorWindow.Designer.cs">
       <DependentUpon>SpriteEditorWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpritePickerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpritePickerControl.Designer.cs">
+      <DependentUpon>SpritePickerControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddSpriteDialog.resx">
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -98,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsDialog.resx">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportSpritesBasicDialog.resx">
+      <DependentUpon>ExportSpritesBasicDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PropertiesDialog.resx">
       <DependentUpon>PropertiesDialog.cs</DependentUpon>
@@ -114,6 +124,9 @@
     </Compile>
     <EmbeddedResource Include="SpriteEditorWindow.resx">
       <DependentUpon>SpriteEditorWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritePickerControl.resx">
+      <DependentUpon>SpritePickerControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -138,7 +151,6 @@
     <None Include="Resources\PropertiesHS.png" />
     <Content Include="version.txt" />
     <None Include="README.md" />
-    <None Include="releasenotes.md" />
     <None Include="Resources\112_UpArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\112_RightArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\112_DownArrowLong_Blue_16x16_72.png" />

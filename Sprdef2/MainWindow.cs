@@ -94,15 +94,13 @@ namespace Sprdef2
             if (!CanManipulateCurrentSprite("Properties", out var w))
                 return;
 
-            w.FocusEditor();
-            var isMulticolor = w.Sprite.MultiColor;
-
             using (var x = new PropertiesDialog())
             {
                 x.Sprite = w.Sprite;
+                x.MultiColor = w.Sprite.MultiColor;
                 x.ShowDialog(this);
                 
-                if (x.MultiColor != isMulticolor)
+                if (x.MultiColor != w.Sprite.MultiColor)
                     w.ToggleColorMode();
 
                 w.ConnectSprite(w.Sprite);
@@ -476,7 +474,7 @@ namespace Sprdef2
                 return;
             }
 
-            using (var x = new PickSpritesDialog())
+            using (var x = new ExportSpritesBasicDialog())
             {
                 x.Sprites = Sprites;
 

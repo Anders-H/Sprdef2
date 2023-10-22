@@ -6,7 +6,7 @@ namespace Sprdef2
     public partial class PropertiesDialog : Form
     {
         public SpriteRoot Sprite { get; set; }
-        public bool MultiColor { get; private set; }
+        public bool MultiColor { get; set; }
 
         public PropertiesDialog()
         {
