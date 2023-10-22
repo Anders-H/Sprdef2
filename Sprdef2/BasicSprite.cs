@@ -16,5 +16,8 @@ namespace Sprdef2
             Y = y;
             HwSpriteIndex = hwSpriteIndex;
         }
+
+        public override string ToString() =>
+            Sprite.Name;
     }
 }

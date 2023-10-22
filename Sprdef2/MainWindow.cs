@@ -486,7 +486,12 @@ namespace Sprdef2
                 if (selectedSprites.Count <= 0)
                 {
                     MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
+
+                // TODO! Code generation must be available from the object, not the window.
+
+                MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

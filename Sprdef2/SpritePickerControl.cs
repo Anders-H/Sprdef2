@@ -11,6 +11,7 @@ namespace Sprdef2
         public SpritePickerControl()
         {
             InitializeComponent();
+            cboSprite.DisplayMember = nameof(Name);
         }
 
         public BasicSprite Sprite
@@ -125,13 +126,14 @@ namespace Sprdef2
                 else if (y > 511)
                     y = 511;
 
-                txtX.Text = y.ToString();
+                txtY.Text = y.ToString();
             }
         }
 
-        private void SpritePickerControl_Load(object sender, System.EventArgs e)
-        {
+        public bool IsMulticolor =>
+            Sprite != null && Sprite.Sprite.MultiColor;
 
-        }
+        private void picDelete_Click(object sender, System.EventArgs e) =>
+            Sprite = null;
     }
 }
