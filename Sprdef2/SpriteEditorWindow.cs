@@ -35,7 +35,9 @@ namespace Sprdef2
                 optColor2.BackColor = BackColor;
                 optColor3.BackColor = BackColor;
             }
+
             ReconnectSprite();
+            FixWindowText();
         }
 
         public void ToggleColorMode() =>
@@ -94,6 +96,7 @@ namespace Sprdef2
         private void btnProperties_Click(object sender, System.EventArgs e)
         {
             ((MainWindow)MdiParent).propertiesToolStripMenuItem_Click(sender, e);
+            FixWindowText();
         }
 
         private void btnPalette_Click(object sender, System.EventArgs e)
@@ -113,5 +116,10 @@ namespace Sprdef2
 
         public void FocusEditor() =>
             spriteEditorControl1.Focus();
+
+        private void FixWindowText() =>
+            Text = Sprite == null
+                ? Text = @"Sprite"
+                : string.IsNullOrWhiteSpace(Sprite.Name) ? "Sprite" : $@"Sprite: {Sprite.Name}";
     }
 }

@@ -33,6 +33,32 @@ namespace Sprdef2
             if (ColorConflict())
                 MessageBox.Show(this, @"Some of the multi color sprites differ in the last two colors, and can not be displayed correctly at the same time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
+            SelectedSprites = new List<BasicSprite>();
+
+            if (spritePickerControl1.Sprite != null)
+                SelectedSprites.Add(spritePickerControl1.Sprite);
+
+            if (spritePickerControl2.Sprite != null)
+                SelectedSprites.Add(spritePickerControl2.Sprite);
+
+            if (spritePickerControl3.Sprite != null)
+                SelectedSprites.Add(spritePickerControl3.Sprite);
+
+            if (spritePickerControl4.Sprite != null)
+                SelectedSprites.Add(spritePickerControl4.Sprite);
+
+            if (spritePickerControl5.Sprite != null)
+                SelectedSprites.Add(spritePickerControl5.Sprite);
+
+            if (spritePickerControl6.Sprite != null)
+                SelectedSprites.Add(spritePickerControl6.Sprite);
+
+            if (spritePickerControl7.Sprite != null)
+                SelectedSprites.Add(spritePickerControl7.Sprite);
+
+            if (spritePickerControl8.Sprite != null)
+                SelectedSprites.Add(spritePickerControl8.Sprite);
+
             DialogResult = DialogResult.OK;
         }
 

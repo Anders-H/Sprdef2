@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Globalization;
+using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
@@ -14,12 +17,17 @@ namespace Sprdef2
         public static Palette Palette { get; }
         public static SpriteList Sprites { get; set; }
         public static bool PreviewZoom { get; set; }
-        
+        public static float ApplicationVersion { get; }
+
         static MainWindow()
         {
             Palette = new Palette();
             Sprites = new SpriteList();
             PreviewZoom = false;
+            var versionString = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var parts = versionString.Split('.');
+            versionString = $"{parts[0]}.{parts[1]}";
+            ApplicationVersion = float.Parse(versionString, NumberStyles.Any, CultureInfo.InvariantCulture);
         }
 
         public MainWindow()
@@ -312,7 +320,7 @@ namespace Sprdef2
 
                     foreach (var s in Sprites)
                     {
-                        var item = lvSpriteList.Items.Add($@"Sprite {Sprites.Count} ({(s.MultiColor ? "multicolor" : "monochrome")})");
+                        var item = lvSpriteList.Items.Add(s.Name);
                         item.Tag = s;
                     }
 
@@ -489,9 +497,39 @@ namespace Sprdef2
                     return;
                 }
 
-                // TODO! Code generation must be available from the object, not the window.
+                var result = new StringBuilder();
+                var rowNumber = 10;
+                var index = 0;
+
+                foreach (var sprite in selectedSprites)
+                {
+                    result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.HwSpriteIndex, sprite.X, sprite.Y));
+                    index++;
+                    rowNumber += 10;
+                }
+
+                Clipboard.SetText(result.ToString());
 
                 MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            const string url = @"https://github.com/Anders-H/Sprdef2";
+            var prompt = $@"Sprdef2 version {ApplicationVersion.ToString("n1", CultureInfo.InvariantCulture)}
+
+Do you want to visit {url}?";
+
+            if (MessageBox.Show(this, prompt, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
+                return;
+            try
+            {
+                System.Diagnostics.Process.Start(url);
+            }
+            catch
+            {
+                MessageBox.Show(this, $@"Failed to open {url}.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
