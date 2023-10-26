@@ -155,7 +155,6 @@
     <None Include="Resources\112_Minus_Orange_16x16_72.png" />
     <None Include="Resources\PropertiesHS.png" />
     <None Include="Resources\DeleteRed.png" />
-    <Content Include="version.txt" />
     <None Include="README.md" />
     <None Include="Resources\112_UpArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\112_RightArrowLong_Blue_16x16_72.png" />
