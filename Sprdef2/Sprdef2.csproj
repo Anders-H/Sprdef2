@@ -59,6 +59,9 @@
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicSprite.cs" />
+    <Compile Include="Export\ExportLogic\ExportFormat.cs" />
+    <Compile Include="Export\ExportLogic\ExportFormatComboItem.cs" />
+    <Compile Include="Export\ExportLogic\ExportFormatComboItemList.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,10 +74,10 @@
     <Compile Include="OptionsDialog.Designer.cs">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportSpritesBasicDialog.cs">
+    <Compile Include="Export\ExportGui\ExportSpritesBasicDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportSpritesBasicDialog.Designer.cs">
+    <Compile Include="Export\ExportGui\ExportSpritesBasicDialog.Designer.cs">
       <DependentUpon>ExportSpritesBasicDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -109,7 +112,7 @@
       <DependentUpon>OptionsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportSpritesBasicDialog.resx">
+    <EmbeddedResource Include="Export\ExportGui\ExportSpritesBasicDialog.resx">
       <DependentUpon>ExportSpritesBasicDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -164,5 +167,6 @@
     <None Include="Resources\FlipVerticalHS.png" />
     <Content Include="Sprdef2.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

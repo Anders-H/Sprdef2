@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using EditStateSprite;
 
-namespace Sprdef2
+namespace Sprdef2.Export.ExportGui
 {
     public partial class ExportSpritesBasicDialog : Form
     {

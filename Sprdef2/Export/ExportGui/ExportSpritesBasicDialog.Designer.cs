@@ -1,4 +1,4 @@
-﻿namespace Sprdef2
+﻿namespace Sprdef2.Export.ExportGui
 {
     partial class ExportSpritesBasicDialog
     {
@@ -38,11 +38,13 @@
             this.spritePickerControl3 = new Sprdef2.SpritePickerControl();
             this.spritePickerControl2 = new Sprdef2.SpritePickerControl();
             this.spritePickerControl1 = new Sprdef2.SpritePickerControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cboExportFormat = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(272, 360);
+            this.btnOk.Location = new System.Drawing.Point(272, 440);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 8;
@@ -53,7 +55,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(352, 360);
+            this.btnCancel.Location = new System.Drawing.Point(352, 440);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 9;
@@ -148,13 +150,32 @@
             this.spritePickerControl1.X = 0;
             this.spritePickerControl1.Y = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 356);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Export format:";
+            // 
+            // cboExportFormat
+            // 
+            this.cboExportFormat.FormattingEnabled = true;
+            this.cboExportFormat.Location = new System.Drawing.Point(4, 372);
+            this.cboExportFormat.Name = "cboExportFormat";
+            this.cboExportFormat.Size = new System.Drawing.Size(424, 21);
+            this.cboExportFormat.TabIndex = 11;
+            // 
             // ExportSpritesBasicDialog
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(436, 388);
+            this.ClientSize = new System.Drawing.Size(436, 511);
+            this.Controls.Add(this.cboExportFormat);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.spritePickerControl8);
@@ -174,6 +195,7 @@
             this.Text = "Export sprites to Commodore BASIC 2.0 (Commodore 64)";
             this.Load += new System.EventHandler(this.ExportSpritesBasicDialog_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -189,5 +211,7 @@
         private SpritePickerControl spritePickerControl8;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cboExportFormat;
     }
 }

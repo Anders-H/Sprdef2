@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
+using Sprdef2.Export.ExportGui;
 
 namespace Sprdef2
 {
@@ -287,14 +288,25 @@ namespace Sprdef2
             if (e.CloseReason == CloseReason.WindowsShutDown || e.CloseReason == CloseReason.TaskManagerClosing)
                 return;
 
-            if (MessageBox.Show(this, @"Are you sure you want to quit? All current unsaved sprites will be lost.", @"Quit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
-                e.Cancel = true;
+            if (Sprites.Count > 0)
+            {
+                if (MessageBox.Show(this, @"Are you sure you want to quit? All current unsaved sprites will be lost.",
+                        @"Quit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) !=
+                    DialogResult.Yes)
+                    e.Cancel = true;
+            }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, @"Are you sure you want to open another document? All current unsaved sprites will be lost.", @"Open", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
-                return;
+            if (Sprites.Count > 0)
+            {
+                if (MessageBox.Show(this,
+                        @"Are you sure you want to open another document? All current unsaved sprites will be lost.",
+                        @"Open", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) !=
+                    DialogResult.Yes)
+                    return;
+            }
 
             using (var x = new OpenFileDialog())
             {
