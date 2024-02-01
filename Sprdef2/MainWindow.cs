@@ -58,15 +58,30 @@ namespace Sprdef2
                 PreviewOffsetY = 30,
             };
 
+            CheckThatAllSpritesHasIsRepresentedInList();
             FireWindowForSprite(s);
+
+            // TODO: Delete these lines.
             var item = lvSpriteList.Items.Add(s.Name);
             item.Tag = s;
             item.Selected = true;
+
+            FindSpriteInSpriteList();
+        }
+
+        public void CheckThatAllSpritesHasIsRepresentedInList()
+        {
+            // TODO
+        }
+
+        public void FindSpriteInSpriteList()
+        {
+            // TODO
         }
 
         public void FireWindowForSprite(SpriteRoot sprite)
         {
-            Sprites.Add(sprite);
+            Sprites.Add(sprite); // TODO: Delete this line
             var x = new SpriteEditorWindow();
             x.ConnectSprite(sprite);
             x.MdiParent = this;
@@ -454,6 +469,7 @@ namespace Sprdef2
 
             var sprite = w.Sprite;
 
+            // TODO: Remove
             foreach (ListViewItem listViewItem in lvSpriteList.Items)
             {
                 if (!(listViewItem.Tag is SpriteRoot s))
@@ -466,6 +482,7 @@ namespace Sprdef2
                 }
             }
 
+            // TODO: Remove
             foreach (var mdiChild in MdiChildren)
             {
                 if (!(mdiChild is SpriteEditorWindow win))
@@ -479,8 +496,20 @@ namespace Sprdef2
             }
 
             Sprites.Remove(sprite);
+            CheckOnlyExistingSpritesExistsInList();
+            CheckOnlyExistingSpritesAreOpenInEditor();
             Refresh();
             timer1.Enabled = true;
+        }
+
+        private void CheckOnlyExistingSpritesExistsInList()
+        {
+            // TODO
+        }
+
+        private void CheckOnlyExistingSpritesAreOpenInEditor()
+        {
+            // TODO
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e) =>
