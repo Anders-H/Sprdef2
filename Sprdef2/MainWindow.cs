@@ -504,7 +504,30 @@ namespace Sprdef2
 
         private void CheckOnlyExistingSpritesExistsInList()
         {
-            // TODO
+            bool cont;
+
+            do
+            {
+                cont = false;
+
+                foreach (ListViewItem i in lvSpriteList.Items)
+                {
+                    var sprite = i.Tag as SpriteRoot;
+
+                    if (sprite == null)
+                    {
+                        lvSpriteList.Items.Remove(i);
+                        cont = true;
+                    }
+
+                    if (!Sprites.Exists(x => x == sprite))
+                    {
+                        lvSpriteList.Items.Remove(i);
+                        cont = true;
+                    }
+                }
+
+            } while (cont);
         }
 
         private void CheckOnlyExistingSpritesAreOpenInEditor()
