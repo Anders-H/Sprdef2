@@ -82,9 +82,7 @@ namespace Sprdef2
 
                     foreach (ListViewItem listSpriteItem in lvSpriteList.Items)
                     {
-                        var listSprite = listSpriteItem.Tag as SpriteRoot;
-
-                        if (listSprite == null)
+                        if (!(listSpriteItem.Tag is SpriteRoot listSprite))
                         {
                             lvSpriteList.Items.Remove(listSpriteItem);
                             again = true;
@@ -98,12 +96,12 @@ namespace Sprdef2
                         }
                     }
 
-                    if (!found)
-                    {
-                        again = true;
-                        var newItem = lvSpriteList.Items.Add(sprite.Name);
-                        newItem.Tag = sprite;
-                    }
+                    if (found)
+                        continue;
+
+                    again = true;
+                    var newItem = lvSpriteList.Items.Add(sprite.Name);
+                    newItem.Tag = sprite;
 
                 } while (again);
             }
