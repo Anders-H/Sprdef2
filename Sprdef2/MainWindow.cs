@@ -71,7 +71,42 @@ namespace Sprdef2
 
         public void CheckThatAllSpritesHasIsRepresentedInList()
         {
-            // TODO
+            foreach (var sprite in Sprites)
+            {
+                bool again;
+
+                do
+                {
+                    again = false;
+                    var found = false;
+
+                    foreach (ListViewItem listSpriteItem in lvSpriteList.Items)
+                    {
+                        var listSprite = listSpriteItem.Tag as SpriteRoot;
+
+                        if (listSprite == null)
+                        {
+                            lvSpriteList.Items.Remove(listSpriteItem);
+                            again = true;
+                            break;
+                        }
+
+                        if (listSprite == sprite)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        again = true;
+                        var newItem = lvSpriteList.Items.Add(sprite.Name);
+                        newItem.Tag = sprite;
+                    }
+
+                } while (again);
+            }
         }
 
         public void FindSpriteInSpriteList()
