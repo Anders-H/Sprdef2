@@ -60,13 +60,7 @@ namespace Sprdef2
 
             CheckThatAllSpritesHasIsRepresentedInList();
             FireWindowForSprite(s);
-
-            // TODO: Delete these lines.
-            var item = lvSpriteList.Items.Add(s.Name);
-            item.Tag = s;
-            item.Selected = true;
-
-            FindSpriteInSpriteList();
+            FindSpriteInSpriteList(s);
         }
 
         public void CheckThatAllSpritesHasIsRepresentedInList()
@@ -107,9 +101,30 @@ namespace Sprdef2
             }
         }
 
-        public void FindSpriteInSpriteList()
+        public void FindSpriteInSpriteList(SpriteRoot sprite)
         {
-            // TODO
+            bool again;
+            do
+            {
+                again = false;
+            } while (again);
+            foreach (ListViewItem i in lvSpriteList.Items)
+            {
+                if (!(i.Tag is SpriteRoot s))
+                    continue;
+
+                if (s != sprite)
+                    continue;
+
+                lvSpriteList.SelectedItems.Clear();
+                i.Selected = true;
+                i.EnsureVisible();
+                return;
+            }
+
+            var item = lvSpriteList.Items.Add(sprite.Name);
+            item.Tag = sprite;
+            item.EnsureVisible();
         }
 
         public void FireWindowForSprite(SpriteRoot sprite)
