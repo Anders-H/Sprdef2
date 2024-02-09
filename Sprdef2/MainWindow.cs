@@ -129,7 +129,6 @@ namespace Sprdef2
 
         public void FireWindowForSprite(SpriteRoot sprite)
         {
-            Sprites.Add(sprite); // TODO: Delete this line
             var x = new SpriteEditorWindow();
             x.ConnectSprite(sprite);
             x.MdiParent = this;
@@ -516,33 +515,6 @@ namespace Sprdef2
             Refresh();
 
             var sprite = w.Sprite;
-
-            // TODO: Remove
-            foreach (ListViewItem listViewItem in lvSpriteList.Items)
-            {
-                if (!(listViewItem.Tag is SpriteRoot s))
-                    continue;
-
-                if (sprite == s)
-                {
-                    lvSpriteList.Items.Remove(listViewItem);
-                    break;
-                }
-            }
-
-            // TODO: Remove
-            foreach (var mdiChild in MdiChildren)
-            {
-                if (!(mdiChild is SpriteEditorWindow win))
-                    continue;
-
-                if (win.Sprite == sprite)
-                {
-                    mdiChild.Close();
-                    break;
-                }
-            }
-
             Sprites.Remove(sprite);
             CheckOnlyExistingSpritesExistsInList();
             CheckOnlyExistingSpritesAreOpenInEditor();
@@ -568,11 +540,11 @@ namespace Sprdef2
                         cont = true;
                     }
 
-                    if (!Sprites.Exists(x => x == sprite))
-                    {
-                        lvSpriteList.Items.Remove(i);
-                        cont = true;
-                    }
+                    if (Sprites.Exists(x => x == sprite))
+                        continue;
+
+                    lvSpriteList.Items.Remove(i);
+                    cont = true;
                 }
 
             } while (cont);
@@ -580,7 +552,27 @@ namespace Sprdef2
 
         private void CheckOnlyExistingSpritesAreOpenInEditor()
         {
-            // TODO
+            bool cont;
+
+            do
+            {
+
+                cont = false;
+
+                foreach (var mdiChild in MdiChildren)
+                {
+                    if (!(mdiChild is SpriteEditorWindow editorWindow))
+                        continue;
+
+                    var sprite = editorWindow.Sprite;
+
+                    if (Sprites.Exists(x => x == sprite))
+                        continue;
+
+                    editorWindow.Close();
+                    cont = true;
+                }
+            } while (cont);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e) =>
