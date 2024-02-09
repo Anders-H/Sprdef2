@@ -58,6 +58,7 @@ namespace Sprdef2
                 PreviewOffsetY = 30,
             };
 
+            Sprites.Add(s);
             CheckThatAllSpritesHasIsRepresentedInList();
             FireWindowForSprite(s);
             FindSpriteInSpriteList(s);

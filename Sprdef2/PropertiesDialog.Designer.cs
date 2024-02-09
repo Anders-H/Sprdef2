@@ -35,6 +35,10 @@
             this.chkExpandY = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSpriteName = new System.Windows.Forms.TextBox();
+            this.txtPreviewX = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtPreviewY = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chkMulticolor
@@ -49,10 +53,10 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(140, 160);
+            this.btnOk.Location = new System.Drawing.Point(140, 172);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 5;
+            this.btnOk.TabIndex = 9;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -60,10 +64,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(220, 160);
+            this.btnCancel.Location = new System.Drawing.Point(220, 172);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -103,6 +107,43 @@
             this.txtSpriteName.Name = "txtSpriteName";
             this.txtSpriteName.Size = new System.Drawing.Size(216, 20);
             this.txtSpriteName.TabIndex = 1;
+            this.txtSpriteName.Validated += new System.EventHandler(this.txtSpriteName_Validated);
+            // 
+            // txtPreviewX
+            // 
+            this.txtPreviewX.Location = new System.Drawing.Point(80, 108);
+            this.txtPreviewX.MaxLength = 4;
+            this.txtPreviewX.Name = "txtPreviewX";
+            this.txtPreviewX.Size = new System.Drawing.Size(72, 20);
+            this.txtPreviewX.TabIndex = 6;
+            this.txtPreviewX.Validated += new System.EventHandler(this.txtPreviewX_Validated);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 112);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Preview X:";
+            // 
+            // txtPreviewY
+            // 
+            this.txtPreviewY.Location = new System.Drawing.Point(80, 132);
+            this.txtPreviewY.MaxLength = 4;
+            this.txtPreviewY.Name = "txtPreviewY";
+            this.txtPreviewY.Size = new System.Drawing.Size(72, 20);
+            this.txtPreviewY.TabIndex = 8;
+            this.txtPreviewY.Validated += new System.EventHandler(this.txtPreviewY_Validated);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 136);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Preview Y:";
             // 
             // PropertiesDialog
             // 
@@ -110,7 +151,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(304, 190);
+            this.ClientSize = new System.Drawing.Size(304, 203);
+            this.Controls.Add(this.txtPreviewY);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtPreviewX);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSpriteName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chkExpandY);
@@ -140,5 +185,9 @@
         private System.Windows.Forms.CheckBox chkExpandY;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSpriteName;
+        private System.Windows.Forms.TextBox txtPreviewX;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtPreviewY;
+        private System.Windows.Forms.Label label3;
     }
 }
