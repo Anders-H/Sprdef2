@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -12,7 +14,6 @@ namespace Sprdef2
     public partial class MainWindow : Form
     {
         private string _filename;
-        private int _previewSpriteIndex;
         private bool _changingFocusBecauseOfSpriteListUsage;
         private bool _changingFocusBecauseOfSpriteWindowChange;
         public static Palette Palette { get; }
@@ -35,7 +36,6 @@ namespace Sprdef2
         {
             _changingFocusBecauseOfSpriteListUsage = false;
             _changingFocusBecauseOfSpriteWindowChange = false;
-            _previewSpriteIndex = -1;
             InitializeComponent();
         }
 
@@ -104,11 +104,6 @@ namespace Sprdef2
 
         public void FindSpriteInSpriteList(SpriteRoot sprite)
         {
-            bool again;
-            do
-            {
-                again = false;
-            } while (again);
             foreach (ListViewItem i in lvSpriteList.Items)
             {
                 if (!(i.Tag is SpriteRoot s))
@@ -492,16 +487,15 @@ namespace Sprdef2
         private void picPreview_Paint(object sender, PaintEventArgs e)
         {
             if (Sprites.Count <= 0)
+            {
+                e.Graphics.Clear(Color.Black);
                 return;
+            }
 
-            _previewSpriteIndex++;
+            e.Graphics.Clear(Palette.GetColor(Sprites.First().SpriteColorPalette.First()));
 
-            if (_previewSpriteIndex >= Sprites.Count)
-                _previewSpriteIndex = 0;
-
-            var s = Sprites[_previewSpriteIndex];
-
-            s.ColorMap.PaintPreview(e.Graphics);
+            foreach (var sprite in Sprites)
+                sprite.ColorMap.PaintPreview(e.Graphics);
         }
 
         private void removeSpriteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -557,7 +551,6 @@ namespace Sprdef2
 
             do
             {
-
                 cont = false;
 
                 foreach (var mdiChild in MdiChildren)
