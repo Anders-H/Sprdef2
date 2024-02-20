@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EditStateSprite, Version=1.13.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EditStateSprite.1.13.0\lib\net48\EditStateSprite.dll</HintPath>
+      <HintPath>..\packages\EditStateSprite.1.14.0\lib\net48\EditStateSprite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,6 +59,7 @@
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicSprite.cs" />
+    <Compile Include="Export\ExportGui\ExportFormat.cs" />
     <Compile Include="Export\ExportLogic\ExportFormat.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItem.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItemList.cs" />

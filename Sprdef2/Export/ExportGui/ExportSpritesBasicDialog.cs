@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using EditStateSprite;
@@ -9,10 +10,26 @@ namespace Sprdef2.Export.ExportGui
     {
         public SpriteList Sprites { get; set; }
         public List<BasicSprite> SelectedSprites { get; set; }
-
+        public ExportFormat ExportFormat { get; private set; }
         public ExportSpritesBasicDialog()
         {
             InitializeComponent();
+        }
+
+        private void ExportSpritesBasicDialog_Load(object sender, System.EventArgs e)
+        {
+            spritePickerControl1.SetSprites(Sprites);
+            spritePickerControl2.SetSprites(Sprites);
+            spritePickerControl3.SetSprites(Sprites);
+            spritePickerControl4.SetSprites(Sprites);
+            spritePickerControl5.SetSprites(Sprites);
+            spritePickerControl6.SetSprites(Sprites);
+            spritePickerControl7.SetSprites(Sprites);
+            spritePickerControl8.SetSprites(Sprites);
+            cboExportFormat.Items.Add("Commodore BASIC 2.0");
+            cboExportFormat.Items.Add("DATA statements");
+            cboExportFormat.SelectedIndex = 0;
+            ExportFormat = ExportFormat.CommodoreBasic20;
         }
 
         private void btnOk_Click(object sender, System.EventArgs e)
@@ -108,16 +125,37 @@ namespace Sprdef2.Export.ExportGui
             return false;
         }
 
-        private void ExportSpritesBasicDialog_Load(object sender, System.EventArgs e)
+        private void cboExportFormat_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            spritePickerControl1.SetSprites(Sprites);
-            spritePickerControl2.SetSprites(Sprites);
-            spritePickerControl3.SetSprites(Sprites);
-            spritePickerControl4.SetSprites(Sprites);
-            spritePickerControl5.SetSprites(Sprites);
-            spritePickerControl6.SetSprites(Sprites);
-            spritePickerControl7.SetSprites(Sprites);
-            spritePickerControl8.SetSprites(Sprites);
+            ExportFormat = (ExportFormat)cboExportFormat.SelectedIndex;
+
+            switch (ExportFormat)
+            {
+                case ExportFormat.CommodoreBasic20:
+                    spritePickerControl1.Enabled = true;
+                    spritePickerControl2.Enabled = true;
+                    spritePickerControl3.Enabled = true;
+                    spritePickerControl4.Enabled = true;
+                    spritePickerControl5.Enabled = true;
+                    spritePickerControl6.Enabled = true;
+                    spritePickerControl7.Enabled = true;
+                    spritePickerControl8.Enabled = true;
+                    Text = @"Export sprites to Commodore BASIC 2.0 (Commodore 64)";
+                    break;
+                case ExportFormat.DataStatements:
+                    spritePickerControl1.Enabled = false;
+                    spritePickerControl2.Enabled = false;
+                    spritePickerControl3.Enabled = false;
+                    spritePickerControl4.Enabled = false;
+                    spritePickerControl5.Enabled = false;
+                    spritePickerControl6.Enabled = false;
+                    spritePickerControl7.Enabled = false;
+                    spritePickerControl8.Enabled = false;
+                    Text = @"Export sprites to DATA statements (Commodore 64/128)";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

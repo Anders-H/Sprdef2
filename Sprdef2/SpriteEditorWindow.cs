@@ -121,5 +121,17 @@ namespace Sprdef2
             Text = Sprite == null
                 ? Text = @"Sprite"
                 : string.IsNullOrWhiteSpace(Sprite.Name) ? "Sprite" : $@"Sprite: {Sprite.Name}";
+
+        private void SpriteEditorWindow_Load(object sender, System.EventArgs e)
+        {
+            var mainWindow = (MainWindow)ParentForm;
+            mainWindow?.FindSpriteInSpriteList(Sprite);
+        }
+
+        private void SpriteEditorWindow_Activated(object sender, System.EventArgs e)
+        {
+            var mainWindow = (MainWindow)ParentForm;
+            mainWindow?.FindSpriteInSpriteList(Sprite);
+        }
     }
 }

@@ -31,23 +31,18 @@ namespace Sprdef2
             Sprite.ExpandX = chkExpandX.Checked;
             Sprite.ExpandY = chkExpandY.Checked;
             Sprite.PreviewOffsetX = ParseLocationInt(txtPreviewX);
+            Sprite.PreviewOffsetY = ParseLocationInt(txtPreviewY);
             DialogResult = DialogResult.OK;
         }
 
-        private void txtSpriteName_Validated(object sender, System.EventArgs e)
-        {
+        private void txtSpriteName_Validated(object sender, System.EventArgs e) =>
             txtSpriteName.Text = txtSpriteName.Text.ToUpper().Trim();
-        }
 
-        private void txtPreviewX_Validated(object sender, System.EventArgs e)
-        {
+        private void txtPreviewX_Validated(object sender, System.EventArgs e) =>
             txtPreviewX.Text = ParseLocationInt(txtPreviewX).ToString(CultureInfo.CurrentCulture);
-        }
 
-        private void txtPreviewY_Validated(object sender, System.EventArgs e)
-        {
+        private void txtPreviewY_Validated(object sender, System.EventArgs e) =>
             txtPreviewY.Text = ParseLocationInt(txtPreviewY).ToString(CultureInfo.CurrentCulture);
-        }
 
         private int ParseLocationInt(TextBox textBox)
         {

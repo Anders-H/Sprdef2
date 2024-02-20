@@ -44,7 +44,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(272, 440);
+            this.btnOk.Location = new System.Drawing.Point(272, 408);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 8;
@@ -55,7 +55,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(352, 440);
+            this.btnCancel.Location = new System.Drawing.Point(352, 408);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 9;
@@ -153,7 +153,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 356);
+            this.label1.Location = new System.Drawing.Point(4, 356);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 10;
@@ -161,11 +161,13 @@
             // 
             // cboExportFormat
             // 
+            this.cboExportFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboExportFormat.FormattingEnabled = true;
             this.cboExportFormat.Location = new System.Drawing.Point(4, 372);
             this.cboExportFormat.Name = "cboExportFormat";
             this.cboExportFormat.Size = new System.Drawing.Size(424, 21);
             this.cboExportFormat.TabIndex = 11;
+            this.cboExportFormat.SelectedIndexChanged += new System.EventHandler(this.cboExportFormat_SelectedIndexChanged);
             // 
             // ExportSpritesBasicDialog
             // 
@@ -173,7 +175,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(436, 511);
+            this.ClientSize = new System.Drawing.Size(436, 438);
             this.Controls.Add(this.cboExportFormat);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
