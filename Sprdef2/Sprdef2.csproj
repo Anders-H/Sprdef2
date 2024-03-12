@@ -59,7 +59,6 @@
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicSprite.cs" />
-    <Compile Include="Export\ExportGui\ExportFormat.cs" />
     <Compile Include="Export\ExportLogic\ExportFormat.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItem.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItemList.cs" />
@@ -95,10 +94,10 @@
     <Compile Include="SpriteEditorWindow.Designer.cs">
       <DependentUpon>SpriteEditorWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="SpritePickerControl.cs">
+    <Compile Include="Export\ExportGui\SpritePickerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SpritePickerControl.Designer.cs">
+    <Compile Include="Export\ExportGui\SpritePickerControl.Designer.cs">
       <DependentUpon>SpritePickerControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AddSpriteDialog.resx">
@@ -134,7 +133,7 @@
     <EmbeddedResource Include="SpriteEditorWindow.resx">
       <DependentUpon>SpriteEditorWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SpritePickerControl.resx">
+    <EmbeddedResource Include="Export\ExportGui\SpritePickerControl.resx">
       <DependentUpon>SpritePickerControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

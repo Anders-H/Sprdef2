@@ -2,8 +2,8 @@
 {
     public enum ExportFormat
     {
-        Basic,
-        MachineCode,
-        DataOnly
+        CommodoreBasic20,
+        DataStatements,
+        DataOnlyPrg
     }
 }

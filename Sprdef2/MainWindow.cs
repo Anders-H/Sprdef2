@@ -587,6 +587,8 @@ namespace Sprdef2
                 if (x.ShowDialog() != DialogResult.OK)
                     return;
 
+                // TODO: Ta hand om de olika export-formaten.
+
                 var selectedSprites = x.SelectedSprites;
 
                 if (selectedSprites.Count <= 0)

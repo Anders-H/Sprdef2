@@ -13,5 +13,8 @@
 
         public override string ToString() =>
             ExportFormatName;
+
+        public bool SpritePickersEnabled =>
+            ExportFormat == ExportFormat.CommodoreBasic20;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using EditStateSprite;
+using Sprdef2.Export.ExportLogic;
 
 namespace Sprdef2.Export.ExportGui
 {
@@ -10,13 +11,13 @@ namespace Sprdef2.Export.ExportGui
     {
         public SpriteList Sprites { get; set; }
         public List<BasicSprite> SelectedSprites { get; set; }
-        public ExportFormat ExportFormat { get; private set; }
+        
         public ExportSpritesBasicDialog()
         {
             InitializeComponent();
         }
 
-        private void ExportSpritesBasicDialog_Load(object sender, System.EventArgs e)
+        private void ExportSpritesBasicDialog_Load(object sender, EventArgs e)
         {
             spritePickerControl1.SetSprites(Sprites);
             spritePickerControl2.SetSprites(Sprites);
@@ -26,13 +27,16 @@ namespace Sprdef2.Export.ExportGui
             spritePickerControl6.SetSprites(Sprites);
             spritePickerControl7.SetSprites(Sprites);
             spritePickerControl8.SetSprites(Sprites);
-            cboExportFormat.Items.Add("Commodore BASIC 2.0");
-            cboExportFormat.Items.Add("DATA statements");
+
+            foreach (var i in new ExportFormatComboItemList())
+            {
+                cboExportFormat.Items.Add(i);
+            }
+
             cboExportFormat.SelectedIndex = 0;
-            ExportFormat = ExportFormat.CommodoreBasic20;
         }
 
-        private void btnOk_Click(object sender, System.EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
             if (spritePickerControl1.Sprite == null
                 && spritePickerControl2.Sprite == null
@@ -125,11 +129,11 @@ namespace Sprdef2.Export.ExportGui
             return false;
         }
 
-        private void cboExportFormat_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void cboExportFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ExportFormat = (ExportFormat)cboExportFormat.SelectedIndex;
+            var exportFormat = ((ExportFormatComboItem)cboExportFormat.SelectedItem).ExportFormat;
 
-            switch (ExportFormat)
+            switch (exportFormat)
             {
                 case ExportFormat.CommodoreBasic20:
                     spritePickerControl1.Enabled = true;
@@ -152,6 +156,17 @@ namespace Sprdef2.Export.ExportGui
                     spritePickerControl7.Enabled = false;
                     spritePickerControl8.Enabled = false;
                     Text = @"Export sprites to DATA statements (Commodore 64/128)";
+                    break;
+                case ExportFormat.DataOnlyPrg:
+                    spritePickerControl1.Enabled = false;
+                    spritePickerControl2.Enabled = false;
+                    spritePickerControl3.Enabled = false;
+                    spritePickerControl4.Enabled = false;
+                    spritePickerControl5.Enabled = false;
+                    spritePickerControl6.Enabled = false;
+                    spritePickerControl7.Enabled = false;
+                    spritePickerControl8.Enabled = false;
+                    Text = @"Export sprites as PRG file";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
