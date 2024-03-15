@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
 using Sprdef2.Export.ExportGui;
+using Sprdef2.Export.ExportLogic;
 
 namespace Sprdef2
 {
@@ -166,7 +167,7 @@ namespace Sprdef2
                 x.Sprite = w.Sprite;
                 x.MultiColor = w.Sprite.MultiColor;
                 x.ShowDialog(this);
-                
+
                 if (x.MultiColor != w.Sprite.MultiColor)
                     w.ToggleColorMode();
 
@@ -236,7 +237,7 @@ namespace Sprdef2
                 }
             }
 
-            if (!found && lvSpriteList.SelectedItems.Count > 0 )
+            if (!found && lvSpriteList.SelectedItems.Count > 0)
             {
                 var s1 = (SpriteRoot)lvSpriteList.SelectedItems[0].Tag;
                 FireWindowForSprite(s1);
@@ -258,7 +259,7 @@ namespace Sprdef2
 
                 if (s != sprite)
                     continue;
-                
+
                 listViewItem.Selected = false;
                 listViewItem.EnsureVisible();
                 break;
@@ -587,30 +588,45 @@ namespace Sprdef2
                 if (x.ShowDialog() != DialogResult.OK)
                     return;
 
-                // TODO: Ta hand om de olika export-formaten.
-
-                var selectedSprites = x.SelectedSprites;
-
-                if (selectedSprites.Count <= 0)
+                switch (x.SelectedExportFormat)
                 {
-                    MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    case ExportFormat.CommodoreBasic20:
+                        {
+                            var selectedSprites = x.SelectedSprites;
+
+                            if (selectedSprites.Count <= 0)
+                            {
+                                MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            var result = new StringBuilder();
+                            var rowNumber = 10;
+                            var index = 0;
+
+                            foreach (var sprite in selectedSprites)
+                            {
+                                result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.HwSpriteIndex, sprite.X, sprite.Y));
+                                index++;
+                                rowNumber += 10;
+                            }
+
+                            Clipboard.SetText(result.ToString());
+
+                            MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                        }
+                    case ExportFormat.DataStatements:
+                        {
+                            break;
+                        }
+                    case ExportFormat.DataOnlyPrg:
+                        {
+                            break;
+                        }
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-
-                var result = new StringBuilder();
-                var rowNumber = 10;
-                var index = 0;
-
-                foreach (var sprite in selectedSprites)
-                {
-                    result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.HwSpriteIndex, sprite.X, sprite.Y));
-                    index++;
-                    rowNumber += 10;
-                }
-
-                Clipboard.SetText(result.ToString());
-
-                MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

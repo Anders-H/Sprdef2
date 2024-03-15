@@ -11,7 +11,8 @@ namespace Sprdef2.Export.ExportGui
     {
         public SpriteList Sprites { get; set; }
         public List<BasicSprite> SelectedSprites { get; set; }
-        
+        public ExportFormat SelectedExportFormat { get; private set; }
+
         public ExportSpritesBasicDialog()
         {
             InitializeComponent();
@@ -34,51 +35,56 @@ namespace Sprdef2.Export.ExportGui
             }
 
             cboExportFormat.SelectedIndex = 0;
+            SelectedExportFormat = ExportFormat.CommodoreBasic20;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (spritePickerControl1.Sprite == null
-                && spritePickerControl2.Sprite == null
-                && spritePickerControl3.Sprite == null
-                && spritePickerControl4.Sprite == null
-                && spritePickerControl5.Sprite == null
-                && spritePickerControl6.Sprite == null
-                && spritePickerControl7.Sprite == null
-                && spritePickerControl8.Sprite == null)
+            if (SelectedExportFormat == ExportFormat.CommodoreBasic20)
             {
-                MessageBox.Show(this, @"You have not selected any sprites to export.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (spritePickerControl1.Sprite == null
+                    && spritePickerControl2.Sprite == null
+                    && spritePickerControl3.Sprite == null
+                    && spritePickerControl4.Sprite == null
+                    && spritePickerControl5.Sprite == null
+                    && spritePickerControl6.Sprite == null
+                    && spritePickerControl7.Sprite == null
+                    && spritePickerControl8.Sprite == null)
+                {
+                    MessageBox.Show(this, @"You have not selected any sprites to export.", Text, MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (ColorConflict())
+                    MessageBox.Show(this, @"Some of the multi color sprites differ in the last two colors, and can not be displayed correctly at the same time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                SelectedSprites = new List<BasicSprite>();
+
+                if (spritePickerControl1.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl1.Sprite);
+
+                if (spritePickerControl2.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl2.Sprite);
+
+                if (spritePickerControl3.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl3.Sprite);
+
+                if (spritePickerControl4.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl4.Sprite);
+
+                if (spritePickerControl5.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl5.Sprite);
+
+                if (spritePickerControl6.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl6.Sprite);
+
+                if (spritePickerControl7.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl7.Sprite);
+
+                if (spritePickerControl8.Sprite != null)
+                    SelectedSprites.Add(spritePickerControl8.Sprite);
             }
-
-            if (ColorConflict())
-                MessageBox.Show(this, @"Some of the multi color sprites differ in the last two colors, and can not be displayed correctly at the same time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            SelectedSprites = new List<BasicSprite>();
-
-            if (spritePickerControl1.Sprite != null)
-                SelectedSprites.Add(spritePickerControl1.Sprite);
-
-            if (spritePickerControl2.Sprite != null)
-                SelectedSprites.Add(spritePickerControl2.Sprite);
-
-            if (spritePickerControl3.Sprite != null)
-                SelectedSprites.Add(spritePickerControl3.Sprite);
-
-            if (spritePickerControl4.Sprite != null)
-                SelectedSprites.Add(spritePickerControl4.Sprite);
-
-            if (spritePickerControl5.Sprite != null)
-                SelectedSprites.Add(spritePickerControl5.Sprite);
-
-            if (spritePickerControl6.Sprite != null)
-                SelectedSprites.Add(spritePickerControl6.Sprite);
-
-            if (spritePickerControl7.Sprite != null)
-                SelectedSprites.Add(spritePickerControl7.Sprite);
-
-            if (spritePickerControl8.Sprite != null)
-                SelectedSprites.Add(spritePickerControl8.Sprite);
 
             DialogResult = DialogResult.OK;
         }
@@ -131,9 +137,9 @@ namespace Sprdef2.Export.ExportGui
 
         private void cboExportFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var exportFormat = ((ExportFormatComboItem)cboExportFormat.SelectedItem).ExportFormat;
+            SelectedExportFormat = ((ExportFormatComboItem)cboExportFormat.SelectedItem).ExportFormat;
 
-            switch (exportFormat)
+            switch (SelectedExportFormat)
             {
                 case ExportFormat.CommodoreBasic20:
                     spritePickerControl1.Enabled = true;
