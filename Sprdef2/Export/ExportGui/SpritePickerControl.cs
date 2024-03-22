@@ -2,12 +2,10 @@
 using System.Windows.Forms;
 using EditStateSprite;
 
-namespace Sprdef2
+namespace Sprdef2.Export.ExportGui
 {
     public partial class SpritePickerControl : UserControl
     {
-        private int _hwSpriteIndex;
-
         public SpritePickerControl()
         {
             InitializeComponent();
@@ -21,7 +19,7 @@ namespace Sprdef2
                 if (!(cboSprite.SelectedItem is SpriteRoot root))
                     return null;
 
-                return new BasicSprite(root, X, Y, HwSpriteIndex);
+                return new BasicSprite(root, X, Y);
             }
             set
             {
@@ -66,14 +64,10 @@ namespace Sprdef2
             }
         }
 
-        public int HwSpriteIndex
+        public string Label
         {
-            get => _hwSpriteIndex;
-            set
-            {
-                _hwSpriteIndex = value;
-                label1.Text = $@"Sprite {_hwSpriteIndex}:";
-            }
+            get => label1.Text;
+            set => label1.Text = value;
         }
 
         public int X

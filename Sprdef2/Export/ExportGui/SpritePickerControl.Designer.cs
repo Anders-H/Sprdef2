@@ -1,4 +1,4 @@
-﻿namespace Sprdef2
+﻿namespace Sprdef2.Export.ExportGui
 {
     partial class SpritePickerControl
     {

@@ -191,18 +191,16 @@ namespace Sprdef2
         {
             using (var x = new OptionsDialog())
             {
-                if (x.ShowDialog(this) == DialogResult.OK)
-                {
-                    foreach (var sprite in Sprites)
-                    {
-                        sprite.PreviewZoom = PreviewZoom;
-                    }
+                if (x.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-                    picPreview.Invalidate();
+                foreach (var sprite in Sprites)
+                    sprite.PreviewZoom = PreviewZoom;
 
-                    foreach (var mdiChild in MdiChildren)
-                        mdiChild.Invalidate();
-                }
+                picPreview.Invalidate();
+
+                foreach (var mdiChild in MdiChildren)
+                    mdiChild.Invalidate();
             }
         }
 
@@ -606,7 +604,7 @@ namespace Sprdef2
 
                             foreach (var sprite in selectedSprites)
                             {
-                                result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.HwSpriteIndex, sprite.X, sprite.Y));
+                                result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
                                 index++;
                                 rowNumber += 10;
                             }
@@ -618,6 +616,15 @@ namespace Sprdef2
                         }
                     case ExportFormat.DataStatements:
                         {
+                            var result = new StringBuilder();
+
+                            if (Sprites.Count <= 0)
+                            {
+
+                            }
+
+                            Clipboard.SetText(result.ToString());
+                            MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             break;
                         }
                     case ExportFormat.DataOnlyPrg:

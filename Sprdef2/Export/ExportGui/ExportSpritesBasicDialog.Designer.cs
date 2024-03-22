@@ -30,14 +30,14 @@
         {
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.spritePickerControl8 = new Sprdef2.SpritePickerControl();
-            this.spritePickerControl7 = new Sprdef2.SpritePickerControl();
-            this.spritePickerControl6 = new Sprdef2.SpritePickerControl();
-            this.spritePickerControl5 = new Sprdef2.SpritePickerControl();
-            this.spritePickerControl4 = new Sprdef2.SpritePickerControl();
-            this.spritePickerControl3 = new Sprdef2.SpritePickerControl();
-            this.spritePickerControl2 = new Sprdef2.SpritePickerControl();
-            this.spritePickerControl1 = new Sprdef2.SpritePickerControl();
+            this.spritePickerControl8 = new SpritePickerControl();
+            this.spritePickerControl7 = new SpritePickerControl();
+            this.spritePickerControl6 = new SpritePickerControl();
+            this.spritePickerControl5 = new SpritePickerControl();
+            this.spritePickerControl4 = new SpritePickerControl();
+            this.spritePickerControl3 = new SpritePickerControl();
+            this.spritePickerControl2 = new SpritePickerControl();
+            this.spritePickerControl1 = new SpritePickerControl();
             this.label1 = new System.Windows.Forms.Label();
             this.cboExportFormat = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
@@ -64,7 +64,7 @@
             // 
             // spritePickerControl8
             // 
-            this.spritePickerControl8.HwSpriteIndex = 7;
+            this.spritePickerControl8.Label = "Sprite 7:";
             this.spritePickerControl8.Location = new System.Drawing.Point(4, 312);
             this.spritePickerControl8.Name = "spritePickerControl8";
             this.spritePickerControl8.Size = new System.Drawing.Size(429, 44);
@@ -75,7 +75,7 @@
             // 
             // spritePickerControl7
             // 
-            this.spritePickerControl7.HwSpriteIndex = 6;
+            this.spritePickerControl7.Label = "Sprite 6:";
             this.spritePickerControl7.Location = new System.Drawing.Point(4, 268);
             this.spritePickerControl7.Name = "spritePickerControl7";
             this.spritePickerControl7.Size = new System.Drawing.Size(429, 44);
@@ -86,7 +86,7 @@
             // 
             // spritePickerControl6
             // 
-            this.spritePickerControl6.HwSpriteIndex = 5;
+            this.spritePickerControl6.Label = "Sprite 5:";
             this.spritePickerControl6.Location = new System.Drawing.Point(4, 224);
             this.spritePickerControl6.Name = "spritePickerControl6";
             this.spritePickerControl6.Size = new System.Drawing.Size(429, 44);
@@ -97,7 +97,7 @@
             // 
             // spritePickerControl5
             // 
-            this.spritePickerControl5.HwSpriteIndex = 4;
+            this.spritePickerControl5.Label = "Sprite 4:";
             this.spritePickerControl5.Location = new System.Drawing.Point(4, 180);
             this.spritePickerControl5.Name = "spritePickerControl5";
             this.spritePickerControl5.Size = new System.Drawing.Size(429, 44);
@@ -108,7 +108,7 @@
             // 
             // spritePickerControl4
             // 
-            this.spritePickerControl4.HwSpriteIndex = 3;
+            this.spritePickerControl4.Label = "Sprite 3:";
             this.spritePickerControl4.Location = new System.Drawing.Point(4, 136);
             this.spritePickerControl4.Name = "spritePickerControl4";
             this.spritePickerControl4.Size = new System.Drawing.Size(429, 44);
@@ -119,7 +119,7 @@
             // 
             // spritePickerControl3
             // 
-            this.spritePickerControl3.HwSpriteIndex = 2;
+            this.spritePickerControl3.Label = "Sprite 2:";
             this.spritePickerControl3.Location = new System.Drawing.Point(4, 92);
             this.spritePickerControl3.Name = "spritePickerControl3";
             this.spritePickerControl3.Size = new System.Drawing.Size(429, 44);
@@ -130,7 +130,7 @@
             // 
             // spritePickerControl2
             // 
-            this.spritePickerControl2.HwSpriteIndex = 1;
+            this.spritePickerControl2.Label = "Sprite 1:";
             this.spritePickerControl2.Location = new System.Drawing.Point(4, 48);
             this.spritePickerControl2.Name = "spritePickerControl2";
             this.spritePickerControl2.Size = new System.Drawing.Size(429, 44);
@@ -141,7 +141,7 @@
             // 
             // spritePickerControl1
             // 
-            this.spritePickerControl1.HwSpriteIndex = 0;
+            this.spritePickerControl1.Label = "Sprite 0:";
             this.spritePickerControl1.Location = new System.Drawing.Point(4, 4);
             this.spritePickerControl1.Name = "spritePickerControl1";
             this.spritePickerControl1.Size = new System.Drawing.Size(429, 44);

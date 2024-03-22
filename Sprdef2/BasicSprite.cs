@@ -7,14 +7,12 @@ namespace Sprdef2
         public SpriteRoot Sprite { get; }
         public int X { get; }
         public int Y { get; }
-        public int HwSpriteIndex { get; }
 
-        public BasicSprite(SpriteRoot sprite, int x, int y, int hwSpriteIndex)
+        public BasicSprite(SpriteRoot sprite, int x, int y)
         {
             Sprite = sprite;
             X = x;
             Y = y;
-            HwSpriteIndex = hwSpriteIndex;
         }
 
         public override string ToString() =>
