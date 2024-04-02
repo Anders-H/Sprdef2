@@ -36,8 +36,8 @@
     <ApplicationIcon>Sprdef2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EditStateSprite, Version=1.16.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EditStateSprite.1.16.0\lib\net48\EditStateSprite.dll</HintPath>
+    <Reference Include="EditStateSprite, Version=1.17.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EditStateSprite.1.17.0\lib\net48\EditStateSprite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,6 +59,12 @@
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicSprite.cs" />
+    <Compile Include="Export\ExportGui\MemoryLocationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Export\ExportGui\MemoryLocationDialog.Designer.cs">
+      <DependentUpon>MemoryLocationDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Export\ExportLogic\ExportFormat.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItem.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItemList.cs" />
@@ -103,6 +109,9 @@
     <EmbeddedResource Include="AddSpriteDialog.resx">
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Export\ExportGui\MemoryLocationDialog.resx">
+      <DependentUpon>MemoryLocationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
