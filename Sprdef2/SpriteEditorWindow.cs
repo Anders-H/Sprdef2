@@ -104,6 +104,8 @@ public partial class SpriteEditorWindow : Form
 
     private void colorPicker1_PaletteChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
     {
+        spriteEditorControl1.ModifyPalette(e.ButtonIndex, (ColorName)((int)e.ColorName));
         spriteEditorControl1.Focus();
+        Refresh();
     }
 }

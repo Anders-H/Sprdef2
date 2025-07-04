@@ -38,6 +38,7 @@
     <ApplicationIcon>Sprdef2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C64Color, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="C64ColorControls">
       <HintPath>..\..\C64Color\C64ColorControls\bin\Release\C64ColorControls.dll</HintPath>
     </Reference>
