@@ -1,9 +1,9 @@
-﻿namespace Sprdef2.Export.ExportLogic
+﻿#nullable enable
+namespace Sprdef2.Export.ExportLogic;
+
+public enum ExportFormat
 {
-    public enum ExportFormat
-    {
-        CommodoreBasic20,
-        DataStatements,
-        DataOnlyPrg
-    }
+    CommodoreBasic20,
+    DataStatements,
+    DataOnlyPrg
 }
