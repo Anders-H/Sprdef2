@@ -138,7 +138,7 @@ public partial class MainWindow : Form
         Close();
     }
 
-    private bool CanManipulateCurrentSprite(string text, out SpriteEditorWindow w)
+    private bool CanManipulateCurrentSprite(string text, out SpriteEditorWindow? w)
     {
         w = null;
 
