@@ -80,6 +80,7 @@
             this.moveSpriteUpInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveSpriteDownInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.animateSpritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
@@ -518,9 +519,18 @@
             // 
             // viewToolStripMenuItem
             // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.animateSpritesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // animateSpritesToolStripMenuItem
+            // 
+            this.animateSpritesToolStripMenuItem.Name = "animateSpritesToolStripMenuItem";
+            this.animateSpritesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.animateSpritesToolStripMenuItem.Text = "Animate sprites";
+            this.animateSpritesToolStripMenuItem.Click += new System.EventHandler(this.animateSpritesToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -601,6 +611,7 @@
         private System.Windows.Forms.ToolStripMenuItem moveSpriteUpInListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveSpriteDownInListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem animateSpritesToolStripMenuItem;
     }
 }
 

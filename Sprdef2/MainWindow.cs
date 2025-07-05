@@ -18,6 +18,8 @@ public partial class MainWindow : Form
     private string _filename;
     private bool _changingFocusBecauseOfSpriteListUsage;
     private bool _changingFocusBecauseOfSpriteWindowChange;
+    private bool _isAnimating;
+    private int _currentAnimationCellIndex;
     public static Palette Palette { get; }
     public static SpriteList Sprites { get; set; }
     public static bool PreviewZoom { get; set; }
@@ -26,7 +28,7 @@ public partial class MainWindow : Form
     static MainWindow()
     {
         Palette = new Palette();
-        Sprites = new SpriteList();
+        Sprites = [];
         PreviewZoom = false;
         var versionString = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         var parts = versionString.Split('.');
@@ -36,6 +38,7 @@ public partial class MainWindow : Form
 
     public MainWindow()
     {
+        _filename = "";
         _changingFocusBecauseOfSpriteListUsage = false;
         _changingFocusBecauseOfSpriteWindowChange = false;
         InitializeComponent();
@@ -44,6 +47,7 @@ public partial class MainWindow : Form
     private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e)
     {
         bool multicolor;
+
         using (var add = new AddSpriteDialog())
         {
             if (add.ShowDialog() != DialogResult.OK)
@@ -163,6 +167,9 @@ public partial class MainWindow : Form
         if (!CanManipulateCurrentSprite("Properties", out var w))
             return;
 
+        if (w?.Sprite == null)
+            return;
+
         using (var x = new PropertiesDialog())
         {
             x.Sprite = w.Sprite;
@@ -190,19 +197,18 @@ public partial class MainWindow : Form
 
     private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        using (var x = new OptionsDialog())
-        {
-            if (x.ShowDialog(this) != DialogResult.OK)
-                return;
+        using var x = new OptionsDialog();
 
-            foreach (var sprite in Sprites)
-                sprite.PreviewZoom = PreviewZoom;
+        if (x.ShowDialog(this) != DialogResult.OK)
+            return;
 
-            picPreview.Invalidate();
+        foreach (var sprite in Sprites)
+            sprite.PreviewZoom = PreviewZoom;
 
-            foreach (var mdiChild in MdiChildren)
-                mdiChild.Invalidate();
-        }
+        picPreview.Invalidate();
+
+        foreach (var mdiChild in MdiChildren)
+            mdiChild.Invalidate();
     }
 
     private void lvSpriteList_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,7 +217,6 @@ public partial class MainWindow : Form
             return;
 
         _changingFocusBecauseOfSpriteListUsage = true;
-
         var found = false;
 
         if (lvSpriteList.SelectedItems.Count > 0)
@@ -220,7 +225,7 @@ public partial class MainWindow : Form
 
             foreach (var f in MdiChildren)
             {
-                if (!(f is SpriteEditorWindow sew))
+                if (f is not SpriteEditorWindow sew)
                     continue;
 
                 var s2 = sew.Sprite;
@@ -272,6 +277,9 @@ public partial class MainWindow : Form
         if (!CanManipulateCurrentSprite("Scroll up", out var w))
             return;
 
+        if (w == null)
+            return;
+
         w.Scroll(FourWayDirection.Up);
         w.Focus();
     }
@@ -279,6 +287,9 @@ public partial class MainWindow : Form
     private void scrollRightToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (!CanManipulateCurrentSprite("Scroll right", out var w))
+            return;
+
+        if (w == null)
             return;
 
         w.Scroll(FourWayDirection.Right);
@@ -290,6 +301,9 @@ public partial class MainWindow : Form
         if (!CanManipulateCurrentSprite("Scroll down", out var w))
             return;
 
+        if (w == null)
+            return;
+
         w.Scroll(FourWayDirection.Down);
         w.Focus();
     }
@@ -297,6 +311,9 @@ public partial class MainWindow : Form
     private void scrollLeftToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (!CanManipulateCurrentSprite("Scroll left", out var w))
+            return;
+
+        if (w == null)
             return;
 
         w.Scroll(FourWayDirection.Left);
@@ -337,7 +354,6 @@ public partial class MainWindow : Form
 
         Sprites.Clear();
         lvSpriteList.Items.Clear();
-
         Filename = "";
     }
 
@@ -346,59 +362,49 @@ public partial class MainWindow : Form
         if (e.CloseReason == CloseReason.WindowsShutDown || e.CloseReason == CloseReason.TaskManagerClosing)
             return;
 
-        if (Sprites.Count > 0)
-        {
-            if (MessageBox.Show(this, @"Are you sure you want to quit? All current unsaved sprites will be lost.",
-                    @"Quit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) !=
-                DialogResult.Yes)
-                e.Cancel = true;
-        }
+        if (Sprites.Count <= 0)
+            return;
+
+        if (MessageBox.Show(this, @"Are you sure you want to quit? All current unsaved sprites will be lost.", @"Quit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+            e.Cancel = true;
     }
 
     private void openToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (Sprites.Count > 0)
         {
-            if (MessageBox.Show(this,
-                    @"Are you sure you want to open another document? All current unsaved sprites will be lost.",
-                    @"Open", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) !=
-                DialogResult.Yes)
+            if (MessageBox.Show(this, @"Are you sure you want to open another document? All current unsaved sprites will be lost.", @"Open", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return;
         }
 
-        using (var x = new OpenFileDialog())
+        using var x = new OpenFileDialog();
+        x.Title = @"Open document";
+        x.Filter = @"Sprdef 2 documents (*.sprdef)|*.sprdef|All files (*.*)|*.*";
+
+        if (x.ShowDialog(this) != DialogResult.OK)
+            return;
+
+        try
         {
-            x.Title = @"Open document";
-            x.Filter = @"Sprdef 2 documents (*.sprdef)|*.sprdef|All files (*.*)|*.*";
+            var loadedSprites = new SpriteList();
+            loadedSprites.Load(x.FileName);
 
-            if (x.ShowDialog(this) != DialogResult.OK)
-                return;
+            foreach (var mdiChild in MdiChildren)
+                mdiChild.Close();
 
-            try
+            Sprites = loadedSprites;
+            lvSpriteList.Items.Clear();
+            Filename = x.FileName;
+
+            foreach (var s in Sprites)
             {
-                var loadedSprites = new SpriteList();
-                loadedSprites.Load(x.FileName);
-
-                foreach (var mdiChild in MdiChildren)
-                {
-                    mdiChild.Close();
-                }
-
-                Sprites = loadedSprites;
-                lvSpriteList.Items.Clear();
-                Filename = x.FileName;
-
-                foreach (var s in Sprites)
-                {
-                    var item = lvSpriteList.Items.Add(s.Name);
-                    item.Tag = s;
-                }
-
+                var item = lvSpriteList.Items.Add(s.Name);
+                item.Tag = s;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, $@"Load failed. {ex.Message}", @"Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(this, $@"Load failed. {ex.Message}", @"Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
@@ -415,19 +421,17 @@ public partial class MainWindow : Form
 
     private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        using (var x = new SaveFileDialog())
-        {
-            x.Title = @"Save document";
-            x.Filter = @"Sprdef 2 documents (*.sprdef)|*.sprdef|All files (*.*)|*.*";
+        using var x = new SaveFileDialog();
+        x.Title = @"Save document";
+        x.Filter = @"Sprdef 2 documents (*.sprdef)|*.sprdef|All files (*.*)|*.*";
 
-            if (!string.IsNullOrWhiteSpace(Filename))
-                x.FileName = Filename;
+        if (!string.IsNullOrWhiteSpace(Filename))
+            x.FileName = Filename;
 
-            if (x.ShowDialog(this) != DialogResult.OK)
-                return;
+        if (x.ShowDialog(this) != DialogResult.OK)
+            return;
 
-            Save(x.FileName);
-        }
+        Save(x.FileName);
     }
 
     private void Save(string filename)
@@ -448,6 +452,9 @@ public partial class MainWindow : Form
         if (!CanManipulateCurrentSprite("Flip left-right", out var w))
             return;
 
+        if (w == null)
+            return;
+
         w.Flip(TwoWayDirection.LeftRight);
         w.Focus();
     }
@@ -455,6 +462,9 @@ public partial class MainWindow : Form
     private void flipTopdownToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (!CanManipulateCurrentSprite("Flip top-down", out var w))
+            return;
+
+        if (w == null)
             return;
 
         w.Flip(TwoWayDirection.TopDown);
@@ -506,9 +516,11 @@ public partial class MainWindow : Form
         if (MessageBox.Show(this, @"Are you sure you want to remove the selected sprite from this file?", @"Remove sprite", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
             return;
 
+        if (w == null)
+            return;
+
         timer1.Enabled = false;
         Refresh();
-
         var sprite = w.Sprite;
         Sprites.Remove(sprite);
         CheckOnlyExistingSpritesExistsInList();
@@ -519,54 +531,57 @@ public partial class MainWindow : Form
 
     private void CheckOnlyExistingSpritesExistsInList()
     {
-        bool cont;
+        var again = false;
+        IterateItems:
 
-        do
+        foreach (ListViewItem i in lvSpriteList.Items)
         {
-            cont = false;
+            var sprite = i.Tag as SpriteRoot;
 
-            foreach (ListViewItem i in lvSpriteList.Items)
+            if (sprite == null)
             {
-                var sprite = i.Tag as SpriteRoot;
-
-                if (sprite == null)
-                {
-                    lvSpriteList.Items.Remove(i);
-                    cont = true;
-                }
-
-                if (Sprites.Exists(x => x == sprite))
-                    continue;
-
                 lvSpriteList.Items.Remove(i);
-                cont = true;
+                again = true;
             }
 
-        } while (cont);
+            if (Sprites.Exists(x => x == sprite))
+                continue;
+
+            lvSpriteList.Items.Remove(i);
+            again = true;
+        }
+
+        if (again)
+        {
+            again = false;
+            goto IterateItems;
+        }
     }
 
     private void CheckOnlyExistingSpritesAreOpenInEditor()
     {
-        bool cont;
+        var again = false;
+        IterateItems:
 
-        do
+        foreach (var mdiChild in MdiChildren)
         {
-            cont = false;
+            if (mdiChild is not SpriteEditorWindow editorWindow)
+                continue;
 
-            foreach (var mdiChild in MdiChildren)
-            {
-                if (!(mdiChild is SpriteEditorWindow editorWindow))
-                    continue;
+            var sprite = editorWindow.Sprite;
 
-                var sprite = editorWindow.Sprite;
+            if (Sprites.Exists(x => x == sprite))
+                continue;
 
-                if (Sprites.Exists(x => x == sprite))
-                    continue;
+            editorWindow.Close();
+            again = true;
+        }
 
-                editorWindow.Close();
-                cont = true;
-            }
-        } while (cont);
+        if (again)
+        {
+            again = false;
+            goto IterateItems;
+        }
     }
 
     private void toolStripButton1_Click(object sender, EventArgs e) =>
@@ -580,61 +595,51 @@ public partial class MainWindow : Form
             return;
         }
 
-        using (var x = new ExportSpritesBasicDialog())
+        using var x = new ExportSpritesBasicDialog();
+        x.Sprites = Sprites;
+
+        if (x.ShowDialog() != DialogResult.OK)
+            return;
+
+        switch (x.SelectedExportFormat)
         {
-            x.Sprites = Sprites;
-
-            if (x.ShowDialog() != DialogResult.OK)
-                return;
-
-            switch (x.SelectedExportFormat)
+            case ExportFormat.CommodoreBasic20:
             {
-                case ExportFormat.CommodoreBasic20:
+                var selectedSprites = x.SelectedSprites;
+
+                if (selectedSprites.Count <= 0)
                 {
-                    var selectedSprites = x.SelectedSprites;
-
-                    if (selectedSprites.Count <= 0)
-                    {
-                        MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
-                    var result = new StringBuilder();
-                    var rowNumber = 10;
-                    var index = 0;
-
-                    foreach (var sprite in selectedSprites)
-                    {
-                        result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
-                        index++;
-                        rowNumber += 10;
-                    }
-
-                    Clipboard.SetText(result.ToString());
-
-                    MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
+                    MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
-                case ExportFormat.DataStatements:
+
+                var result = new StringBuilder();
+                var rowNumber = 10;
+                var index = 0;
+
+                foreach (var sprite in selectedSprites)
                 {
-                    var result = new StringBuilder();
-
-                    if (Sprites.Count <= 0)
-                    {
-
-                    }
-
-                    Clipboard.SetText(result.ToString());
-                    MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
+                    result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
+                    index++;
+                    rowNumber += 10;
                 }
-                case ExportFormat.DataOnlyPrg:
-                {
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
+
+                Clipboard.SetText(result.ToString());
+
+                MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                break;
             }
+            case ExportFormat.DataStatements:
+            {
+                var result = new StringBuilder();
+                Clipboard.SetText(result.ToString());
+                MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                break;
+            }
+            case ExportFormat.DataOnlyPrg:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -647,6 +652,7 @@ Do you want to visit {url}?";
 
         if (MessageBox.Show(this, prompt, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
             return;
+
         try
         {
             System.Diagnostics.Process.Start(url);
@@ -655,5 +661,17 @@ Do you want to visit {url}?";
         {
             MessageBox.Show(this, $@"Failed to open {url}.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+    }
+
+    private void animateSpritesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        timer1.Enabled = false;
+        animateSpritesToolStripMenuItem.Checked = !animateSpritesToolStripMenuItem.Checked;
+        _isAnimating = animateSpritesToolStripMenuItem.Checked;
+
+        if (_isAnimating)
+            _currentAnimationCellIndex = -1;
+
+        timer1.Enabled = true;
     }
 }
