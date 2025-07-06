@@ -674,4 +674,41 @@ Do you want to visit {url}?";
 
         timer1.Enabled = true;
     }
+
+    private void spriteToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+    {
+        removeSpriteToolStripMenuItem.Enabled = lvSpriteList.SelectedIndices.Count > 0;
+
+        if (lvSpriteList.Items.Count < 2 || lvSpriteList.SelectedIndices.Count < 1)
+        {
+            moveSpriteUpInListToolStripMenuItem.Enabled = false;
+            moveSpriteDownInListToolStripMenuItem.Enabled = false;
+        }
+        else
+        {
+            moveSpriteUpInListToolStripMenuItem.Enabled = true;
+            moveSpriteDownInListToolStripMenuItem.Enabled = true;
+        }
+    }
+
+    private void moveSpriteUpInListToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (lvSpriteList.Items.Count < 2 || lvSpriteList.SelectedIndices.Count < 1)
+            return;
+
+        var index = lvSpriteList.SelectedIndices[0];
+
+        fsdfsdfsdfds
+
+        var item = lvSpriteList.Items[index];
+        lvSpriteList.BeginUpdate();
+        lvSpriteList.Items.Remove(item);
+        lvSpriteList.Items.Insert(newIndex, item);
+        lvSpriteList.EndUpdate();
+    }
+
+    private void moveSpriteDownInListToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
 }
