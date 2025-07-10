@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+#Include the setup file.
+!D:\GitRepos\Sprdef2\SetupSprdef2.exe
