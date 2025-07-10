@@ -13,56 +13,12 @@ public partial class SpritePickerControl : UserControl
         cboSprite.DisplayMember = nameof(Name);
     }
 
-    public BasicSprite? Sprite
-    {
-        get
-        {
-            if (!(cboSprite.SelectedItem is SpriteRoot root))
-                return null;
-
-            return new BasicSprite(root, X, Y);
-        }
-        set
-        {
-            if (value?.Sprite == null)
-            {
-                cboSprite.SelectedItem = null;
-                return;
-            }
-
-            SetSprite(value.Sprite);
-
-            if (cboSprite.SelectedItem is SpriteRoot)
-            {
-                X = value.X;
-                Y = value.Y;
-            }
-            else
-            {
-                X = 0;
-                Y = 0;
-            }
-        }
-    }
+    public SpriteRoot? Sprite { get; set; }
 
     public void SetSprites(SpriteList sprites)
     {
         foreach (var sprite in sprites)
             cboSprite.Items.Add(sprite);
-    }
-
-    private void SetSprite(SpriteRoot sprite)
-    {
-        cboSprite.SelectedItem = null;
-
-        foreach (var s in cboSprite.Items)
-        {
-            if (s != sprite)
-                continue;
-
-            cboSprite.SelectedItem = s;
-            return;
-        }
     }
 
     public string Label
@@ -126,7 +82,7 @@ public partial class SpritePickerControl : UserControl
     }
 
     public bool IsMulticolor =>
-        Sprite != null && Sprite.Sprite.MultiColor;
+        Sprite is { MultiColor: true };
 
     private void picDelete_Click(object sender, System.EventArgs e) =>
         Sprite = null;

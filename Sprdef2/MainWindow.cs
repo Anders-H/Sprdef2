@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
+using EditStateSprite.SpriteModifiers;
 using Sprdef2.Export.ExportGui;
 using Sprdef2.Export.ExportLogic;
 
@@ -19,7 +20,7 @@ public partial class MainWindow : Form
     private bool _changingFocusBecauseOfSpriteListUsage;
     private bool _changingFocusBecauseOfSpriteWindowChange;
     private bool _isAnimating;
-    private int _currentAnimationCellIndex;
+    private int _currentAnimationCellIndex = -1;
     public static Palette Palette { get; }
     public static SpriteList Sprites { get; set; }
     public static bool PreviewZoom { get; set; }
@@ -58,7 +59,7 @@ public partial class MainWindow : Form
 
         var s = new SpriteRoot(multicolor)
         {
-            Name = $@"Sprite {Sprites.Count} ({(multicolor ? "multicolor" : "monochrome")})",
+            Name = $@"Sprite {Sprites.Count} ({(multicolor ? "multicolor" : "monochrome")})".ToUpper(),
             PreviewZoom = PreviewZoom,
             PreviewOffsetX = 30,
             PreviewOffsetY = 30,
@@ -491,7 +492,10 @@ public partial class MainWindow : Form
 
     private void timer1_Tick(object sender, EventArgs e)
     {
-        picPreview.Invalidate();
+        if (_isAnimating)
+            picPreview.Refresh();
+        else
+            picPreview.Invalidate();
     }
 
     private void picPreview_Paint(object sender, PaintEventArgs e)
@@ -504,8 +508,45 @@ public partial class MainWindow : Form
 
         e.Graphics.Clear(Palette.GetColor(Sprites.First().SpriteColorPalette.First()));
 
-        foreach (var sprite in Sprites)
-            sprite.ColorMap.PaintPreview(e.Graphics);
+        if (_isAnimating)
+        {
+            foreach (var sprite in Sprites.Where(x => x.PreviewAnimationBehaviour == PreviewAnimationBehaviour.ShowAlways))
+                sprite.ColorMap.PaintPreview(e.Graphics);
+
+            var s = GetNextAnimationSprite();
+
+            if (s != null)
+                s.ColorMap.PaintPreview(e.Graphics);
+
+        }
+        else
+        {
+            foreach (var sprite in Sprites)
+                sprite.ColorMap.PaintPreview(e.Graphics);
+
+        }
+    }
+
+    private SpriteRoot? GetNextAnimationSprite()
+    {
+        if (Sprites.Count <= 0)
+            return null;
+
+        _currentAnimationCellIndex++;
+
+        if (_currentAnimationCellIndex >= Sprites.Count)
+            _currentAnimationCellIndex = 0;
+
+        for (var i = _currentAnimationCellIndex; i < Sprites.Count; i++)
+        {
+            if (Sprites[i].PreviewAnimationBehaviour != PreviewAnimationBehaviour.Animate)
+                continue;
+
+            _currentAnimationCellIndex = i;
+            return Sprites[i];
+        }
+
+        return null;
     }
 
     private void removeSpriteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -619,7 +660,7 @@ public partial class MainWindow : Form
 
                 foreach (var sprite in selectedSprites)
                 {
-                    result.AppendLine(sprite.Sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
+                    result.AppendLine(sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
                     index++;
                     rowNumber += 10;
                 }
@@ -670,8 +711,16 @@ Do you want to visit {url}?";
         _isAnimating = animateSpritesToolStripMenuItem.Checked;
 
         if (_isAnimating)
-            _currentAnimationCellIndex = -1;
+        {
+            timer1.Interval = 500;
+            _currentAnimationCellIndex = 0;
+        }
+        else
+        {
+            timer1.Interval = 3000;
+        }
 
+        Refresh();
         timer1.Enabled = true;
     }
 
@@ -698,17 +747,30 @@ Do you want to visit {url}?";
 
         var index = lvSpriteList.SelectedIndices[0];
 
-        fsdfsdfsdfds
+        if (index <= 0)
+            return;
 
         var item = lvSpriteList.Items[index];
         lvSpriteList.BeginUpdate();
         lvSpriteList.Items.Remove(item);
-        lvSpriteList.Items.Insert(newIndex, item);
+        lvSpriteList.Items.Insert(index - 1, item);
         lvSpriteList.EndUpdate();
     }
 
     private void moveSpriteDownInListToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (lvSpriteList.Items.Count < 2 || lvSpriteList.SelectedIndices.Count < 1)
+            return;
 
+        var index = lvSpriteList.SelectedIndices[0];
+
+        if (index >= lvSpriteList.Items.Count - 1)
+            return;
+
+        var item = lvSpriteList.Items[index];
+        lvSpriteList.BeginUpdate();
+        lvSpriteList.Items.Remove(item);
+        lvSpriteList.Items.Insert(index + 1, item);
+        lvSpriteList.EndUpdate();
     }
 }

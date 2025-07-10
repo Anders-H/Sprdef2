@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Forms;
 using EditStateSprite;
+using EditStateSprite.SpriteModifiers;
 
 namespace Sprdef2;
 
@@ -17,12 +18,16 @@ public partial class PropertiesDialog : Form
 
     private void PropertiesDialog_Load(object sender, System.EventArgs e)
     {
+        foreach (var description in PreviewAnimationBehaviourHelper.GetDescriptions())
+            cboBehaviourDuringAnimation.Items.Add(description);
+
         txtSpriteName.Text = Sprite.Name;
         chkMulticolor.Checked = Sprite.MultiColor;
         chkExpandX.Checked = Sprite.ExpandX;
         chkExpandY.Checked = Sprite.ExpandY;
         txtPreviewX.Text = Sprite.PreviewOffsetX.ToString(CultureInfo.InvariantCulture);
         txtPreviewY.Text = Sprite.PreviewOffsetY.ToString(CultureInfo.InvariantCulture);
+        cboBehaviourDuringAnimation.SelectedItem = PreviewAnimationBehaviourHelper.GetDescription(Sprite.PreviewAnimationBehaviour);
     }
 
     private void btnOk_Click(object sender, System.EventArgs e)
@@ -33,6 +38,7 @@ public partial class PropertiesDialog : Form
         Sprite.ExpandY = chkExpandY.Checked;
         Sprite.PreviewOffsetX = ParseLocationInt(txtPreviewX);
         Sprite.PreviewOffsetY = ParseLocationInt(txtPreviewY);
+        Sprite.PreviewAnimationBehaviour = PreviewAnimationBehaviourHelper.GetValue(cboBehaviourDuringAnimation.SelectedItem.ToString()!);
         DialogResult = DialogResult.OK;
     }
 

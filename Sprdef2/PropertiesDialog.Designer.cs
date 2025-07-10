@@ -39,6 +39,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtPreviewY = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cboBehaviourDuringAnimation = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // chkMulticolor
@@ -53,10 +55,10 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(140, 172);
+            this.btnOk.Location = new System.Drawing.Point(140, 212);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 9;
+            this.btnOk.TabIndex = 11;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -64,10 +66,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(220, 172);
+            this.btnCancel.Location = new System.Drawing.Point(220, 212);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 10;
+            this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -145,13 +147,33 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Preview Y:";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 160);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(138, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Behaviour during animation:";
+            // 
+            // cboBehaviourDuringAnimation
+            // 
+            this.cboBehaviourDuringAnimation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBehaviourDuringAnimation.FormattingEnabled = true;
+            this.cboBehaviourDuringAnimation.Location = new System.Drawing.Point(8, 176);
+            this.cboBehaviourDuringAnimation.Name = "cboBehaviourDuringAnimation";
+            this.cboBehaviourDuringAnimation.Size = new System.Drawing.Size(288, 21);
+            this.cboBehaviourDuringAnimation.TabIndex = 10;
+            // 
             // PropertiesDialog
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(304, 203);
+            this.ClientSize = new System.Drawing.Size(304, 241);
+            this.Controls.Add(this.cboBehaviourDuringAnimation);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtPreviewY);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtPreviewX);
@@ -189,5 +211,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPreviewY;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cboBehaviourDuringAnimation;
     }
 }

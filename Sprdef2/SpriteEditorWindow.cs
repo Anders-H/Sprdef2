@@ -7,10 +7,12 @@ namespace Sprdef2;
 
 public partial class SpriteEditorWindow : Form
 {
-    public SpriteRoot? Sprite { get; private set; }
+    private const string UninitializedSpriteName = "NOT INITIALIZED SPRITE";
+    public SpriteRoot Sprite { get; private set; }
 
     public SpriteEditorWindow()
     {
+        Sprite = new SpriteRoot(false) { Name = UninitializedSpriteName };
         InitializeComponent();
     }
 
@@ -57,9 +59,6 @@ public partial class SpriteEditorWindow : Form
 
     private void SpriteEditorWindow_Enter(object sender, System.EventArgs e)
     {
-        if (Sprite == null)
-            return;
-
         ((MainWindow)MdiParent).SpriteWindowChanged(Sprite);
         spriteEditorControl1.Focus();
     }
@@ -80,24 +79,16 @@ public partial class SpriteEditorWindow : Form
         spriteEditorControl1.Focus();
 
     private void FixWindowText() =>
-        Text = Sprite == null
-            ? Text = @"Sprite"
-            : string.IsNullOrWhiteSpace(Sprite.Name) ? "Sprite" : $@"Sprite: {Sprite.Name}";
+        Text = string.IsNullOrWhiteSpace(Sprite.Name) ? "Sprite" : $@"Sprite: {Sprite.Name}";
 
     private void SpriteEditorWindow_Load(object sender, System.EventArgs e)
     {
-        if (Sprite == null)
-            return;
-
         var mainWindow = ParentForm as MainWindow;
         mainWindow?.FindSpriteInSpriteList(Sprite);
     }
 
     private void SpriteEditorWindow_Activated(object sender, System.EventArgs e)
     {
-        if (Sprite == null)
-            return;
-
         var mainWindow = ParentForm as MainWindow;
         mainWindow?.FindSpriteInSpriteList(Sprite);
     }

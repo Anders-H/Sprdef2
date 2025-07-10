@@ -11,7 +11,7 @@ namespace Sprdef2.Export.ExportGui;
 public partial class ExportSpritesBasicDialog : Form
 {
     public SpriteList Sprites { get; set; }
-    public List<BasicSprite> SelectedSprites { get; set; }
+    public List<SpriteRoot> SelectedSprites { get; set; }
     public ExportFormat SelectedExportFormat { get; private set; }
 
     public ExportSpritesBasicDialog()
@@ -60,7 +60,7 @@ public partial class ExportSpritesBasicDialog : Form
             if (ColorConflict())
                 MessageBox.Show(this, @"Some of the multi color sprites differ in the last two colors, and can not be displayed correctly at the same time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-            SelectedSprites = new List<BasicSprite>();
+            SelectedSprites = [];
 
             if (spritePickerControl1.Sprite != null)
                 SelectedSprites.Add(spritePickerControl1.Sprite);
@@ -95,28 +95,28 @@ public partial class ExportSpritesBasicDialog : Form
         var multicolorSprites = new List<SpriteRoot>();
 
         if (spritePickerControl1.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl1.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl1.Sprite);
 
         if (spritePickerControl2.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl2.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl2.Sprite);
 
         if (spritePickerControl3.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl3.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl3.Sprite);
 
         if (spritePickerControl4.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl4.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl4.Sprite);
 
         if (spritePickerControl5.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl5.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl5.Sprite);
 
         if (spritePickerControl6.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl6.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl6.Sprite);
 
         if (spritePickerControl7.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl7.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl7.Sprite);
 
         if (spritePickerControl8.IsMulticolor)
-            multicolorSprites.Add(spritePickerControl8.Sprite.Sprite);
+            multicolorSprites.Add(spritePickerControl8.Sprite);
 
         if (multicolorSprites.Count < 2)
             return false;
