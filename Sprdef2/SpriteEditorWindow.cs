@@ -1,5 +1,4 @@
 ﻿#nullable enable
-using System.Drawing;
 using System.Windows.Forms;
 using EditStateSprite;
 
@@ -51,10 +50,10 @@ public partial class SpriteEditorWindow : Form
 
     private void SpriteEditorWindow_Paint(object sender, PaintEventArgs e)
     {
-        e.Graphics.Clear(Color.DarkGray);
+        e.Graphics.Clear(BackColor);
         var x = spriteEditorControl1.Width + spriteEditorControl1.Left + 5;
         var y = spriteEditorControl1.Top;
-        Sprite?.ColorMap.PaintPreview(e.Graphics, x, y);
+        Sprite.ColorMap.PaintPreview(e.Graphics, x, y);
     }
 
     private void SpriteEditorWindow_Enter(object sender, System.EventArgs e)

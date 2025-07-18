@@ -1,5 +1,4 @@
 ﻿#nullable enable
-
 namespace Sprdef2.Export.ExportLogic;
 
 public class ExportFormatComboItem

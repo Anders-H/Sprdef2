@@ -55,6 +55,7 @@
             this.cboSprite.Name = "cboSprite";
             this.cboSprite.Size = new System.Drawing.Size(256, 21);
             this.cboSprite.TabIndex = 1;
+            this.cboSprite.SelectedIndexChanged += new System.EventHandler(this.cboSprite_SelectedIndexChanged);
             // 
             // label2
             // 

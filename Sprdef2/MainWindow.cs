@@ -11,6 +11,7 @@ using EditStateSprite.Col;
 using EditStateSprite.SpriteModifiers;
 using Sprdef2.Export.ExportGui;
 using Sprdef2.Export.ExportLogic;
+using Sprdef2.MainWindowControllers;
 
 namespace Sprdef2;
 
@@ -66,47 +67,9 @@ public partial class MainWindow : Form
         };
 
         Sprites.Add(s);
-        CheckThatAllSpritesHasIsRepresentedInList();
+        SpriteListController.CheckThatAllSpritesIsRepresentedInList(Sprites, lvSpriteList);
         FireWindowForSprite(s);
         FindSpriteInSpriteList(s);
-    }
-
-    public void CheckThatAllSpritesHasIsRepresentedInList()
-    {
-        foreach (var sprite in Sprites)
-        {
-            bool again;
-
-            do
-            {
-                again = false;
-                var found = false;
-
-                foreach (ListViewItem listSpriteItem in lvSpriteList.Items)
-                {
-                    if (!(listSpriteItem.Tag is SpriteRoot listSprite))
-                    {
-                        lvSpriteList.Items.Remove(listSpriteItem);
-                        again = true;
-                        break;
-                    }
-
-                    if (listSprite == sprite)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (found)
-                    continue;
-
-                again = true;
-                var newItem = lvSpriteList.Items.Add(sprite.Name);
-                newItem.Tag = sprite;
-
-            } while (again);
-        }
     }
 
     public void FindSpriteInSpriteList(SpriteRoot sprite)
@@ -138,10 +101,8 @@ public partial class MainWindow : Form
         x.Show();
     }
 
-    private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-    {
+    private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>
         Close();
-    }
 
     private bool CanManipulateCurrentSprite(string text, out SpriteEditorWindow? w)
     {
@@ -173,6 +134,7 @@ public partial class MainWindow : Form
 
         using (var x = new PropertiesDialog())
         {
+            x.ParentForm = ActiveMdiChild;
             x.Sprite = w.Sprite;
             x.MultiColor = w.Sprite.MultiColor;
             x.ShowDialog(this);
@@ -684,26 +646,12 @@ public partial class MainWindow : Form
         }
     }
 
-    private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        const string url = @"https://github.com/Anders-H/Sprdef2";
-        var prompt = $@"Sprdef2 version {ApplicationVersion.ToString("n1", CultureInfo.InvariantCulture)}
+    private void aboutToolStripMenuItem_Click(object sender, EventArgs e) =>
+        HelpController.Help(this, Text);
 
-Do you want to visit {url}?";
-
-        if (MessageBox.Show(this, prompt, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
-            return;
-
-        try
-        {
-            System.Diagnostics.Process.Start(url);
-        }
-        catch
-        {
-            MessageBox.Show(this, $@"Failed to open {url}.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-    }
-
+    private void reportAnIssueToolStripMenuItem_Click(object sender, EventArgs e) =>
+        HelpController.ReportAnIssue(this, Text);
+    
     private void animateSpritesToolStripMenuItem_Click(object sender, EventArgs e)
     {
         timer1.Enabled = false;

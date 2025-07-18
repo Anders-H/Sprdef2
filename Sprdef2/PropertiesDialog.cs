@@ -8,6 +8,7 @@ namespace Sprdef2;
 
 public partial class PropertiesDialog : Form
 {
+    public Form? ParentForm { get; set; }
     public SpriteRoot Sprite { get; set; }
     public bool MultiColor { get; set; }
 
@@ -28,6 +29,7 @@ public partial class PropertiesDialog : Form
         txtPreviewX.Text = Sprite.PreviewOffsetX.ToString(CultureInfo.InvariantCulture);
         txtPreviewY.Text = Sprite.PreviewOffsetY.ToString(CultureInfo.InvariantCulture);
         cboBehaviourDuringAnimation.SelectedItem = PreviewAnimationBehaviourHelper.GetDescription(Sprite.PreviewAnimationBehaviour);
+        btnEditorBackgroundColor.Enabled = ParentForm != null;
     }
 
     private void btnOk_Click(object sender, System.EventArgs e)
@@ -64,5 +66,17 @@ public partial class PropertiesDialog : Form
 
         return x;
 
+    }
+
+    private void btnEditorBackgroundColor_Click(object sender, System.EventArgs e)
+    {
+        if (ParentForm == null)
+            return;
+
+        using var x = new ColorDialog();
+        x.Color = ParentForm.BackColor;
+
+        if (x.ShowDialog(this) == DialogResult.OK)
+            ParentForm.BackColor = x.Color;
     }
 }

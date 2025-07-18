@@ -7,13 +7,38 @@ namespace Sprdef2.Export.ExportGui;
 
 public partial class SpritePickerControl : UserControl
 {
+    private int _index;
+
     public SpritePickerControl()
     {
         InitializeComponent();
+        _index = -1;
         cboSprite.DisplayMember = nameof(Name);
     }
 
-    public SpriteRoot? Sprite { get; set; }
+    public SpriteRoot? Sprite {
+        get
+        {
+            if (_index < 0)
+                return null;
+
+            return cboSprite.Items[_index] as SpriteRoot;
+        }
+        set
+        {
+            if (value == null)
+            {
+                _index = -1;
+                cboSprite.SelectedIndex = -1;
+                picDelete.Visible = false;
+            }
+            else
+            {
+                _index = cboSprite.Items.IndexOf(value);
+                picDelete.Visible = _index >= 0;
+            }
+        }
+    }
 
     public void SetSprites(SpriteList sprites)
     {
@@ -34,10 +59,12 @@ public partial class SpritePickerControl : UserControl
             if (!int.TryParse(txtX.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out var x))
                 return 0;
 
-            if (x < 0)
-                x = 0;
-            else if (x > 255)
-                x = 255;
+            x = x switch
+            {
+                < 0 => 0,
+                > 255 => 255,
+                _ => x
+            };
 
             return x;
         }
@@ -45,10 +72,12 @@ public partial class SpritePickerControl : UserControl
         {
             var x = value;
 
-            if (x < 0)
-                x = 0;
-            else if (x > 255)
-                x = 255;
+            x = x switch
+            {
+                < 0 => 0,
+                > 255 => 255,
+                _ => x
+            };
 
             txtX.Text = x.ToString();
         }
@@ -72,10 +101,12 @@ public partial class SpritePickerControl : UserControl
         {
             var y = value;
 
-            if (y < 0)
-                y = 0;
-            else if (y > 511)
-                y = 511;
+            y = y switch
+            {
+                < 0 => 0,
+                > 511 => 511,
+                _ => y
+            };
 
             txtY.Text = y.ToString();
         }
@@ -84,6 +115,14 @@ public partial class SpritePickerControl : UserControl
     public bool IsMulticolor =>
         Sprite is { MultiColor: true };
 
-    private void picDelete_Click(object sender, System.EventArgs e) =>
+    private void picDelete_Click(object sender, System.EventArgs e)
+    {
         Sprite = null;
+        cboSprite.SelectedIndex = -1;
+    }
+
+    private void cboSprite_SelectedIndexChanged(object sender, System.EventArgs e)
+    {
+
+    }
 }
