@@ -62,6 +62,7 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportAnIssueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnNew = new System.Windows.Forms.ToolStripButton();
             this.btnOpen = new System.Windows.Forms.ToolStripButton();
@@ -81,7 +82,6 @@
             this.lvSpriteList = new System.Windows.Forms.ListView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.picPreview = new System.Windows.Forms.PictureBox();
-            this.reportAnIssueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
@@ -98,7 +98,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(941, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(837, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -346,9 +346,16 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // reportAnIssueToolStripMenuItem
+            // 
+            this.reportAnIssueToolStripMenuItem.Name = "reportAnIssueToolStripMenuItem";
+            this.reportAnIssueToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.reportAnIssueToolStripMenuItem.Text = "Report an issue...";
+            this.reportAnIssueToolStripMenuItem.Click += new System.EventHandler(this.reportAnIssueToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -370,7 +377,7 @@
             this.btnFlipTopDown});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(941, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(837, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -501,9 +508,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 592);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 424);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(941, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(837, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -515,7 +522,7 @@
             this.lvSpriteList.Location = new System.Drawing.Point(0, 49);
             this.lvSpriteList.MultiSelect = false;
             this.lvSpriteList.Name = "lvSpriteList";
-            this.lvSpriteList.Size = new System.Drawing.Size(121, 543);
+            this.lvSpriteList.Size = new System.Drawing.Size(121, 375);
             this.lvSpriteList.TabIndex = 5;
             this.lvSpriteList.UseCompatibleStateImageBehavior = false;
             this.lvSpriteList.View = System.Windows.Forms.View.List;
@@ -530,25 +537,18 @@
             // picPreview
             // 
             this.picPreview.Dock = System.Windows.Forms.DockStyle.Right;
-            this.picPreview.Location = new System.Drawing.Point(688, 49);
+            this.picPreview.Location = new System.Drawing.Point(584, 49);
             this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(253, 543);
+            this.picPreview.Size = new System.Drawing.Size(253, 375);
             this.picPreview.TabIndex = 6;
             this.picPreview.TabStop = false;
             this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
-            // 
-            // reportAnIssueToolStripMenuItem
-            // 
-            this.reportAnIssueToolStripMenuItem.Name = "reportAnIssueToolStripMenuItem";
-            this.reportAnIssueToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.reportAnIssueToolStripMenuItem.Text = "Report an issue...";
-            this.reportAnIssueToolStripMenuItem.Click += new System.EventHandler(this.reportAnIssueToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(941, 614);
+            this.ClientSize = new System.Drawing.Size(837, 446);
             this.Controls.Add(this.picPreview);
             this.Controls.Add(this.lvSpriteList);
             this.Controls.Add(this.statusStrip1);

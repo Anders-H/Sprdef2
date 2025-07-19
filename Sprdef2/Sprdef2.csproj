@@ -181,6 +181,7 @@
     <None Include="Resources\112_LeftArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\FlipHorizontalHS.png" />
     <None Include="Resources\FlipVerticalHS.png" />
+    <None Include="Resources\sprite.ico" />
     <Content Include="Sprdef2.ico" />
   </ItemGroup>
   <ItemGroup />

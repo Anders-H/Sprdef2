@@ -84,12 +84,14 @@ public partial class SpriteEditorWindow : Form
     {
         var mainWindow = ParentForm as MainWindow;
         mainWindow?.FindSpriteInSpriteList(Sprite);
+        Icon = Properties.Resources.sprite;
     }
 
     private void SpriteEditorWindow_Activated(object sender, System.EventArgs e)
     {
         var mainWindow = ParentForm as MainWindow;
         mainWindow?.FindSpriteInSpriteList(Sprite);
+        Icon = Properties.Resources.sprite;
     }
 
     private void colorPicker1_PaletteChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
@@ -97,5 +99,10 @@ public partial class SpriteEditorWindow : Form
         spriteEditorControl1.ModifyPalette(e.ButtonIndex, (ColorName)((int)e.ColorName));
         spriteEditorControl1.Focus();
         Refresh();
+    }
+
+    private void SpriteEditorWindow_Shown(object sender, System.EventArgs e)
+    {
+        Icon = Properties.Resources.sprite;
     }
 }

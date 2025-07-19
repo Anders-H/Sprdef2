@@ -98,7 +98,10 @@ public partial class MainWindow : Form
         var x = new SpriteEditorWindow();
         x.ConnectSprite(sprite);
         x.MdiParent = this;
+        x.Icon = Properties.Resources.sprite;
         x.Show();
+        x.WindowState = FormWindowState.Maximized;
+        x.Icon = Properties.Resources.sprite;
     }
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>

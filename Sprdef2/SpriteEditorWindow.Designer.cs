@@ -78,6 +78,7 @@
             this.Text = "Sprite";
             this.Activated += new System.EventHandler(this.SpriteEditorWindow_Activated);
             this.Load += new System.EventHandler(this.SpriteEditorWindow_Load);
+            this.Shown += new System.EventHandler(this.SpriteEditorWindow_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SpriteEditorWindow_Paint);
             this.Enter += new System.EventHandler(this.SpriteEditorWindow_Enter);
             this.ResumeLayout(false);
