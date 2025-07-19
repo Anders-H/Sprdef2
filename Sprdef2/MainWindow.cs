@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using EditStateSprite;
 using EditStateSprite.Col;
 using EditStateSprite.SpriteModifiers;
@@ -24,6 +25,7 @@ public partial class MainWindow : Form
     private int _currentAnimationCellIndex = -1;
     public static Palette Palette { get; }
     public static SpriteList Sprites { get; set; }
+    public static int NewSpriteIsMulticolor { get; set; }
     public static bool PreviewZoom { get; set; }
     public static float ApplicationVersion { get; }
 
@@ -31,6 +33,7 @@ public partial class MainWindow : Form
     {
         Palette = new Palette();
         Sprites = [];
+        NewSpriteIsMulticolor = 2;
         PreviewZoom = false;
         var versionString = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         var parts = versionString.Split('.');
@@ -50,12 +53,24 @@ public partial class MainWindow : Form
     {
         bool multicolor;
 
-        using (var add = new AddSpriteDialog())
+        switch (NewSpriteIsMulticolor)
         {
-            if (add.ShowDialog() != DialogResult.OK)
-                return;
+            case 0:
+                multicolor = false;
+                break;
+            case 1:
+                multicolor = true;
+                break;
+            default:
+                using (var add = new AddSpriteDialog())
+                {
+                    if (add.ShowDialog() != DialogResult.OK)
+                        return;
 
-            multicolor = add.Multicolor;
+                    multicolor = add.Multicolor;
+                }
+
+                break;
         }
 
         var s = new SpriteRoot(multicolor)
@@ -538,7 +553,7 @@ public partial class MainWindow : Form
     private void CheckOnlyExistingSpritesExistsInList()
     {
         var again = false;
-        IterateItems:
+    IterateItems:
 
         foreach (ListViewItem i in lvSpriteList.Items)
         {
@@ -567,7 +582,7 @@ public partial class MainWindow : Form
     private void CheckOnlyExistingSpritesAreOpenInEditor()
     {
         var again = false;
-        IterateItems:
+    IterateItems:
 
         foreach (var mdiChild in MdiChildren)
         {
@@ -610,38 +625,38 @@ public partial class MainWindow : Form
         switch (x.SelectedExportFormat)
         {
             case ExportFormat.CommodoreBasic20:
-            {
-                var selectedSprites = x.SelectedSprites;
-
-                if (selectedSprites.Count <= 0)
                 {
-                    MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    var selectedSprites = x.SelectedSprites;
+
+                    if (selectedSprites.Count <= 0)
+                    {
+                        MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    var result = new StringBuilder();
+                    var rowNumber = 10;
+                    var index = 0;
+
+                    foreach (var sprite in selectedSprites)
+                    {
+                        result.AppendLine(sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
+                        index++;
+                        rowNumber += 10;
+                    }
+
+                    Clipboard.SetText(result.ToString());
+
+                    MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
                 }
-
-                var result = new StringBuilder();
-                var rowNumber = 10;
-                var index = 0;
-
-                foreach (var sprite in selectedSprites)
-                {
-                    result.AppendLine(sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
-                    index++;
-                    rowNumber += 10;
-                }
-
-                Clipboard.SetText(result.ToString());
-
-                MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                break;
-            }
             case ExportFormat.DataStatements:
-            {
-                var result = new StringBuilder();
-                Clipboard.SetText(result.ToString());
-                MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                break;
-            }
+                {
+                    var result = new StringBuilder();
+                    Clipboard.SetText(result.ToString());
+                    MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                }
             case ExportFormat.DataOnlyPrg:
                 break;
             default:
@@ -654,7 +669,7 @@ public partial class MainWindow : Form
 
     private void reportAnIssueToolStripMenuItem_Click(object sender, EventArgs e) =>
         HelpController.ReportAnIssue(this, Text);
-    
+
     private void animateSpritesToolStripMenuItem_Click(object sender, EventArgs e)
     {
         timer1.Enabled = false;
@@ -723,5 +738,18 @@ public partial class MainWindow : Form
         lvSpriteList.Items.Remove(item);
         lvSpriteList.Items.Insert(index + 1, item);
         lvSpriteList.EndUpdate();
+    }
+
+    private void MainWindow_Load(object sender, EventArgs e)
+    {
+        NewSpriteIsMulticolor = Properties.Settings.Default.NewSpriteIsMulticolor;
+        PreviewZoom = Properties.Settings.Default.DoubleSizedPreview;
+    }
+
+    private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        Properties.Settings.Default.NewSpriteIsMulticolor = NewSpriteIsMulticolor;
+        Properties.Settings.Default.DoubleSizedPreview = PreviewZoom;
+        Properties.Settings.Default.Save();
     }
 }

@@ -30,6 +30,23 @@ public partial class ExportSpritesBasicDialog : Form
         spritePickerControl7.SetSprites(Sprites);
         spritePickerControl8.SetSprites(Sprites);
 
+        spritePickerControl1.X = 40;
+        spritePickerControl1.Y = 60;
+        spritePickerControl2.X = 64;
+        spritePickerControl2.Y = 60;
+        spritePickerControl3.X = 88;
+        spritePickerControl3.Y = 60;
+        spritePickerControl4.X = 112;
+        spritePickerControl4.Y = 60;
+        spritePickerControl5.X = 40;
+        spritePickerControl5.Y = 81;
+        spritePickerControl6.X = 64;
+        spritePickerControl6.Y = 81;
+        spritePickerControl7.X = 88;
+        spritePickerControl7.Y = 81;
+        spritePickerControl8.X = 112;
+        spritePickerControl8.Y = 81;
+
         foreach (var i in new ExportFormatComboItemList())
         {
             cboExportFormat.Items.Add(i);
