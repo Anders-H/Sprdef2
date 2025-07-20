@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using EditStateSprite;
 using EditStateSprite.Col;
 using EditStateSprite.SpriteModifiers;
@@ -49,75 +48,8 @@ public partial class MainWindow : Form
         InitializeComponent();
     }
 
-    private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        bool multicolor;
-
-        switch (NewSpriteIsMulticolor)
-        {
-            case 0:
-                multicolor = false;
-                break;
-            case 1:
-                multicolor = true;
-                break;
-            default:
-                using (var add = new AddSpriteDialog())
-                {
-                    if (add.ShowDialog() != DialogResult.OK)
-                        return;
-
-                    multicolor = add.Multicolor;
-                }
-
-                break;
-        }
-
-        var s = new SpriteRoot(multicolor)
-        {
-            Name = $@"Sprite {Sprites.Count} ({(multicolor ? "multicolor" : "monochrome")})".ToUpper(),
-            PreviewZoom = PreviewZoom,
-            PreviewOffsetX = 30,
-            PreviewOffsetY = 30,
-        };
-
-        Sprites.Add(s);
-        SpriteListController.CheckThatAllSpritesIsRepresentedInList(Sprites, lvSpriteList);
-        FireWindowForSprite(s);
-        FindSpriteInSpriteList(s);
-    }
-
-    public void FindSpriteInSpriteList(SpriteRoot sprite)
-    {
-        foreach (ListViewItem i in lvSpriteList.Items)
-        {
-            if (!(i.Tag is SpriteRoot s))
-                continue;
-
-            if (s != sprite)
-                continue;
-
-            lvSpriteList.SelectedItems.Clear();
-            i.Selected = true;
-            i.EnsureVisible();
-            return;
-        }
-
-        var item = lvSpriteList.Items.Add(sprite.Name);
-        item.Tag = sprite;
-        item.EnsureVisible();
-    }
-
-    public void FireWindowForSprite(SpriteRoot sprite)
-    {
-        var x = new SpriteEditorWindow();
-        x.ConnectSprite(sprite);
-        x.MdiParent = this;
-        x.Icon = Properties.Resources.sprite;
-        x.Show();
-        x.WindowState = FormWindowState.Maximized;
-        x.Icon = Properties.Resources.sprite;
-    }
+    private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e) =>
+        SpriteListController.AddSprite(this);
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>
         Close();
@@ -225,7 +157,7 @@ public partial class MainWindow : Form
         if (!found && lvSpriteList.SelectedItems.Count > 0)
         {
             var s1 = (SpriteRoot)lvSpriteList.SelectedItems[0].Tag;
-            FireWindowForSprite(s1);
+            SpriteListController.FireWindowForSprite(s1, this);
         }
 
         _changingFocusBecauseOfSpriteListUsage = false;
@@ -650,15 +582,16 @@ public partial class MainWindow : Form
                     MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 }
-            case ExportFormat.DataStatements:
-                {
-                    var result = new StringBuilder();
-                    Clipboard.SetText(result.ToString());
-                    MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                }
-            case ExportFormat.DataOnlyPrg:
-                break;
+            //case ExportFormat.DataStatements:
+            //    {
+            //        var result = new StringBuilder();
+            //        // What?
+            //        Clipboard.SetText(result.ToString());
+            //        MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        break;
+            //    }
+            //case ExportFormat.DataOnlyPrg:
+            //    break;
             default:
                 throw new ArgumentOutOfRangeException();
         }

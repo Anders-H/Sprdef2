@@ -7,35 +7,31 @@ namespace Sprdef2.Export.ExportGui;
 
 public partial class SpritePickerControl : UserControl
 {
-    private int _index;
-
     public SpritePickerControl()
     {
         InitializeComponent();
-        _index = -1;
         cboSprite.DisplayMember = nameof(Name);
     }
 
     public SpriteRoot? Sprite {
         get
         {
-            if (_index < 0)
+            if (cboSprite.SelectedIndex < 0)
                 return null;
 
-            return cboSprite.Items[_index] as SpriteRoot;
+            return cboSprite.Items[cboSprite.SelectedIndex] as SpriteRoot;
         }
         set
         {
             if (value == null)
             {
-                _index = -1;
                 cboSprite.SelectedIndex = -1;
                 picDelete.Visible = false;
             }
             else
             {
-                _index = cboSprite.Items.IndexOf(value);
-                picDelete.Visible = _index >= 0;
+                cboSprite.SelectedIndex = cboSprite.Items.IndexOf(value);
+                picDelete.Visible = cboSprite.SelectedIndex >= 0;
             }
         }
     }
@@ -123,6 +119,22 @@ public partial class SpritePickerControl : UserControl
 
     private void cboSprite_SelectedIndexChanged(object sender, System.EventArgs e)
     {
+        if (Sprite == null)
+            return;
 
+        txtX.Text = Sprite.X.ToString(CultureInfo.CurrentCulture);
+        txtY.Text = Sprite.Y.ToString(CultureInfo.CurrentCulture);
+    }
+
+    public void StoreLocation()
+    {
+        if (Sprite == null)
+            return;
+
+        if (int.TryParse(txtX.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out var x))
+            Sprite.X = x;
+
+        if (int.TryParse(txtY.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out var y))
+            Sprite.Y = y;
     }
 }

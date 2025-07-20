@@ -1,6 +1,7 @@
 ﻿#nullable enable
-using System.Windows.Forms;
 using EditStateSprite;
+using Sprdef2.MainWindowControllers;
+using System.Windows.Forms;
 
 namespace Sprdef2;
 
@@ -82,15 +83,13 @@ public partial class SpriteEditorWindow : Form
 
     private void SpriteEditorWindow_Load(object sender, System.EventArgs e)
     {
-        var mainWindow = ParentForm as MainWindow;
-        mainWindow?.FindSpriteInSpriteList(Sprite);
+        SpriteListController.FindSpriteInSpriteList(Sprite, this);
         Icon = Properties.Resources.sprite;
     }
 
     private void SpriteEditorWindow_Activated(object sender, System.EventArgs e)
     {
-        var mainWindow = ParentForm as MainWindow;
-        mainWindow?.FindSpriteInSpriteList(Sprite);
+        SpriteListController.FindSpriteInSpriteList(Sprite, this);
         Icon = Properties.Resources.sprite;
     }
 

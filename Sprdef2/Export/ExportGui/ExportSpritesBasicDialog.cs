@@ -10,8 +10,8 @@ namespace Sprdef2.Export.ExportGui;
 
 public partial class ExportSpritesBasicDialog : Form
 {
-    public SpriteList Sprites { get; set; }
-    public List<SpriteRoot> SelectedSprites { get; set; }
+    public SpriteList? Sprites { get; set; }
+    public List<SpriteRoot>? SelectedSprites { get; set; }
     public ExportFormat SelectedExportFormat { get; private set; }
 
     public ExportSpritesBasicDialog()
@@ -21,6 +21,9 @@ public partial class ExportSpritesBasicDialog : Form
 
     private void ExportSpritesBasicDialog_Load(object sender, EventArgs e)
     {
+        if (Sprites == null)
+            throw new InvalidOperationException("Sprites property must be set before loading the dialog.");
+
         spritePickerControl1.SetSprites(Sprites);
         spritePickerControl2.SetSprites(Sprites);
         spritePickerControl3.SetSprites(Sprites);
@@ -29,23 +32,6 @@ public partial class ExportSpritesBasicDialog : Form
         spritePickerControl6.SetSprites(Sprites);
         spritePickerControl7.SetSprites(Sprites);
         spritePickerControl8.SetSprites(Sprites);
-
-        spritePickerControl1.X = 40;
-        spritePickerControl1.Y = 60;
-        spritePickerControl2.X = 64;
-        spritePickerControl2.Y = 60;
-        spritePickerControl3.X = 88;
-        spritePickerControl3.Y = 60;
-        spritePickerControl4.X = 112;
-        spritePickerControl4.Y = 60;
-        spritePickerControl5.X = 40;
-        spritePickerControl5.Y = 81;
-        spritePickerControl6.X = 64;
-        spritePickerControl6.Y = 81;
-        spritePickerControl7.X = 88;
-        spritePickerControl7.Y = 81;
-        spritePickerControl8.X = 112;
-        spritePickerControl8.Y = 81;
 
         foreach (var i in new ExportFormatComboItemList())
         {
@@ -58,6 +44,15 @@ public partial class ExportSpritesBasicDialog : Form
 
     private void btnOk_Click(object sender, EventArgs e)
     {
+        spritePickerControl1.StoreLocation();
+        spritePickerControl2.StoreLocation();
+        spritePickerControl3.StoreLocation();
+        spritePickerControl4.StoreLocation();
+        spritePickerControl5.StoreLocation();
+        spritePickerControl6.StoreLocation();
+        spritePickerControl7.StoreLocation();
+        spritePickerControl8.StoreLocation();
+
         if (SelectedExportFormat == ExportFormat.CommodoreBasic20)
         {
             if (spritePickerControl1.Sprite == null
@@ -111,28 +106,28 @@ public partial class ExportSpritesBasicDialog : Form
     {
         var multicolorSprites = new List<SpriteRoot>();
 
-        if (spritePickerControl1.IsMulticolor)
+        if (spritePickerControl1.IsMulticolor && spritePickerControl1.Sprite != null)
             multicolorSprites.Add(spritePickerControl1.Sprite);
 
-        if (spritePickerControl2.IsMulticolor)
+        if (spritePickerControl2.IsMulticolor && spritePickerControl2.Sprite != null)
             multicolorSprites.Add(spritePickerControl2.Sprite);
 
-        if (spritePickerControl3.IsMulticolor)
+        if (spritePickerControl3.IsMulticolor && spritePickerControl3.Sprite != null)
             multicolorSprites.Add(spritePickerControl3.Sprite);
 
-        if (spritePickerControl4.IsMulticolor)
+        if (spritePickerControl4.IsMulticolor && spritePickerControl4.Sprite != null)
             multicolorSprites.Add(spritePickerControl4.Sprite);
 
-        if (spritePickerControl5.IsMulticolor)
+        if (spritePickerControl5.IsMulticolor && spritePickerControl5.Sprite != null)
             multicolorSprites.Add(spritePickerControl5.Sprite);
 
-        if (spritePickerControl6.IsMulticolor)
+        if (spritePickerControl6.IsMulticolor && spritePickerControl6.Sprite != null)
             multicolorSprites.Add(spritePickerControl6.Sprite);
 
-        if (spritePickerControl7.IsMulticolor)
+        if (spritePickerControl7.IsMulticolor && spritePickerControl7.Sprite != null)
             multicolorSprites.Add(spritePickerControl7.Sprite);
 
-        if (spritePickerControl8.IsMulticolor)
+        if (spritePickerControl8.IsMulticolor && spritePickerControl8.Sprite != null)
             multicolorSprites.Add(spritePickerControl8.Sprite);
 
         if (multicolorSprites.Count < 2)
@@ -170,28 +165,28 @@ public partial class ExportSpritesBasicDialog : Form
                 spritePickerControl8.Enabled = true;
                 Text = @"Export sprites to Commodore BASIC 2.0 (Commodore 64)";
                 break;
-            case ExportFormat.DataStatements:
-                spritePickerControl1.Enabled = false;
-                spritePickerControl2.Enabled = false;
-                spritePickerControl3.Enabled = false;
-                spritePickerControl4.Enabled = false;
-                spritePickerControl5.Enabled = false;
-                spritePickerControl6.Enabled = false;
-                spritePickerControl7.Enabled = false;
-                spritePickerControl8.Enabled = false;
-                Text = @"Export sprites to DATA statements (Commodore 64/128)";
-                break;
-            case ExportFormat.DataOnlyPrg:
-                spritePickerControl1.Enabled = false;
-                spritePickerControl2.Enabled = false;
-                spritePickerControl3.Enabled = false;
-                spritePickerControl4.Enabled = false;
-                spritePickerControl5.Enabled = false;
-                spritePickerControl6.Enabled = false;
-                spritePickerControl7.Enabled = false;
-                spritePickerControl8.Enabled = false;
-                Text = @"Export sprites as PRG file";
-                break;
+            //case ExportFormat.DataStatements:
+            //    spritePickerControl1.Enabled = false;
+            //    spritePickerControl2.Enabled = false;
+            //    spritePickerControl3.Enabled = false;
+            //    spritePickerControl4.Enabled = false;
+            //    spritePickerControl5.Enabled = false;
+            //    spritePickerControl6.Enabled = false;
+            //    spritePickerControl7.Enabled = false;
+            //    spritePickerControl8.Enabled = false;
+            //    Text = @"Export sprites to DATA statements (Commodore 64/128)";
+            //    break;
+            //case ExportFormat.DataOnlyPrg:
+            //    spritePickerControl1.Enabled = false;
+            //    spritePickerControl2.Enabled = false;
+            //    spritePickerControl3.Enabled = false;
+            //    spritePickerControl4.Enabled = false;
+            //    spritePickerControl5.Enabled = false;
+            //    spritePickerControl6.Enabled = false;
+            //    spritePickerControl7.Enabled = false;
+            //    spritePickerControl8.Enabled = false;
+            //    Text = @"Export sprites as PRG file";
+            //    break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
