@@ -104,4 +104,22 @@ public partial class SpriteEditorWindow : Form
     {
         Icon = Properties.Resources.sprite;
     }
+
+    private void radioPixelTool_CheckedChanged(object sender, System.EventArgs e)
+    {
+        if (radioPixelTool.Checked)
+        {
+            spriteEditorControl1.SetEditorTool(EditorToolEnum.PixelEditor);
+            spriteEditorControl1.Focus();
+        }
+    }
+
+    private void radioFreeHand_CheckedChanged(object sender, System.EventArgs e)
+    {
+        if (radioFreeHand.Checked)
+        {
+            spriteEditorControl1.SetEditorTool(EditorToolEnum.FreeHand);
+            spriteEditorControl1.Focus();
+        }
+    }
 }

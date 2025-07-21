@@ -153,6 +153,16 @@ namespace Sprdef2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FreeHandTool {
+            get {
+                object obj = ResourceManager.GetObject("FreeHandTool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewDocumentHS {
             get {
                 object obj = ResourceManager.GetObject("NewDocumentHS", resourceCulture);
@@ -166,6 +176,16 @@ namespace Sprdef2.Properties {
         internal static System.Drawing.Bitmap openHS {
             get {
                 object obj = ResourceManager.GetObject("openHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PixelEditorIcon {
+            get {
+                object obj = ResourceManager.GetObject("PixelEditorIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

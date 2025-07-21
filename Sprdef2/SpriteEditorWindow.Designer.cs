@@ -32,6 +32,8 @@
             this.spriteEditorControl1 = new EditStateSprite.SpriteEditorControl();
             this.btnProperties = new System.Windows.Forms.Button();
             this.colorPicker1 = new C64ColorControls.ColorPicker();
+            this.radioPixelTool = new System.Windows.Forms.RadioButton();
+            this.radioFreeHand = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // spriteEditorControl1
@@ -39,16 +41,16 @@
             this.spriteEditorControl1.Location = new System.Drawing.Point(4, 32);
             this.spriteEditorControl1.Name = "spriteEditorControl1";
             this.spriteEditorControl1.Size = new System.Drawing.Size(359, 314);
-            this.spriteEditorControl1.TabIndex = 0;
+            this.spriteEditorControl1.TabIndex = 4;
             this.spriteEditorControl1.Text = "spriteEditorControl1";
             this.spriteEditorControl1.SpriteChanged += new EditStateSprite.SpriteChangedDelegate(this.spriteEditorControl1_SpriteChanged);
             // 
             // btnProperties
             // 
-            this.btnProperties.Location = new System.Drawing.Point(272, 4);
+            this.btnProperties.Location = new System.Drawing.Point(264, 4);
             this.btnProperties.Name = "btnProperties";
-            this.btnProperties.Size = new System.Drawing.Size(92, 25);
-            this.btnProperties.TabIndex = 2;
+            this.btnProperties.Size = new System.Drawing.Size(100, 25);
+            this.btnProperties.TabIndex = 3;
             this.btnProperties.Text = "Properties...";
             this.btnProperties.UseVisualStyleBackColor = true;
             this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
@@ -58,10 +60,34 @@
             this.colorPicker1.Location = new System.Drawing.Point(0, 4);
             this.colorPicker1.MultiColor = false;
             this.colorPicker1.Name = "colorPicker1";
-            this.colorPicker1.Size = new System.Drawing.Size(268, 28);
-            this.colorPicker1.TabIndex = 1;
+            this.colorPicker1.Size = new System.Drawing.Size(216, 28);
+            this.colorPicker1.TabIndex = 0;
             this.colorPicker1.SelectedColorChanged += new C64ColorControls.SelectedColorChangedDelegate(this.colorPicker1_SelectedColorChanged);
             this.colorPicker1.PaletteChanged += new C64ColorControls.PaletteChangedDelegate(this.colorPicker1_PaletteChanged);
+            // 
+            // radioPixelTool
+            // 
+            this.radioPixelTool.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioPixelTool.Checked = true;
+            this.radioPixelTool.Image = global::Sprdef2.Properties.Resources.PixelEditorIcon;
+            this.radioPixelTool.Location = new System.Drawing.Point(216, 4);
+            this.radioPixelTool.Name = "radioPixelTool";
+            this.radioPixelTool.Size = new System.Drawing.Size(24, 24);
+            this.radioPixelTool.TabIndex = 1;
+            this.radioPixelTool.TabStop = true;
+            this.radioPixelTool.UseVisualStyleBackColor = true;
+            this.radioPixelTool.CheckedChanged += new System.EventHandler(this.radioPixelTool_CheckedChanged);
+            // 
+            // radioFreeHand
+            // 
+            this.radioFreeHand.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioFreeHand.Image = global::Sprdef2.Properties.Resources.FreeHandTool;
+            this.radioFreeHand.Location = new System.Drawing.Point(240, 4);
+            this.radioFreeHand.Name = "radioFreeHand";
+            this.radioFreeHand.Size = new System.Drawing.Size(24, 24);
+            this.radioFreeHand.TabIndex = 2;
+            this.radioFreeHand.UseVisualStyleBackColor = true;
+            this.radioFreeHand.CheckedChanged += new System.EventHandler(this.radioFreeHand_CheckedChanged);
             // 
             // SpriteEditorWindow
             // 
@@ -69,6 +95,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(475, 349);
+            this.Controls.Add(this.radioFreeHand);
+            this.Controls.Add(this.radioPixelTool);
             this.Controls.Add(this.btnProperties);
             this.Controls.Add(this.spriteEditorControl1);
             this.Controls.Add(this.colorPicker1);
@@ -90,5 +118,7 @@
         private EditStateSprite.SpriteEditorControl spriteEditorControl1;
         private System.Windows.Forms.Button btnProperties;
         private C64ColorControls.ColorPicker colorPicker1;
+        private System.Windows.Forms.RadioButton radioPixelTool;
+        private System.Windows.Forms.RadioButton radioFreeHand;
     }
 }
