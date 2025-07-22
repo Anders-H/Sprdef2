@@ -177,7 +177,7 @@
     <None Include="Resources\PropertiesHS.png" />
     <None Include="Resources\DeleteRed.png" />
     <None Include="README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\112_UpArrowLong_Blue_16x16_72.png" />
     <None Include="Resources\112_RightArrowLong_Blue_16x16_72.png" />
