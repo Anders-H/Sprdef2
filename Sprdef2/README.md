@@ -12,6 +12,6 @@ Download version 1.1: [SetupSprdef2.exe](https://github.com/Anders-H/Sprdef2/blo
 
 ## Version history
 
-1.2: Free hand editing, better sprite preview options and fixed an export bug.
+1.2: Free hand editing, better sprite preview options and fixed an export bug. Use right mouse button to delete a pixel.
 
 1.1: New keyboard shortcuts, and added animation view.
