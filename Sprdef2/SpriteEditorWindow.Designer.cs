@@ -44,6 +44,7 @@
             this.spriteEditorControl1.TabIndex = 4;
             this.spriteEditorControl1.Text = "spriteEditorControl1";
             this.spriteEditorControl1.SpriteChanged += new EditStateSprite.SpriteChangedDelegate(this.spriteEditorControl1_SpriteChanged);
+            this.spriteEditorControl1.ZoomChanged += new EditStateSprite.ZoomChangedDelegate(this.spriteEditorControl1_ZoomChanged);
             // 
             // btnProperties
             // 

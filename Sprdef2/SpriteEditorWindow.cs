@@ -1,6 +1,8 @@
 ﻿#nullable enable
 using EditStateSprite;
 using Sprdef2.MainWindowControllers;
+using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Sprdef2;
@@ -45,7 +47,8 @@ public partial class SpriteEditorWindow : Form
 
     private void colorPicker1_SelectedColorChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
     {
-        spriteEditorControl1.SetCurrentColorIndex(e.ButtonIndex);
+        spriteEditorControl1.SetCurrentColorIndex(e.ButtonIndexPrimary);
+        spriteEditorControl1.SetSecondaryColorIndex(e.ButtonIndexSecondary);
         spriteEditorControl1.Focus();
     }
 
@@ -57,7 +60,7 @@ public partial class SpriteEditorWindow : Form
         Sprite.ColorMap.PaintPreview(e.Graphics, x, y);
     }
 
-    private void SpriteEditorWindow_Enter(object sender, System.EventArgs e)
+    private void SpriteEditorWindow_Enter(object sender, EventArgs e)
     {
         ((MainWindow)MdiParent).SpriteWindowChanged(Sprite);
         spriteEditorControl1.Focus();
@@ -69,7 +72,7 @@ public partial class SpriteEditorWindow : Form
     public void Flip(TwoWayDirection direction) =>
         spriteEditorControl1.Flip(direction);
 
-    private void btnProperties_Click(object sender, System.EventArgs e)
+    private void btnProperties_Click(object sender, EventArgs e)
     {
         ((MainWindow)MdiParent).propertiesToolStripMenuItem_Click(sender, e);
         FixWindowText();
@@ -81,13 +84,13 @@ public partial class SpriteEditorWindow : Form
     private void FixWindowText() =>
         Text = string.IsNullOrWhiteSpace(Sprite.Name) ? "Sprite" : $@"Sprite: {Sprite.Name}";
 
-    private void SpriteEditorWindow_Load(object sender, System.EventArgs e)
+    private void SpriteEditorWindow_Load(object sender, EventArgs e)
     {
         SpriteListController.FindSpriteInSpriteList(Sprite, this);
         Icon = Properties.Resources.sprite;
     }
 
-    private void SpriteEditorWindow_Activated(object sender, System.EventArgs e)
+    private void SpriteEditorWindow_Activated(object sender, EventArgs e)
     {
         SpriteListController.FindSpriteInSpriteList(Sprite, this);
         Icon = Properties.Resources.sprite;
@@ -95,17 +98,22 @@ public partial class SpriteEditorWindow : Form
 
     private void colorPicker1_PaletteChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
     {
-        spriteEditorControl1.ModifyPalette(e.ButtonIndex, (ColorName)((int)e.ColorName));
+        if (e.ButtonIndexPrimary is >= 0 and < 4)
+            spriteEditorControl1.ModifyPalette(e.ButtonIndexPrimary, (ColorName)((int)e.ColorNamePrimary));
+
+        if (e.ButtonIndexSecondary is >= 0 and < 4)
+            spriteEditorControl1.ModifyPalette(e.ButtonIndexSecondary, (ColorName)((int)e.ColorNameSecondary));
+
         spriteEditorControl1.Focus();
         Refresh();
     }
 
-    private void SpriteEditorWindow_Shown(object sender, System.EventArgs e)
+    private void SpriteEditorWindow_Shown(object sender, EventArgs e)
     {
         Icon = Properties.Resources.sprite;
     }
 
-    private void radioPixelTool_CheckedChanged(object sender, System.EventArgs e)
+    private void radioPixelTool_CheckedChanged(object sender, EventArgs e)
     {
         if (radioPixelTool.Checked)
         {
@@ -114,12 +122,17 @@ public partial class SpriteEditorWindow : Form
         }
     }
 
-    private void radioFreeHand_CheckedChanged(object sender, System.EventArgs e)
+    private void radioFreeHand_CheckedChanged(object sender, EventArgs e)
     {
         if (radioFreeHand.Checked)
         {
             spriteEditorControl1.SetEditorTool(EditorToolEnum.FreeHand);
             spriteEditorControl1.Focus();
         }
+    }
+
+    private void spriteEditorControl1_ZoomChanged(object sender, EventArgs e)
+    {
+        Invalidate();
     }
 }

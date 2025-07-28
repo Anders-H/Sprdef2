@@ -38,8 +38,12 @@
     <ApplicationIcon>Sprdef2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C64Color, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="C64ColorControls">
+    <Reference Include="C64Color, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\C64Color\C64Color\bin\Release\C64Color.dll</HintPath>
+    </Reference>
+    <Reference Include="C64ColorControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\C64Color\C64ColorControls\bin\Release\C64ColorControls.dll</HintPath>
     </Reference>
     <Reference Include="EditStateSprite, Version=1.20.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -167,8 +171,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ToolGraphics\FreeHandTool.png" />
-    <None Include="ToolGraphics\PixelEditorIcon.png" />
     <None Include="Resources\add2-16.png" />
     <None Include="Resources\NewDocumentHS.png" />
     <None Include="Resources\openHS.png" />

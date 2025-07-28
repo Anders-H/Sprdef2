@@ -46,5 +46,17 @@ namespace Sprdef2.Properties {
                 this["DoubleSizedPreview"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DarkModeEnabled {
+            get {
+                return ((bool)(this["DarkModeEnabled"]));
+            }
+            set {
+                this["DarkModeEnabled"] = value;
+            }
+        }
     }
 }

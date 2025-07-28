@@ -1,22 +1,60 @@
 ﻿#nullable enable
-using System;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.Col;
 using EditStateSprite.SpriteModifiers;
 using Sprdef2.Export.ExportGui;
 using Sprdef2.Export.ExportLogic;
 using Sprdef2.MainWindowControllers;
+using System;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Sprdef2;
 
 public partial class MainWindow : Form
 {
+    [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
+    public static extern int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
+
+    [DllImport("dwmapi.dll")]
+    public static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
+
+    [Flags]
+    public enum DwmWindowAttribute : uint
+    {
+        DWMWA_NCRENDERING_ENABLED,
+        DWMWA_NCRENDERING_POLICY,
+        DWMWA_TRANSITIONS_FORCEDISABLED,
+        DWMWA_ALLOW_NCPAINT,
+        DWMWA_CAPTION_BUTTON_BOUNDS,
+        DWMWA_NONCLIENT_RTL_LAYOUT,
+        DWMWA_FORCE_ICONIC_REPRESENTATION,
+        DWMWA_FLIP3D_POLICY,
+        DWMWA_EXTENDED_FRAME_BOUNDS,
+        DWMWA_HAS_ICONIC_BITMAP,
+        DWMWA_DISALLOW_PEEK,
+        DWMWA_EXCLUDED_FROM_PEEK,
+        DWMWA_CLOAK,
+        DWMWA_CLOAKED,
+        DWMWA_FREEZE_REPRESENTATION,
+        DWMWA_PASSIVE_UPDATE_MODE,
+        DWMWA_USE_HOSTBACKDROPBRUSH,
+        DWMWA_USE_IMMERSIVE_DARK_MODE = 20,
+        DWMWA_WINDOW_CORNER_PREFERENCE = 33,
+        DWMWA_BORDER_COLOR,
+        DWMWA_CAPTION_COLOR,
+        DWMWA_TEXT_COLOR,
+        DWMWA_VISIBLE_FRAME_BORDER_THICKNESS,
+        DWMWA_SYSTEMBACKDROP_TYPE,
+        DWMWA_LAST,
+        DWMWA_MICA_EFFECT = 1029
+    }
+
     private string _filename;
     private bool _changingFocusBecauseOfSpriteListUsage;
     private bool _changingFocusBecauseOfSpriteWindowChange;
@@ -26,6 +64,7 @@ public partial class MainWindow : Form
     public static SpriteList Sprites { get; set; }
     public static int NewSpriteIsMulticolor { get; set; }
     public static bool PreviewZoom { get; set; }
+    public static bool DarkModeEnabled { get; set; }
     public static float ApplicationVersion { get; }
 
     static MainWindow()
@@ -122,6 +161,8 @@ public partial class MainWindow : Form
 
         foreach (var mdiChild in MdiChildren)
             mdiChild.Invalidate();
+
+        ApplyDarkMode();
     }
 
     private void lvSpriteList_SelectedIndexChanged(object sender, EventArgs e)
@@ -560,7 +601,7 @@ public partial class MainWindow : Form
                 {
                     var selectedSprites = x.SelectedSprites;
 
-                    if (selectedSprites.Count <= 0)
+                    if (selectedSprites is not { Count: > 0 })
                     {
                         MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
@@ -677,12 +718,90 @@ public partial class MainWindow : Form
     {
         NewSpriteIsMulticolor = Properties.Settings.Default.NewSpriteIsMulticolor;
         PreviewZoom = Properties.Settings.Default.DoubleSizedPreview;
+#if DEBUG
+        DarkModeEnabled = Properties.Settings.Default.DarkModeEnabled;
+#else
+        DarkModeEnabled = false;
+#endif
+        ApplyDarkMode();
     }
 
     private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
     {
         Properties.Settings.Default.NewSpriteIsMulticolor = NewSpriteIsMulticolor;
         Properties.Settings.Default.DoubleSizedPreview = PreviewZoom;
+#if DEBUG
+        Properties.Settings.Default.DarkModeEnabled = DarkModeEnabled;
+#else
+        Properties.Settings.Default.DarkModeEnabled = false;
+#endif
         Properties.Settings.Default.Save();
+    }
+
+    private void ApplyDarkMode()
+    {
+        ThemeAllControls(this);
+
+        void ThemeAllControls(Control parent = null)
+        {
+            parent = parent ?? this;
+
+            Action<Control> Theme = control => {
+                var trueValue = 0x01;
+                var falseValue = 0x00;
+
+                if (DarkModeEnabled)
+                {
+                    SetWindowTheme(control.Handle, "DarkMode_Explorer", null);
+                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DWMWA_USE_IMMERSIVE_DARK_MODE, ref trueValue, Marshal.SizeOf(typeof(int)));
+                }
+                else
+                {
+                    SetWindowTheme(control.Handle, "LightMode_Explorer", null);
+                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DWMWA_USE_IMMERSIVE_DARK_MODE, ref falseValue, Marshal.SizeOf(typeof(int)));
+                }
+
+                DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DWMWA_MICA_EFFECT, ref trueValue, Marshal.SizeOf(typeof(int)));
+                Refresh();
+            };
+            
+            if (parent == this)
+                Theme(this);
+            
+            foreach (Control control in parent.Controls)
+            {
+                Theme(control);
+                
+                if (control.Controls.Count != 0)
+                    ThemeAllControls(control);
+            }
+        }
+
+        if (DarkModeEnabled)
+        {
+            menuStrip1.BackColor = Color.Black;
+            menuStrip1.ForeColor = Color.DimGray;
+            toolStrip1.BackColor = Color.FromArgb(60, 60, 60);
+            statusStrip1.BackColor = Color.Black;
+            statusStrip1.ForeColor = Color.DimGray;
+            BackColor = Color.FromArgb(30, 30, 30);
+            ForeColor = Color.White;
+            lvSpriteList.BackColor = Color.FromArgb(40, 40, 40);
+            lvSpriteList.ForeColor = Color.White;
+            Refresh();
+        }
+        else
+        {
+            menuStrip1.BackColor = SystemColors.Control;
+            menuStrip1.ForeColor = SystemColors.ControlText;
+            toolStrip1.BackColor = SystemColors.Control;
+            statusStrip1.BackColor = SystemColors.Control;
+            statusStrip1.ForeColor = SystemColors.ControlText;
+            BackColor = SystemColors.Control;
+            ForeColor = SystemColors.ControlText;
+            lvSpriteList.BackColor = SystemColors.Window;
+            lvSpriteList.ForeColor = SystemColors.WindowText;
+            Refresh();
+        }
     }
 }
