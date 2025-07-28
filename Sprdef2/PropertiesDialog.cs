@@ -1,8 +1,10 @@
 ﻿#nullable enable
-using System.Globalization;
-using System.Windows.Forms;
 using EditStateSprite;
 using EditStateSprite.SpriteModifiers;
+using System.Collections;
+using System.Globalization;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Sprdef2;
 
@@ -30,6 +32,54 @@ public partial class PropertiesDialog : Form
         txtPreviewY.Text = Sprite.PreviewOffsetY.ToString(CultureInfo.InvariantCulture);
         cboBehaviourDuringAnimation.SelectedItem = PreviewAnimationBehaviourHelper.GetDescription(Sprite.PreviewAnimationBehaviour);
         btnEditorBackgroundColor.Enabled = ParentForm != null;
+
+        var bytes = Sprite.GetBytes();
+        var s = new StringBuilder();
+        s.AppendLine("Bits:");
+
+        for (var i = 0; i < bytes.Length; i++)
+        {
+            var bits = new BitArray(new byte[] { bytes[i] });
+            var bitsString = new StringBuilder();
+            
+            for (var j = 7; j >= 0; j--)
+                bitsString.Append(bits[j] ? '1' : '0');
+
+            s.Append(bitsString);
+
+            if (i % 3 == 2)
+                s.AppendLine();
+            else
+                s.Append(' ');
+        }
+
+        s.AppendLine();
+        s.AppendLine("Bytes (hex):");
+
+        for (var i = 0; i < bytes.Length; i++)
+        {
+            s.Append(bytes[i].ToString("X2", CultureInfo.InvariantCulture));
+
+            if (i % 3 == 2)
+                s.AppendLine();
+            else
+                s.Append(' ');
+        }
+
+        s.AppendLine();
+        s.AppendLine("Bytes (dec):");
+
+        for (var i = 0; i < bytes.Length; i++)
+        {
+            s.Append(bytes[i].ToString("000", CultureInfo.InvariantCulture));
+
+            if (i % 3 == 2)
+                s.AppendLine();
+            else
+                s.Append(' ');
+        }
+
+        txtBytes.Text = s.ToString();
     }
 
     private void btnOk_Click(object sender, System.EventArgs e)

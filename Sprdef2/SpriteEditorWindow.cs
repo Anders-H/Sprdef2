@@ -2,7 +2,6 @@
 using EditStateSprite;
 using Sprdef2.MainWindowControllers;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Sprdef2;
