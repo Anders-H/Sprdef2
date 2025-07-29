@@ -190,6 +190,7 @@ public partial class MainWindow : Form
                 sew.BringToFront();
                 sew.Focus();
                 ActivateMdiChild(sew);
+                CreateListItemPreview(s1, lvSpriteList.SelectedItems[0]);
                 found = true;
                 break;
             }
@@ -218,12 +219,52 @@ public partial class MainWindow : Form
             if (s != sprite)
                 continue;
 
-            listViewItem.Selected = false;
+            listViewItem.Selected = true;
             listViewItem.EnsureVisible();
             break;
         }
 
         _changingFocusBecauseOfSpriteWindowChange = false;
+    }
+
+    private void CreateListItemPreview(SpriteRoot s, ListViewItem item)
+    {
+        var image = s.GetBitmap16x16NoAttributes();
+        imageList1.Images.Add(image);
+        item.ImageIndex = imageList1.Images.Count - 1;
+        //DisposeUnusedImages(); // TODO: Memory leak must be fixed
+        //DisposeUnusedImages();
+        //DisposeUnusedImages();
+    }
+
+    private void DisposeUnusedImages()
+    {
+        if (imageList1.Images.Count <= 0)
+            return;
+
+        for (var i = 0; i < imageList1.Images.Count; i++)
+        {
+            if (ImageIsInUse(i))
+                continue;
+
+            var image = imageList1.Images[i];
+            imageList1.Images.RemoveAt(i);
+            image.Dispose();
+            break;
+        }
+
+        System.Diagnostics.Debug.WriteLine(imageList1.Images.Count);
+    }
+
+    private bool ImageIsInUse(int imageIndex)
+    {
+        foreach (ListViewItem listViewItem in lvSpriteList.Items)
+        {
+            if (listViewItem.ImageIndex == imageIndex)
+                return true;
+        }
+
+        return false;
     }
 
     private void scrollUpToolStripMenuItem_Click(object sender, EventArgs e)

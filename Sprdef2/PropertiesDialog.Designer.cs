@@ -182,6 +182,7 @@
             this.txtBytes.Location = new System.Drawing.Point(300, 8);
             this.txtBytes.Multiline = true;
             this.txtBytes.Name = "txtBytes";
+            this.txtBytes.ReadOnly = true;
             this.txtBytes.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtBytes.Size = new System.Drawing.Size(304, 344);
             this.txtBytes.TabIndex = 12;
