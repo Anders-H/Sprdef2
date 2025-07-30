@@ -85,13 +85,13 @@ public partial class SpriteEditorWindow : Form
 
     private void SpriteEditorWindow_Load(object sender, EventArgs e)
     {
-        SpriteListController.FindSpriteInSpriteList(Sprite, this);
+        SpriteListController.FindSpriteInSpriteList(Sprite, this, ((MainWindow)MdiParent).GetImageList());
         Icon = Properties.Resources.sprite;
     }
 
     private void SpriteEditorWindow_Activated(object sender, EventArgs e)
     {
-        SpriteListController.FindSpriteInSpriteList(Sprite, this);
+        SpriteListController.FindSpriteInSpriteList(Sprite, this, ((MainWindow)MdiParent).GetImageList());
         Icon = Properties.Resources.sprite;
     }
 

@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Windows.Forms;
 
@@ -55,6 +56,7 @@ public partial class MainWindow : Form
         DWMWA_MICA_EFFECT = 1029
     }
 
+    public static ulong Key;
     private string _filename;
     private bool _changingFocusBecauseOfSpriteListUsage;
     private bool _changingFocusBecauseOfSpriteWindowChange;
@@ -88,7 +90,7 @@ public partial class MainWindow : Form
     }
 
     private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e) =>
-        SpriteListController.AddSprite(this);
+        SpriteListController.AddSprite(this, imageList1);
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>
         Close();
@@ -229,43 +231,15 @@ public partial class MainWindow : Form
 
     private void CreateListItemPreview(SpriteRoot s, ListViewItem item)
     {
-        var image = s.GetBitmap16x16NoAttributes();
-        imageList1.Images.Add(image);
-        item.ImageIndex = imageList1.Images.Count - 1;
-        //DisposeUnusedImages(); // TODO: Memory leak must be fixed
-        //DisposeUnusedImages();
-        //DisposeUnusedImages();
+        var image = imageList1.Images[item.ImageKey];
+        var index = imageList1.Images.IndexOfKey(item.ImageKey);
+        var newImage = s.GetBitmap16x16NoAttributes();
+        imageList1.Images[index] = newImage;
+        image?.Dispose();
     }
 
-    private void DisposeUnusedImages()
-    {
-        if (imageList1.Images.Count <= 0)
-            return;
-
-        for (var i = 0; i < imageList1.Images.Count; i++)
-        {
-            if (ImageIsInUse(i))
-                continue;
-
-            var image = imageList1.Images[i];
-            imageList1.Images.RemoveAt(i);
-            image.Dispose();
-            break;
-        }
-
-        System.Diagnostics.Debug.WriteLine(imageList1.Images.Count);
-    }
-
-    private bool ImageIsInUse(int imageIndex)
-    {
-        foreach (ListViewItem listViewItem in lvSpriteList.Items)
-        {
-            if (listViewItem.ImageIndex == imageIndex)
-                return true;
-        }
-
-        return false;
-    }
+    public ImageList GetImageList() =>
+        imageList1;
 
     private void scrollUpToolStripMenuItem_Click(object sender, EventArgs e)
     {
@@ -394,6 +368,10 @@ public partial class MainWindow : Form
             foreach (var s in Sprites)
             {
                 var item = lvSpriteList.Items.Add(s.Name);
+                var key = $"key{Key++}";
+                var image = s.GetBitmap16x16NoAttributes();
+                imageList1.Images.Add(key, image);
+                item.ImageKey = key;
                 item.Tag = s;
             }
         }

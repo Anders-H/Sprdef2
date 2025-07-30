@@ -6,7 +6,7 @@ namespace Sprdef2.MainWindowControllers;
 
 public static class SpriteListController
 {
-    public static void CheckThatAllSpritesIsRepresentedInList(SpriteList sprites, ListView spriteList)
+    public static void CheckThatAllSpritesIsRepresentedInList(SpriteList sprites, ListView spriteList, ImageList imageList)
     {
         foreach (var sprite in sprites)
         {
@@ -38,13 +38,17 @@ public static class SpriteListController
 
                 again = true;
                 var newItem = spriteList.Items.Add(sprite.Name);
+                var key = $"key{MainWindow.Key++}";
+                var image = sprite.GetBitmap16x16NoAttributes();
+                imageList.Images.Add(key, image);
+                newItem.ImageKey = key;
                 newItem.Tag = sprite;
 
             } while (again);
         }
     }
 
-    public static void AddSprite(Form mdiParent)
+    public static void AddSprite(Form mdiParent, ImageList imageList)
     {
         var lvSpriteList = mdiParent.Controls.Find("lvSpriteList", true).FirstOrDefault() as ListView;
         bool multicolor;
@@ -78,9 +82,9 @@ public static class SpriteListController
         };
 
         MainWindow.Sprites.Add(s);
-        CheckThatAllSpritesIsRepresentedInList(MainWindow.Sprites, lvSpriteList);
+        CheckThatAllSpritesIsRepresentedInList(MainWindow.Sprites, lvSpriteList, imageList);
         FireWindowForSprite(s, mdiParent);
-        FindSpriteInSpriteList(s, mdiParent);
+        FindSpriteInSpriteList(s, mdiParent, imageList);
     }
 
     public static void FireWindowForSprite(SpriteRoot sprite, Form mdiParent)
@@ -94,7 +98,7 @@ public static class SpriteListController
         x.Icon = Properties.Resources.sprite;
     }
 
-    public static void FindSpriteInSpriteList(SpriteRoot sprite, Form mdiParent)
+    public static void FindSpriteInSpriteList(SpriteRoot sprite, Form mdiParent, ImageList imageList)
     {
         if (mdiParent.Controls.Find("lvSpriteList", true).FirstOrDefault() is not ListView lvSpriteList)
             return;
@@ -114,6 +118,10 @@ public static class SpriteListController
         }
 
         var item = lvSpriteList.Items.Add(sprite.Name);
+        var key = $"key{MainWindow.Key++}";
+        var image = sprite.GetBitmap16x16NoAttributes();
+        imageList.Images.Add(key, image);
+        item.ImageKey = key;
         item.Tag = sprite;
         item.EnsureVisible();
     }
