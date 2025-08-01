@@ -11,7 +11,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security.Policy;
 using System.Text;
 using System.Windows.Forms;
 
@@ -28,35 +27,12 @@ public partial class MainWindow : Form
     [Flags]
     public enum DwmWindowAttribute : uint
     {
-        DWMWA_NCRENDERING_ENABLED,
-        DWMWA_NCRENDERING_POLICY,
-        DWMWA_TRANSITIONS_FORCEDISABLED,
-        DWMWA_ALLOW_NCPAINT,
-        DWMWA_CAPTION_BUTTON_BOUNDS,
-        DWMWA_NONCLIENT_RTL_LAYOUT,
-        DWMWA_FORCE_ICONIC_REPRESENTATION,
-        DWMWA_FLIP3D_POLICY,
-        DWMWA_EXTENDED_FRAME_BOUNDS,
-        DWMWA_HAS_ICONIC_BITMAP,
-        DWMWA_DISALLOW_PEEK,
-        DWMWA_EXCLUDED_FROM_PEEK,
-        DWMWA_CLOAK,
-        DWMWA_CLOAKED,
-        DWMWA_FREEZE_REPRESENTATION,
-        DWMWA_PASSIVE_UPDATE_MODE,
-        DWMWA_USE_HOSTBACKDROPBRUSH,
-        DWMWA_USE_IMMERSIVE_DARK_MODE = 20,
-        DWMWA_WINDOW_CORNER_PREFERENCE = 33,
-        DWMWA_BORDER_COLOR,
-        DWMWA_CAPTION_COLOR,
-        DWMWA_TEXT_COLOR,
-        DWMWA_VISIBLE_FRAME_BORDER_THICKNESS,
-        DWMWA_SYSTEMBACKDROP_TYPE,
-        DWMWA_LAST,
-        DWMWA_MICA_EFFECT = 1029
+        DwmwaUseImmersiveDarkMode = 20,
+        DwmwaMicaEffect = 1029
     }
 
     public static ulong Key;
+    private int _lastSelectedIndex = -1;
     private string _filename;
     private bool _changingFocusBecauseOfSpriteListUsage;
     private bool _changingFocusBecauseOfSpriteWindowChange;
@@ -89,8 +65,13 @@ public partial class MainWindow : Form
         InitializeComponent();
     }
 
-    private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e) =>
-        SpriteListController.AddSprite(this, imageList1);
+    private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (lvSpriteList.SelectedItems.Count > 0)
+            CreateListItemPreview((SpriteRoot)lvSpriteList.SelectedItems[0].Tag, lvSpriteList.SelectedItems[0]);
+
+        SpriteListController.AddSprite(this, lvSpriteList, imageList1);
+    }
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>
         Close();
@@ -177,7 +158,11 @@ public partial class MainWindow : Form
 
         if (lvSpriteList.SelectedItems.Count > 0)
         {
+            if (_lastSelectedIndex >= 0 && _lastSelectedIndex < lvSpriteList.Items.Count)
+                CreateListItemPreview((SpriteRoot)lvSpriteList.Items[_lastSelectedIndex].Tag, lvSpriteList.Items[_lastSelectedIndex]);
+
             var s1 = (SpriteRoot)lvSpriteList.SelectedItems[0].Tag;
+            _lastSelectedIndex = lvSpriteList.SelectedIndices[0];
 
             foreach (var f in MdiChildren)
             {
@@ -697,6 +682,8 @@ public partial class MainWindow : Form
             moveSpriteUpInListToolStripMenuItem.Enabled = true;
             moveSpriteDownInListToolStripMenuItem.Enabled = true;
         }
+
+        duplicateSpriteToolStripMenuItem.Enabled = lvSpriteList.SelectedIndices.Count > 0;
     }
 
     private void moveSpriteUpInListToolStripMenuItem_Click(object sender, EventArgs e)
@@ -761,35 +748,35 @@ public partial class MainWindow : Form
     {
         ThemeAllControls(this);
 
-        void ThemeAllControls(Control parent = null)
+        void ThemeAllControls(Control? parent = null)
         {
             parent = parent ?? this;
 
-            Action<Control> Theme = control => {
+            Action<Control> theme = control => {
                 var trueValue = 0x01;
                 var falseValue = 0x00;
 
                 if (DarkModeEnabled)
                 {
-                    SetWindowTheme(control.Handle, "DarkMode_Explorer", null);
-                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DWMWA_USE_IMMERSIVE_DARK_MODE, ref trueValue, Marshal.SizeOf(typeof(int)));
+                    SetWindowTheme(control.Handle, "DarkMode_Explorer", null!);
+                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DwmwaUseImmersiveDarkMode, ref trueValue, Marshal.SizeOf(typeof(int)));
                 }
                 else
                 {
-                    SetWindowTheme(control.Handle, "LightMode_Explorer", null);
-                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DWMWA_USE_IMMERSIVE_DARK_MODE, ref falseValue, Marshal.SizeOf(typeof(int)));
+                    SetWindowTheme(control.Handle, "LightMode_Explorer", null!);
+                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DwmwaUseImmersiveDarkMode, ref falseValue, Marshal.SizeOf(typeof(int)));
                 }
 
-                DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DWMWA_MICA_EFFECT, ref trueValue, Marshal.SizeOf(typeof(int)));
+                DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DwmwaMicaEffect, ref trueValue, Marshal.SizeOf(typeof(int)));
                 Refresh();
             };
             
             if (parent == this)
-                Theme(this);
+                theme(this);
             
             foreach (Control control in parent.Controls)
             {
-                Theme(control);
+                theme(control);
                 
                 if (control.Controls.Count != 0)
                     ThemeAllControls(control);
@@ -807,7 +794,6 @@ public partial class MainWindow : Form
             ForeColor = Color.White;
             lvSpriteList.BackColor = Color.FromArgb(40, 40, 40);
             lvSpriteList.ForeColor = Color.White;
-            Refresh();
         }
         else
         {
@@ -820,7 +806,43 @@ public partial class MainWindow : Form
             ForeColor = SystemColors.ControlText;
             lvSpriteList.BackColor = SystemColors.Window;
             lvSpriteList.ForeColor = SystemColors.WindowText;
-            Refresh();
+        }
+
+        Refresh();
+    }
+
+    private void duplicateSpriteToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (lvSpriteList.SelectedIndices.Count <= 0)
+            return;
+
+        if (lvSpriteList.SelectedItems[0].Tag is not SpriteRoot s)
+            return;
+
+        var newSprite = s.Duplicate();
+        Sprites.Add(newSprite);
+        SpriteListController.CheckThatAllSpritesIsRepresentedInList(Sprites, lvSpriteList, imageList1);
+        SpriteListController.FireWindowForSprite(newSprite, this);
+        SpriteListController.FindSpriteInSpriteList(newSprite, this, imageList1);
+    }
+
+    private void lvSpriteList_MouseDown(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Right)
+        {
+            var li = lvSpriteList.GetItemAt(e.X, e.Y);
+
+            if (li == null)
+                return;
+
+            li.Selected = true;
+            contextMenuStrip1.Show(lvSpriteList, e.Location);
         }
     }
+
+    private void deleteToolStripMenuItem_Click(object sender, EventArgs e) =>
+        removeSpriteToolStripMenuItem_Click(sender, e);
+
+    private void duplicateToolStripMenuItem_Click(object sender, EventArgs e) =>
+        duplicateSpriteToolStripMenuItem_Click(sender, e);
 }

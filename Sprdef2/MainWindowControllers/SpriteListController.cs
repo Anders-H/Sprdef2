@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿#nullable enable
+using System.Linq;
 using EditStateSprite;
 using System.Windows.Forms;
 
@@ -48,10 +49,10 @@ public static class SpriteListController
         }
     }
 
-    public static void AddSprite(Form mdiParent, ImageList imageList)
+    public static void AddSprite(Form mdiParent, ListView spriteListView, ImageList imageList)
     {
-        var lvSpriteList = mdiParent.Controls.Find("lvSpriteList", true).FirstOrDefault() as ListView;
-        bool multicolor;
+        SpriteRoot? newSprite = null;
+        var multicolor = false;
 
         switch (MainWindow.NewSpriteIsMulticolor)
         {
@@ -64,16 +65,22 @@ public static class SpriteListController
             default:
                 using (var add = new AddSpriteDialog())
                 {
+                    add.SpriteListView = spriteListView;
+                    add.SpriteImageList = imageList;
+
                     if (add.ShowDialog() != DialogResult.OK)
                         return;
 
-                    multicolor = add.Multicolor;
+                    if (add.DuplicateSprite == null)
+                        multicolor = add.Multicolor;
+                    else
+                        newSprite = add.DuplicateSprite.Duplicate();
                 }
 
                 break;
         }
 
-        var s = new SpriteRoot(multicolor)
+        newSprite ??= new SpriteRoot(multicolor)
         {
             Name = $@"Sprite {MainWindow.Sprites.Count} ({(multicolor ? "multicolor" : "monochrome")})".ToUpper(),
             PreviewZoom = MainWindow.PreviewZoom,
@@ -81,10 +88,10 @@ public static class SpriteListController
             PreviewOffsetY = 30,
         };
 
-        MainWindow.Sprites.Add(s);
-        CheckThatAllSpritesIsRepresentedInList(MainWindow.Sprites, lvSpriteList, imageList);
-        FireWindowForSprite(s, mdiParent);
-        FindSpriteInSpriteList(s, mdiParent, imageList);
+        MainWindow.Sprites.Add(newSprite);
+        CheckThatAllSpritesIsRepresentedInList(MainWindow.Sprites, spriteListView, imageList);
+        FireWindowForSprite(newSprite, mdiParent);
+        FindSpriteInSpriteList(newSprite, mdiParent, imageList);
     }
 
     public static void FireWindowForSprite(SpriteRoot sprite, Form mdiParent)

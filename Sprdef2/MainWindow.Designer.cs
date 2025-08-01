@@ -80,12 +80,17 @@
             this.btnFlipTopDown = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lvSpriteList = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.picPreview = new System.Windows.Forms.PictureBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.duplicateSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -99,7 +104,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(837, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(903, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -180,6 +185,7 @@
             this.spriteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addSpriteToolStripMenuItem,
             this.removeSpriteToolStripMenuItem,
+            this.duplicateSpriteToolStripMenuItem,
             this.toolStripMenuItem5,
             this.moveSpriteUpInListToolStripMenuItem,
             this.moveSpriteDownInListToolStripMenuItem});
@@ -243,7 +249,7 @@
             // 
             this.scrollUpToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_UpArrowLong_Blue_16x16_72;
             this.scrollUpToolStripMenuItem.Name = "scrollUpToolStripMenuItem";
-            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollUpToolStripMenuItem.Text = "Scroll up";
             this.scrollUpToolStripMenuItem.Click += new System.EventHandler(this.scrollUpToolStripMenuItem_Click);
             // 
@@ -251,7 +257,7 @@
             // 
             this.scrollRightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_RightArrowLong_Blue_16x16_72;
             this.scrollRightToolStripMenuItem.Name = "scrollRightToolStripMenuItem";
-            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollRightToolStripMenuItem.Text = "Scroll right";
             this.scrollRightToolStripMenuItem.Click += new System.EventHandler(this.scrollRightToolStripMenuItem_Click);
             // 
@@ -259,7 +265,7 @@
             // 
             this.scrollDownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_DownArrowLong_Blue_16x16_72;
             this.scrollDownToolStripMenuItem.Name = "scrollDownToolStripMenuItem";
-            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollDownToolStripMenuItem.Text = "Scroll down";
             this.scrollDownToolStripMenuItem.Click += new System.EventHandler(this.scrollDownToolStripMenuItem_Click);
             // 
@@ -267,33 +273,33 @@
             // 
             this.scrollLeftToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_LeftArrowLong_Blue_16x16_72;
             this.scrollLeftToolStripMenuItem.Name = "scrollLeftToolStripMenuItem";
-            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollLeftToolStripMenuItem.Text = "Scroll left";
             this.scrollLeftToolStripMenuItem.Click += new System.EventHandler(this.scrollLeftToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.PropertiesHS;
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.propertiesToolStripMenuItem.Text = "Properties...";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // flipLeftrightToolStripMenuItem
             // 
             this.flipLeftrightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipHorizontalHS;
             this.flipLeftrightToolStripMenuItem.Name = "flipLeftrightToolStripMenuItem";
-            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flipLeftrightToolStripMenuItem.Text = "Flip left-right";
             this.flipLeftrightToolStripMenuItem.Click += new System.EventHandler(this.flipLeftrightToolStripMenuItem_Click);
             // 
@@ -301,7 +307,7 @@
             // 
             this.flipTopdownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipVerticalHS;
             this.flipTopdownToolStripMenuItem.Name = "flipTopdownToolStripMenuItem";
-            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flipTopdownToolStripMenuItem.Text = "Flip top-down";
             this.flipTopdownToolStripMenuItem.Click += new System.EventHandler(this.flipTopdownToolStripMenuItem_Click);
             // 
@@ -379,7 +385,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(837, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(903, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -510,9 +516,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 424);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 431);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(837, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(903, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
@@ -526,12 +532,19 @@
             this.lvSpriteList.Location = new System.Drawing.Point(0, 49);
             this.lvSpriteList.MultiSelect = false;
             this.lvSpriteList.Name = "lvSpriteList";
-            this.lvSpriteList.Size = new System.Drawing.Size(152, 375);
+            this.lvSpriteList.Size = new System.Drawing.Size(168, 382);
             this.lvSpriteList.SmallImageList = this.imageList1;
             this.lvSpriteList.TabIndex = 5;
             this.lvSpriteList.UseCompatibleStateImageBehavior = false;
             this.lvSpriteList.View = System.Windows.Forms.View.List;
             this.lvSpriteList.SelectedIndexChanged += new System.EventHandler(this.lvSpriteList_SelectedIndexChanged);
+            this.lvSpriteList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvSpriteList_MouseDown);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // timer1
             // 
@@ -542,24 +555,48 @@
             // picPreview
             // 
             this.picPreview.Dock = System.Windows.Forms.DockStyle.Right;
-            this.picPreview.Location = new System.Drawing.Point(584, 49);
+            this.picPreview.Location = new System.Drawing.Point(636, 49);
             this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(253, 375);
+            this.picPreview.Size = new System.Drawing.Size(267, 382);
             this.picPreview.TabIndex = 6;
             this.picPreview.TabStop = false;
             this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
             // 
-            // imageList1
+            // duplicateSpriteToolStripMenuItem
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.duplicateSpriteToolStripMenuItem.Name = "duplicateSpriteToolStripMenuItem";
+            this.duplicateSpriteToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.duplicateSpriteToolStripMenuItem.Text = "Duplicate sprite";
+            this.duplicateSpriteToolStripMenuItem.Click += new System.EventHandler(this.duplicateSpriteToolStripMenuItem_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem,
+            this.duplicateToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_Minus_Orange_16x16_72;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Text = "Remove";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // duplicateToolStripMenuItem
+            // 
+            this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.duplicateToolStripMenuItem.Text = "Duplicate";
+            this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 446);
+            this.ClientSize = new System.Drawing.Size(903, 453);
             this.Controls.Add(this.picPreview);
             this.Controls.Add(this.lvSpriteList);
             this.Controls.Add(this.statusStrip1);
@@ -579,6 +616,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -639,6 +677,10 @@
         private System.Windows.Forms.ToolStripMenuItem animateSpritesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportAnIssueToolStripMenuItem;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripMenuItem duplicateSpriteToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
     }
 }
 
