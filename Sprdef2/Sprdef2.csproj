@@ -197,6 +197,7 @@
     <None Include="Resources\FlipHorizontalHS.png" />
     <None Include="Resources\FlipVerticalHS.png" />
     <None Include="Resources\sprite.ico" />
+    <None Include="Resources\duplicate.png" />
     <Content Include="Sprdef2.ico" />
   </ItemGroup>
   <ItemGroup />

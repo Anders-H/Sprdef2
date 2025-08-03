@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using C64ColorControls;
 using EditStateSprite;
 using Sprdef2.MainWindowControllers;
 using System;
@@ -20,14 +21,14 @@ public partial class SpriteEditorWindow : Form
     public void ConnectSprite(SpriteRoot sprite)
     {
         Sprite = sprite;
-        colorPicker1.MultiColor = sprite.MultiColor;
-        colorPicker1.SetPaletteAsInt(0, (int)sprite.SpriteColorPalette[0]);
-        colorPicker1.SetPaletteAsInt(1, (int)sprite.SpriteColorPalette[1]);
+        ((MainWindow)MdiParent).ColorPicker.MultiColor = sprite.MultiColor;
+        ((MainWindow)MdiParent).ColorPicker.SetPaletteAsInt(0, (int)sprite.SpriteColorPalette[0]);
+        ((MainWindow)MdiParent).ColorPicker.SetPaletteAsInt(1, (int)sprite.SpriteColorPalette[1]);
         
         if (sprite.MultiColor)
         {
-            colorPicker1.SetPaletteAsInt(2, (int)sprite.SpriteColorPalette[2]);
-            colorPicker1.SetPaletteAsInt(3, (int)sprite.SpriteColorPalette[3]);
+            ((MainWindow)MdiParent).ColorPicker.SetPaletteAsInt(2, (int)sprite.SpriteColorPalette[2]);
+            ((MainWindow)MdiParent).ColorPicker.SetPaletteAsInt(3, (int)sprite.SpriteColorPalette[3]);
         }
 
         spriteEditorControl1.SetCurrentColorIndex(1);
@@ -44,7 +45,7 @@ public partial class SpriteEditorWindow : Form
     private void spriteEditorControl1_SpriteChanged(object sender, SpriteChangedEventArgs e) =>
         Invalidate();
 
-    private void colorPicker1_SelectedColorChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
+    public void colorPicker1_SelectedColorChanged(object sender, ColorButtonEventArgs e)
     {
         spriteEditorControl1.SetCurrentColorIndex(e.ButtonIndexPrimary);
         spriteEditorControl1.SetSecondaryColorIndex(e.ButtonIndexSecondary);
@@ -71,12 +72,6 @@ public partial class SpriteEditorWindow : Form
     public void Flip(TwoWayDirection direction) =>
         spriteEditorControl1.Flip(direction);
 
-    private void btnProperties_Click(object sender, EventArgs e)
-    {
-        ((MainWindow)MdiParent).propertiesToolStripMenuItem_Click(sender, e);
-        FixWindowText();
-    }
-
     public void FocusEditor() =>
         spriteEditorControl1.Focus();
 
@@ -93,9 +88,12 @@ public partial class SpriteEditorWindow : Form
     {
         SpriteListController.FindSpriteInSpriteList(Sprite, this, ((MainWindow)MdiParent).GetImageList());
         Icon = Properties.Resources.sprite;
+        ((MainWindow)MdiParent).ColorPicker.GetSelectedButtons(out var primaryIndex, out var secondaryIndex);
+        spriteEditorControl1.SetCurrentColorIndex(primaryIndex);
+        spriteEditorControl1.SetSecondaryColorIndex(secondaryIndex);
     }
 
-    private void colorPicker1_PaletteChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
+    public void colorPicker1_PaletteChanged(object sender, ColorButtonEventArgs e)
     {
         if (e.ButtonIndexPrimary is >= 0 and < 4)
             spriteEditorControl1.ModifyPalette(e.ButtonIndexPrimary, (ColorName)((int)e.ColorNamePrimary));

@@ -33,7 +33,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cboMulticolor = new System.Windows.Forms.ComboBox();
-            this.chkDarkMode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chkDoubleSizePreview
@@ -84,16 +83,6 @@
             this.cboMulticolor.Size = new System.Drawing.Size(128, 21);
             this.cboMulticolor.TabIndex = 1;
             // 
-            // chkDarkMode
-            // 
-            this.chkDarkMode.AutoSize = true;
-            this.chkDarkMode.Location = new System.Drawing.Point(8, 56);
-            this.chkDarkMode.Name = "chkDarkMode";
-            this.chkDarkMode.Size = new System.Drawing.Size(78, 17);
-            this.chkDarkMode.TabIndex = 5;
-            this.chkDarkMode.Text = "Dark mode";
-            this.chkDarkMode.UseVisualStyleBackColor = true;
-            // 
             // OptionsDialog
             // 
             this.AcceptButton = this.btnOk;
@@ -101,7 +90,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(281, 125);
-            this.Controls.Add(this.chkDarkMode);
             this.Controls.Add(this.cboMulticolor);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
@@ -127,6 +115,5 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboMulticolor;
-        private System.Windows.Forms.CheckBox chkDarkMode;
     }
 }

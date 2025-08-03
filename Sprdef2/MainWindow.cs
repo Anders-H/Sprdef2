@@ -10,44 +10,34 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using C64ColorControls;
 
 namespace Sprdef2;
 
 public partial class MainWindow : Form
 {
-    [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
-    public static extern int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
-
-    [DllImport("dwmapi.dll")]
-    public static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
-
-    [Flags]
-    public enum DwmWindowAttribute : uint
-    {
-        DwmwaUseImmersiveDarkMode = 20,
-        DwmwaMicaEffect = 1029
-    }
-
     public static ulong Key;
+    public static Random Rnd { get; }
     private int _lastSelectedIndex = -1;
     private string _filename;
     private bool _changingFocusBecauseOfSpriteListUsage;
     private bool _changingFocusBecauseOfSpriteWindowChange;
     private bool _isAnimating;
     private int _currentAnimationCellIndex = -1;
+    private readonly Point[] _newSpritePositions;
+    private int _newSpritePositionIndex;
     public static Palette Palette { get; }
     public static SpriteList Sprites { get; set; }
     public static int NewSpriteIsMulticolor { get; set; }
     public static bool PreviewZoom { get; set; }
-    public static bool DarkModeEnabled { get; set; }
     public static float ApplicationVersion { get; }
 
     static MainWindow()
     {
         Palette = new Palette();
+        Rnd = new Random();
         Sprites = [];
         NewSpriteIsMulticolor = 2;
         PreviewZoom = false;
@@ -62,6 +52,25 @@ public partial class MainWindow : Form
         _filename = "";
         _changingFocusBecauseOfSpriteListUsage = false;
         _changingFocusBecauseOfSpriteWindowChange = false;
+
+        _newSpritePositions =
+        [
+            new Point(0, 0),
+            new Point(24, 0),
+            new Point(0, 21),
+            new Point(24, 21),
+            new Point(0, 42),
+            new Point(24, 42),
+            new Point(0, 63),
+            new Point(24, 63),
+            new Point(0, 84),
+            new Point(24, 84),
+            new Point(0, 105),
+            new Point(24, 105),
+            new Point(0, 126),
+            new Point(24, 126),
+        ];
+
         InitializeComponent();
     }
 
@@ -70,7 +79,18 @@ public partial class MainWindow : Form
         if (lvSpriteList.SelectedItems.Count > 0)
             CreateListItemPreview((SpriteRoot)lvSpriteList.SelectedItems[0].Tag, lvSpriteList.SelectedItems[0]);
 
-        SpriteListController.AddSprite(this, lvSpriteList, imageList1);
+        if (_newSpritePositionIndex < _newSpritePositions.Length)
+        {
+            var x = _newSpritePositions[_newSpritePositionIndex].X;
+            var y = _newSpritePositions[_newSpritePositionIndex].Y;
+            SpriteListController.AddSprite(this, lvSpriteList, imageList1, x, y);
+            _newSpritePositionIndex++;
+        }
+        else
+        {
+            SpriteListController.AddSprite(this, lvSpriteList, imageList1, Rnd.Next(0, 50), Rnd.Next(0, 140));
+        }
+
     }
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>
@@ -144,8 +164,6 @@ public partial class MainWindow : Form
 
         foreach (var mdiChild in MdiChildren)
             mdiChild.Invalidate();
-
-        ApplyDarkMode();
     }
 
     private void lvSpriteList_SelectedIndexChanged(object sender, EventArgs e)
@@ -194,6 +212,17 @@ public partial class MainWindow : Form
 
     public void SpriteWindowChanged(SpriteRoot sprite)
     {
+        colorPicker1.MultiColor = sprite.MultiColor;
+
+        colorPicker1.SetPaletteAsInt(0, (int)sprite.SpriteColorPalette[0]);
+        colorPicker1.SetPaletteAsInt(1, (int)sprite.SpriteColorPalette[1]);
+
+        if (sprite.MultiColor)
+        {
+            colorPicker1.SetPaletteAsInt(2, (int)sprite.SpriteColorPalette[2]);
+            colorPicker1.SetPaletteAsInt(3, (int)sprite.SpriteColorPalette[3]);
+        }
+
         if (_changingFocusBecauseOfSpriteListUsage)
             return;
 
@@ -455,11 +484,14 @@ public partial class MainWindow : Form
             picPreview.Invalidate();
     }
 
+    public ColorPicker ColorPicker =>
+        colorPicker1;
+
     private void picPreview_Paint(object sender, PaintEventArgs e)
     {
         if (Sprites.Count <= 0)
         {
-            e.Graphics.Clear(Color.Black);
+            e.Graphics.Clear(picPreview.BackColor);
             return;
         }
 
@@ -724,91 +756,13 @@ public partial class MainWindow : Form
     {
         NewSpriteIsMulticolor = Properties.Settings.Default.NewSpriteIsMulticolor;
         PreviewZoom = Properties.Settings.Default.DoubleSizedPreview;
-#if DEBUG
-        DarkModeEnabled = Properties.Settings.Default.DarkModeEnabled;
-#else
-        DarkModeEnabled = false;
-#endif
-        ApplyDarkMode();
     }
 
     private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
     {
         Properties.Settings.Default.NewSpriteIsMulticolor = NewSpriteIsMulticolor;
         Properties.Settings.Default.DoubleSizedPreview = PreviewZoom;
-#if DEBUG
-        Properties.Settings.Default.DarkModeEnabled = DarkModeEnabled;
-#else
-        Properties.Settings.Default.DarkModeEnabled = false;
-#endif
         Properties.Settings.Default.Save();
-    }
-
-    private void ApplyDarkMode()
-    {
-        ThemeAllControls(this);
-
-        void ThemeAllControls(Control? parent = null)
-        {
-            parent = parent ?? this;
-
-            Action<Control> theme = control => {
-                var trueValue = 0x01;
-                var falseValue = 0x00;
-
-                if (DarkModeEnabled)
-                {
-                    SetWindowTheme(control.Handle, "DarkMode_Explorer", null!);
-                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DwmwaUseImmersiveDarkMode, ref trueValue, Marshal.SizeOf(typeof(int)));
-                }
-                else
-                {
-                    SetWindowTheme(control.Handle, "LightMode_Explorer", null!);
-                    DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DwmwaUseImmersiveDarkMode, ref falseValue, Marshal.SizeOf(typeof(int)));
-                }
-
-                DwmSetWindowAttribute(control.Handle, DwmWindowAttribute.DwmwaMicaEffect, ref trueValue, Marshal.SizeOf(typeof(int)));
-                Refresh();
-            };
-            
-            if (parent == this)
-                theme(this);
-            
-            foreach (Control control in parent.Controls)
-            {
-                theme(control);
-                
-                if (control.Controls.Count != 0)
-                    ThemeAllControls(control);
-            }
-        }
-
-        if (DarkModeEnabled)
-        {
-            menuStrip1.BackColor = Color.Black;
-            menuStrip1.ForeColor = Color.DimGray;
-            toolStrip1.BackColor = Color.FromArgb(60, 60, 60);
-            statusStrip1.BackColor = Color.Black;
-            statusStrip1.ForeColor = Color.DimGray;
-            BackColor = Color.FromArgb(30, 30, 30);
-            ForeColor = Color.White;
-            lvSpriteList.BackColor = Color.FromArgb(40, 40, 40);
-            lvSpriteList.ForeColor = Color.White;
-        }
-        else
-        {
-            menuStrip1.BackColor = SystemColors.Control;
-            menuStrip1.ForeColor = SystemColors.ControlText;
-            toolStrip1.BackColor = SystemColors.Control;
-            statusStrip1.BackColor = SystemColors.Control;
-            statusStrip1.ForeColor = SystemColors.ControlText;
-            BackColor = SystemColors.Control;
-            ForeColor = SystemColors.ControlText;
-            lvSpriteList.BackColor = SystemColors.Window;
-            lvSpriteList.ForeColor = SystemColors.WindowText;
-        }
-
-        Refresh();
     }
 
     private void duplicateSpriteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -845,4 +799,29 @@ public partial class MainWindow : Form
 
     private void duplicateToolStripMenuItem_Click(object sender, EventArgs e) =>
         duplicateSpriteToolStripMenuItem_Click(sender, e);
+
+    private void colorPicker1_SelectedColorChanged(object sender, ColorButtonEventArgs e)
+    {
+        var c = ActiveMdiChild;
+
+        if (c == null)
+            return;
+
+        var editorWindow = (SpriteEditorWindow)c;
+        editorWindow.colorPicker1_SelectedColorChanged(sender, e);
+    }
+
+    private void colorPicker1_PaletteChanged(object sender, ColorButtonEventArgs e)
+    {
+        var c = ActiveMdiChild;
+
+        if (c == null)
+            return;
+
+        var editorWindow = (SpriteEditorWindow)c;
+        editorWindow.colorPicker1_PaletteChanged(sender, e);
+    }
+
+    private void btnProperties_Click(object sender, EventArgs e) =>
+        propertiesToolStripMenuItem_Click(sender, e);
 }

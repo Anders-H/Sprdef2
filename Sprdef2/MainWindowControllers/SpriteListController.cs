@@ -49,7 +49,7 @@ public static class SpriteListController
         }
     }
 
-    public static void AddSprite(Form mdiParent, ListView spriteListView, ImageList imageList)
+    public static void AddSprite(Form mdiParent, ListView spriteListView, ImageList imageList, int x, int y)
     {
         SpriteRoot? newSprite = null;
         var multicolor = false;
@@ -84,8 +84,10 @@ public static class SpriteListController
         {
             Name = $@"Sprite {MainWindow.Sprites.Count} ({(multicolor ? "multicolor" : "monochrome")})".ToUpper(),
             PreviewZoom = MainWindow.PreviewZoom,
-            PreviewOffsetX = 30,
-            PreviewOffsetY = 30,
+            PreviewOffsetX = x + 30,
+            PreviewOffsetY = y + 30,
+            X = x + 30,
+            Y = y + 30
         };
 
         MainWindow.Sprites.Add(newSprite);
@@ -97,8 +99,8 @@ public static class SpriteListController
     public static void FireWindowForSprite(SpriteRoot sprite, Form mdiParent)
     {
         var x = new SpriteEditorWindow();
-        x.ConnectSprite(sprite);
         x.MdiParent = mdiParent;
+        x.ConnectSprite(sprite);
         x.Icon = Properties.Resources.sprite;
         x.Show();
         x.WindowState = FormWindowState.Maximized;

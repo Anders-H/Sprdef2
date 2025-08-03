@@ -43,6 +43,7 @@
             this.spriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.moveSpriteUpInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveSpriteDownInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,19 +79,23 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnFlipLeftRight = new System.Windows.Forms.ToolStripButton();
             this.btnFlipTopDown = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lvSpriteList = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.picPreview = new System.Windows.Forms.PictureBox();
-            this.duplicateSpriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorPicker1 = new C64ColorControls.ColorPicker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnProperties = new System.Windows.Forms.Button();
+            this.radioPixelTool = new System.Windows.Forms.RadioButton();
+            this.radioFreeHand = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -104,7 +109,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(903, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1177, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -209,6 +214,14 @@
             this.removeSpriteToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.removeSpriteToolStripMenuItem.Text = "Remove sprite";
             this.removeSpriteToolStripMenuItem.Click += new System.EventHandler(this.removeSpriteToolStripMenuItem_Click);
+            // 
+            // duplicateSpriteToolStripMenuItem
+            // 
+            this.duplicateSpriteToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.duplicate;
+            this.duplicateSpriteToolStripMenuItem.Name = "duplicateSpriteToolStripMenuItem";
+            this.duplicateSpriteToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.duplicateSpriteToolStripMenuItem.Text = "Duplicate sprite";
+            this.duplicateSpriteToolStripMenuItem.Click += new System.EventHandler(this.duplicateSpriteToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
@@ -385,7 +398,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(903, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1177, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -514,29 +527,22 @@
             this.btnFlipTopDown.Text = "Flip top-down";
             this.btnFlipTopDown.Click += new System.EventHandler(this.btnFlipTopDown_Click);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 431);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(903, 22);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
             // lvSpriteList
             // 
+            this.lvSpriteList.BackColor = System.Drawing.Color.Black;
             this.lvSpriteList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvSpriteList.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lvSpriteList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lvSpriteList.ForeColor = System.Drawing.Color.Silver;
             this.lvSpriteList.FullRowSelect = true;
             this.lvSpriteList.HideSelection = false;
-            this.lvSpriteList.Location = new System.Drawing.Point(0, 49);
+            this.lvSpriteList.Location = new System.Drawing.Point(0, 539);
             this.lvSpriteList.MultiSelect = false;
             this.lvSpriteList.Name = "lvSpriteList";
-            this.lvSpriteList.Size = new System.Drawing.Size(168, 382);
+            this.lvSpriteList.Size = new System.Drawing.Size(1177, 74);
             this.lvSpriteList.SmallImageList = this.imageList1;
             this.lvSpriteList.TabIndex = 5;
             this.lvSpriteList.UseCompatibleStateImageBehavior = false;
-            this.lvSpriteList.View = System.Windows.Forms.View.List;
+            this.lvSpriteList.View = System.Windows.Forms.View.SmallIcon;
             this.lvSpriteList.SelectedIndexChanged += new System.EventHandler(this.lvSpriteList_SelectedIndexChanged);
             this.lvSpriteList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvSpriteList_MouseDown);
             // 
@@ -554,20 +560,14 @@
             // 
             // picPreview
             // 
+            this.picPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.picPreview.Dock = System.Windows.Forms.DockStyle.Right;
-            this.picPreview.Location = new System.Drawing.Point(636, 49);
+            this.picPreview.Location = new System.Drawing.Point(910, 49);
             this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(267, 382);
+            this.picPreview.Size = new System.Drawing.Size(267, 490);
             this.picPreview.TabIndex = 6;
             this.picPreview.TabStop = false;
             this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
-            // 
-            // duplicateSpriteToolStripMenuItem
-            // 
-            this.duplicateSpriteToolStripMenuItem.Name = "duplicateSpriteToolStripMenuItem";
-            this.duplicateSpriteToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.duplicateSpriteToolStripMenuItem.Text = "Duplicate sprite";
-            this.duplicateSpriteToolStripMenuItem.Click += new System.EventHandler(this.duplicateSpriteToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -575,31 +575,95 @@
             this.deleteToolStripMenuItem,
             this.duplicateToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_Minus_Orange_16x16_72;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.deleteToolStripMenuItem.Text = "Remove";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // duplicateToolStripMenuItem
             // 
+            this.duplicateToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.duplicate;
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.duplicateToolStripMenuItem.Text = "Duplicate";
             this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
+            // 
+            // colorPicker1
+            // 
+            this.colorPicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.colorPicker1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.colorPicker1.Location = new System.Drawing.Point(917, 505);
+            this.colorPicker1.MultiColor = false;
+            this.colorPicker1.Name = "colorPicker1";
+            this.colorPicker1.Size = new System.Drawing.Size(256, 28);
+            this.colorPicker1.TabIndex = 8;
+            this.colorPicker1.SelectedColorChanged += new C64ColorControls.SelectedColorChangedDelegate(this.colorPicker1_SelectedColorChanged);
+            this.colorPicker1.PaletteChanged += new C64ColorControls.PaletteChangedDelegate(this.colorPicker1_PaletteChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.Controls.Add(this.radioFreeHand);
+            this.panel1.Controls.Add(this.radioPixelTool);
+            this.panel1.Controls.Add(this.btnProperties);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 49);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(108, 490);
+            this.panel1.TabIndex = 10;
+            // 
+            // btnProperties
+            // 
+            this.btnProperties.Location = new System.Drawing.Point(4, 4);
+            this.btnProperties.Name = "btnProperties";
+            this.btnProperties.Size = new System.Drawing.Size(100, 24);
+            this.btnProperties.TabIndex = 4;
+            this.btnProperties.Text = "Properties...";
+            this.btnProperties.UseVisualStyleBackColor = true;
+            this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
+            // 
+            // radioPixelTool
+            // 
+            this.radioPixelTool.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioPixelTool.Checked = true;
+            this.radioPixelTool.Image = global::Sprdef2.Properties.Resources.PixelEditorIcon;
+            this.radioPixelTool.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.radioPixelTool.Location = new System.Drawing.Point(4, 32);
+            this.radioPixelTool.Name = "radioPixelTool";
+            this.radioPixelTool.Size = new System.Drawing.Size(100, 24);
+            this.radioPixelTool.TabIndex = 5;
+            this.radioPixelTool.TabStop = true;
+            this.radioPixelTool.Text = "Keyboard";
+            this.radioPixelTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioPixelTool.UseVisualStyleBackColor = true;
+            // 
+            // radioFreeHand
+            // 
+            this.radioFreeHand.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioFreeHand.Image = global::Sprdef2.Properties.Resources.FreeHandTool;
+            this.radioFreeHand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.radioFreeHand.Location = new System.Drawing.Point(4, 60);
+            this.radioFreeHand.Name = "radioFreeHand";
+            this.radioFreeHand.Size = new System.Drawing.Size(100, 24);
+            this.radioFreeHand.TabIndex = 6;
+            this.radioFreeHand.Text = "Freehand";
+            this.radioFreeHand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioFreeHand.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(903, 453);
+            this.ClientSize = new System.Drawing.Size(1177, 613);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.colorPicker1);
             this.Controls.Add(this.picPreview);
             this.Controls.Add(this.lvSpriteList);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
@@ -617,6 +681,7 @@
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -626,7 +691,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem spriteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addSpriteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -681,6 +745,11 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
+        private C64ColorControls.ColorPicker colorPicker1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnProperties;
+        private System.Windows.Forms.RadioButton radioPixelTool;
+        private System.Windows.Forms.RadioButton radioFreeHand;
     }
 }
 
