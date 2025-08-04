@@ -105,31 +105,26 @@ public partial class SpriteEditorWindow : Form
         Refresh();
     }
 
-    private void SpriteEditorWindow_Shown(object sender, EventArgs e)
-    {
+    private void SpriteEditorWindow_Shown(object sender, EventArgs e) =>
         Icon = Properties.Resources.sprite;
-    }
 
-    private void radioPixelTool_CheckedChanged(object sender, EventArgs e)
+    public void SetEditorTool(EditorToolEnum tool)
     {
-        if (radioPixelTool.Checked)
+        switch (tool)
         {
-            spriteEditorControl1.SetEditorTool(EditorToolEnum.PixelEditor);
-            spriteEditorControl1.Focus();
+            case EditorToolEnum.PixelEditor:
+                spriteEditorControl1.SetEditorTool(EditorToolEnum.PixelEditor);
+                break;
+            case EditorToolEnum.FreeHand:
+                spriteEditorControl1.SetEditorTool(EditorToolEnum.FreeHand);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
         }
+
+        spriteEditorControl1.Focus();
     }
 
-    private void radioFreeHand_CheckedChanged(object sender, EventArgs e)
-    {
-        if (radioFreeHand.Checked)
-        {
-            spriteEditorControl1.SetEditorTool(EditorToolEnum.FreeHand);
-            spriteEditorControl1.Focus();
-        }
-    }
-
-    private void spriteEditorControl1_ZoomChanged(object sender, EventArgs e)
-    {
+    private void spriteEditorControl1_ZoomChanged(object sender, EventArgs e) =>
         Invalidate();
-    }
 }

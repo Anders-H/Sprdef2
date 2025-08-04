@@ -824,4 +824,77 @@ public partial class MainWindow : Form
 
     private void btnProperties_Click(object sender, EventArgs e) =>
         propertiesToolStripMenuItem_Click(sender, e);
+
+    private void radioPixelTool_CheckedChanged(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        if (radioPixelTool.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.PixelEditor);
+    }
+
+    private void radioFreeHand_CheckedChanged(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        if (radioFreeHand.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.FreeHand);
+    }
+
+    private void windowToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
+    {
+        singleViewToolStripMenuItem.Enabled = MdiChildren.Length > 0;
+        cascadeToolStripMenuItem.Enabled = MdiChildren.Length > 0;
+        tileHorizontalToolStripMenuItem.Enabled = MdiChildren.Length > 0;
+        tileVerticalToolStripMenuItem.Enabled = MdiChildren.Length > 0;
+
+        if (MdiChildren.Length > 0 && MdiChildren[0].WindowState == FormWindowState.Maximized)
+        {
+            singleViewToolStripMenuItem.Checked = true;
+            cascadeToolStripMenuItem.Checked = false;
+            tileHorizontalToolStripMenuItem.Checked = false;
+            tileVerticalToolStripMenuItem.Checked = false;
+        }
+    }
+
+    private void singleViewToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (MdiChildren.Length <= 0)
+            return;
+
+        singleViewToolStripMenuItem.Checked = true;
+        cascadeToolStripMenuItem.Checked = false;
+        tileHorizontalToolStripMenuItem.Checked = false;
+        tileVerticalToolStripMenuItem.Checked = false;
+        MdiChildren[0].WindowState = FormWindowState.Maximized;
+    }
+
+    private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        singleViewToolStripMenuItem.Checked = false;
+        cascadeToolStripMenuItem.Checked = true;
+        tileHorizontalToolStripMenuItem.Checked = false;
+        tileVerticalToolStripMenuItem.Checked = false;
+        LayoutMdi(MdiLayout.Cascade);
+    }
+
+    private void tileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        singleViewToolStripMenuItem.Checked = false;
+        cascadeToolStripMenuItem.Checked = false;
+        tileHorizontalToolStripMenuItem.Checked = true;
+        tileVerticalToolStripMenuItem.Checked = false;
+        LayoutMdi(MdiLayout.TileHorizontal);
+    }
+
+    private void tileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        singleViewToolStripMenuItem.Checked = false;
+        cascadeToolStripMenuItem.Checked = false;
+        tileHorizontalToolStripMenuItem.Checked = false;
+        tileVerticalToolStripMenuItem.Checked = true;
+        LayoutMdi(MdiLayout.TileVertical);
+    }
 }

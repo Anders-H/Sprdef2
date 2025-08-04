@@ -91,6 +91,11 @@
             this.btnProperties = new System.Windows.Forms.Button();
             this.radioPixelTool = new System.Windows.Forms.RadioButton();
             this.radioFreeHand = new System.Windows.Forms.RadioButton();
+            this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.singleViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
@@ -106,6 +111,7 @@
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.toolsToolStripMenuItem,
+            this.windowToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -366,14 +372,14 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // reportAnIssueToolStripMenuItem
             // 
             this.reportAnIssueToolStripMenuItem.Name = "reportAnIssueToolStripMenuItem";
-            this.reportAnIssueToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.reportAnIssueToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reportAnIssueToolStripMenuItem.Text = "Report an issue...";
             this.reportAnIssueToolStripMenuItem.Click += new System.EventHandler(this.reportAnIssueToolStripMenuItem_Click);
             // 
@@ -641,6 +647,7 @@
             this.radioPixelTool.Text = "Keyboard";
             this.radioPixelTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioPixelTool.UseVisualStyleBackColor = true;
+            this.radioPixelTool.CheckedChanged += new System.EventHandler(this.radioPixelTool_CheckedChanged);
             // 
             // radioFreeHand
             // 
@@ -654,6 +661,47 @@
             this.radioFreeHand.Text = "Freehand";
             this.radioFreeHand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioFreeHand.UseVisualStyleBackColor = true;
+            this.radioFreeHand.CheckedChanged += new System.EventHandler(this.radioFreeHand_CheckedChanged);
+            // 
+            // cascadeToolStripMenuItem
+            // 
+            this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cascadeToolStripMenuItem.Text = "Cascade";
+            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
+            // 
+            // tileHorizontalToolStripMenuItem
+            // 
+            this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tileHorizontalToolStripMenuItem.Text = "Tile horizontal";
+            this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.tileHorizontalToolStripMenuItem_Click);
+            // 
+            // tileVerticalToolStripMenuItem
+            // 
+            this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
+            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tileVerticalToolStripMenuItem.Text = "Tile vertical";
+            this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.tileVerticalToolStripMenuItem_Click);
+            // 
+            // windowToolStripMenuItem
+            // 
+            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.singleViewToolStripMenuItem,
+            this.cascadeToolStripMenuItem,
+            this.tileHorizontalToolStripMenuItem,
+            this.tileVerticalToolStripMenuItem});
+            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.windowToolStripMenuItem.Text = "&Window";
+            this.windowToolStripMenuItem.DropDownOpened += new System.EventHandler(this.windowToolStripMenuItem_DropDownOpened);
+            // 
+            // singleViewToolStripMenuItem
+            // 
+            this.singleViewToolStripMenuItem.Name = "singleViewToolStripMenuItem";
+            this.singleViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.singleViewToolStripMenuItem.Text = "Single view";
+            this.singleViewToolStripMenuItem.Click += new System.EventHandler(this.singleViewToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -750,6 +798,11 @@
         private System.Windows.Forms.Button btnProperties;
         private System.Windows.Forms.RadioButton radioPixelTool;
         private System.Windows.Forms.RadioButton radioFreeHand;
+        private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cascadeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tileHorizontalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tileVerticalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem singleViewToolStripMenuItem;
     }
 }
 
