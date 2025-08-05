@@ -660,18 +660,17 @@ public partial class MainWindow : Form
                     }
 
                     Clipboard.SetText(result.ToString());
-
                     MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 }
-            //case ExportFormat.DataStatements:
-            //    {
-            //        var result = new StringBuilder();
-            //        // What?
-            //        Clipboard.SetText(result.ToString());
-            //        MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        break;
-            //    }
+            case ExportFormat.DataStatements:
+                {
+                    var result = new StringBuilder();
+                    DataStatementExporter.GetDataStatements(Sprites, ref result);
+                    Clipboard.SetText(result.ToString());
+                    MessageBox.Show(this, @"The DATA statements is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                }
             //case ExportFormat.DataOnlyPrg:
             //    break;
             default:

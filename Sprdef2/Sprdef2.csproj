@@ -81,6 +81,7 @@
     <Compile Include="Export\ExportGui\MemoryLocationDialog.Designer.cs">
       <DependentUpon>MemoryLocationDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Export\ExportLogic\DataStatementExporter.cs" />
     <Compile Include="Export\ExportLogic\ExportFormat.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItem.cs" />
     <Compile Include="Export\ExportLogic\ExportFormatComboItemList.cs" />

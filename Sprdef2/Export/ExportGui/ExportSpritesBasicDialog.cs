@@ -55,17 +55,9 @@ public partial class ExportSpritesBasicDialog : Form
 
         if (SelectedExportFormat == ExportFormat.CommodoreBasic20)
         {
-            if (spritePickerControl1.Sprite == null
-                && spritePickerControl2.Sprite == null
-                && spritePickerControl3.Sprite == null
-                && spritePickerControl4.Sprite == null
-                && spritePickerControl5.Sprite == null
-                && spritePickerControl6.Sprite == null
-                && spritePickerControl7.Sprite == null
-                && spritePickerControl8.Sprite == null)
+            if (NoSpriteSelected())
             {
-                MessageBox.Show(this, @"You have not selected any sprites to export.", Text, MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show(this, @"You have not selected any sprites to export.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -105,6 +97,16 @@ public partial class ExportSpritesBasicDialog : Form
 
         DialogResult = DialogResult.OK;
     }
+
+    private bool NoSpriteSelected() =>
+        spritePickerControl1.Sprite == null
+           && spritePickerControl2.Sprite == null
+           && spritePickerControl3.Sprite == null
+           && spritePickerControl4.Sprite == null
+           && spritePickerControl5.Sprite == null
+           && spritePickerControl6.Sprite == null
+           && spritePickerControl7.Sprite == null
+           && spritePickerControl8.Sprite == null;
 
     private bool ColorConflict()
     {
@@ -169,17 +171,17 @@ public partial class ExportSpritesBasicDialog : Form
                 spritePickerControl8.Enabled = true;
                 Text = @"Export sprites to Commodore BASIC 2.0 (Commodore 64)";
                 break;
-            //case ExportFormat.DataStatements:
-            //    spritePickerControl1.Enabled = false;
-            //    spritePickerControl2.Enabled = false;
-            //    spritePickerControl3.Enabled = false;
-            //    spritePickerControl4.Enabled = false;
-            //    spritePickerControl5.Enabled = false;
-            //    spritePickerControl6.Enabled = false;
-            //    spritePickerControl7.Enabled = false;
-            //    spritePickerControl8.Enabled = false;
-            //    Text = @"Export sprites to DATA statements (Commodore 64/128)";
-            //    break;
+            case ExportFormat.DataStatements:
+                spritePickerControl1.Enabled = false;
+                spritePickerControl2.Enabled = false;
+                spritePickerControl3.Enabled = false;
+                spritePickerControl4.Enabled = false;
+                spritePickerControl5.Enabled = false;
+                spritePickerControl6.Enabled = false;
+                spritePickerControl7.Enabled = false;
+                spritePickerControl8.Enabled = false;
+                Text = @"Export sprites to DATA statements (Commodore 64/128)";
+                break;
             //case ExportFormat.DataOnlyPrg:
             //    spritePickerControl1.Enabled = false;
             //    spritePickerControl2.Enabled = false;
