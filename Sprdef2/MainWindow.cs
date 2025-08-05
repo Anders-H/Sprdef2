@@ -210,7 +210,7 @@ public partial class MainWindow : Form
         _changingFocusBecauseOfSpriteListUsage = false;
     }
 
-    public void SpriteWindowChanged(SpriteRoot sprite)
+    public void SpriteWindowChanged(SpriteRoot sprite, SpriteEditorWindow window)
     {
         colorPicker1.MultiColor = sprite.MultiColor;
 
@@ -222,6 +222,11 @@ public partial class MainWindow : Form
             colorPicker1.SetPaletteAsInt(2, (int)sprite.SpriteColorPalette[2]);
             colorPicker1.SetPaletteAsInt(3, (int)sprite.SpriteColorPalette[3]);
         }
+
+        if (radioPixelTool.Checked)
+            window.SetEditorTool(EditorToolEnum.PixelEditor);
+        else if (radioFreeHand.Checked)
+            window.SetEditorTool(EditorToolEnum.FreeHand);
 
         if (_changingFocusBecauseOfSpriteListUsage)
             return;

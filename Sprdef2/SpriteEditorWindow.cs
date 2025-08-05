@@ -62,7 +62,7 @@ public partial class SpriteEditorWindow : Form
 
     private void SpriteEditorWindow_Enter(object sender, EventArgs e)
     {
-        ((MainWindow)MdiParent).SpriteWindowChanged(Sprite);
+        ((MainWindow)MdiParent).SpriteWindowChanged(Sprite, this);
         spriteEditorControl1.Focus();
     }
 

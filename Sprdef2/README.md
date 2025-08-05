@@ -1,7 +1,7 @@
 ﻿# Sprdef2
 A Commodore 64/128 sprite editor that runs under a patched Windows 10 or Windows 11.
 
-![The main window of Sprdef2](https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_1.jpg)
+![The main window of Sprdef2](https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_2.jpg)
 
 ## Features
 

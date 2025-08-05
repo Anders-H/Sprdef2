@@ -98,6 +98,10 @@ public partial class ExportSpritesBasicDialog : Form
             if (spritePickerControl8.Sprite != null)
                 SelectedSprites.Add(spritePickerControl8.Sprite);
         }
+        else if (SelectedExportFormat == ExportFormat.DataStatements)
+        {
+
+        }
 
         DialogResult = DialogResult.OK;
     }
