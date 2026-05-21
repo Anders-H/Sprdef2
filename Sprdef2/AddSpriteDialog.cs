@@ -7,8 +7,8 @@ namespace Sprdef2;
 
 public partial class AddSpriteDialog : Form
 {
-    public ListView SpriteListView { private get; set; }
-    public ImageList SpriteImageList { private get; set; }
+    public ListView? SpriteListView { private get; set; }
+    public ImageList? SpriteImageList { private get; set; }
     public bool Multicolor { get; private set; }
     public SpriteRoot? DuplicateSprite { get; private set; }
 
@@ -32,11 +32,17 @@ public partial class AddSpriteDialog : Form
 
     private void AddSpriteDialog_Load(object sender, EventArgs e)
     {
+        if (SpriteListView == null)
+            throw new SystemException("SpriteListView is not initialized.");
+
         btnDuplicate.Enabled = SpriteListView.Items.Count > 0;
     }
 
     private void btnDuplicate_Click(object sender, EventArgs e)
     {
+        if (SpriteListView == null || SpriteImageList == null)
+            throw new SystemException("SpriteListView or SpriteImageList is not initialized.");
+
         using var x = new DuplicateSpriteDialog();
         x.SpriteListView = SpriteListView;
         x.SpriteImageList = SpriteImageList;

@@ -636,45 +636,23 @@ public partial class MainWindow : Form
         if (x.ShowDialog() != DialogResult.OK)
             return;
 
-        switch (x.SelectedExportFormat)
+        if (x.SelectedSprites is not { Count: > 0 })
         {
-            case ExportFormat.CommodoreBasic20:
-                {
-                    var selectedSprites = x.SelectedSprites;
+            MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
 
-                    if (selectedSprites is not { Count: > 0 })
-                    {
-                        MessageBox.Show(this, @"You have not selected any sprites.", @"Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
+        var exp = new Exporter(x.SelectedSprites);
+        var result = exp.Export(x.SelectedExportFormat, out var success, out var message);
 
-                    var result = new StringBuilder();
-                    var rowNumber = 10;
-                    var index = 0;
-
-                    foreach (var sprite in selectedSprites)
-                    {
-                        result.AppendLine(sprite.GetBasicCode(rowNumber, 8192, index, sprite.X, sprite.Y));
-                        index++;
-                        rowNumber += 10;
-                    }
-
-                    Clipboard.SetText(result.ToString());
-                    MessageBox.Show(this, @"The BASIC code is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                }
-            case ExportFormat.DataStatements:
-                {
-                    var result = new StringBuilder();
-                    DataStatementExporter.GetDataStatements(Sprites, ref result);
-                    Clipboard.SetText(result.ToString());
-                    MessageBox.Show(this, @"The DATA statements is copied to clipboard.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                }
-            //case ExportFormat.DataOnlyPrg:
-            //    break;
-            default:
-                throw new ArgumentOutOfRangeException();
+        if (success)
+        {
+            Clipboard.SetText(result);
+            MessageBox.Show(this, @"Export successful. The result is copied to clipboard.", $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        else
+        {
+            MessageBox.Show(this, @"The BASIC code is copied to clipboard.", $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 

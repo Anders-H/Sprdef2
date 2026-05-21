@@ -30,16 +30,17 @@
         {
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.spritePickerControl8 = new SpritePickerControl();
-            this.spritePickerControl7 = new SpritePickerControl();
-            this.spritePickerControl6 = new SpritePickerControl();
-            this.spritePickerControl5 = new SpritePickerControl();
-            this.spritePickerControl4 = new SpritePickerControl();
-            this.spritePickerControl3 = new SpritePickerControl();
-            this.spritePickerControl2 = new SpritePickerControl();
-            this.spritePickerControl1 = new SpritePickerControl();
+            this.spritePickerControl8 = new Sprdef2.Export.ExportGui.SpritePickerControl();
+            this.spritePickerControl7 = new Sprdef2.Export.ExportGui.SpritePickerControl();
+            this.spritePickerControl6 = new Sprdef2.Export.ExportGui.SpritePickerControl();
+            this.spritePickerControl5 = new Sprdef2.Export.ExportGui.SpritePickerControl();
+            this.spritePickerControl4 = new Sprdef2.Export.ExportGui.SpritePickerControl();
+            this.spritePickerControl3 = new Sprdef2.Export.ExportGui.SpritePickerControl();
+            this.spritePickerControl2 = new Sprdef2.Export.ExportGui.SpritePickerControl();
+            this.spritePickerControl1 = new Sprdef2.Export.ExportGui.SpritePickerControl();
             this.label1 = new System.Windows.Forms.Label();
             this.cboExportFormat = new System.Windows.Forms.ComboBox();
+            this.btnPreview = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOk
@@ -47,7 +48,7 @@
             this.btnOk.Location = new System.Drawing.Point(272, 408);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 8;
+            this.btnOk.TabIndex = 11;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -58,7 +59,7 @@
             this.btnCancel.Location = new System.Drawing.Point(352, 408);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 9;
+            this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -156,7 +157,7 @@
             this.label1.Location = new System.Drawing.Point(4, 356);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 10;
+            this.label1.TabIndex = 8;
             this.label1.Text = "Export format:";
             // 
             // cboExportFormat
@@ -166,8 +167,17 @@
             this.cboExportFormat.Location = new System.Drawing.Point(4, 372);
             this.cboExportFormat.Name = "cboExportFormat";
             this.cboExportFormat.Size = new System.Drawing.Size(424, 21);
-            this.cboExportFormat.TabIndex = 11;
+            this.cboExportFormat.TabIndex = 9;
             this.cboExportFormat.SelectedIndexChanged += new System.EventHandler(this.cboExportFormat_SelectedIndexChanged);
+            // 
+            // btnPreview
+            // 
+            this.btnPreview.Location = new System.Drawing.Point(4, 408);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(75, 23);
+            this.btnPreview.TabIndex = 10;
+            this.btnPreview.Text = "Preview...";
+            this.btnPreview.UseVisualStyleBackColor = true;
             // 
             // ExportSpritesBasicDialog
             // 
@@ -175,7 +185,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(436, 438);
+            this.ClientSize = new System.Drawing.Size(432, 435);
+            this.Controls.Add(this.btnPreview);
             this.Controls.Add(this.cboExportFormat);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
@@ -215,5 +226,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboExportFormat;
+        private System.Windows.Forms.Button btnPreview;
     }
 }

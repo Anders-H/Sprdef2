@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using EditStateSprite;
 using EditStateSprite.SpriteModifiers;
 using System.Collections;
@@ -10,8 +11,8 @@ namespace Sprdef2;
 
 public partial class PropertiesDialog : Form
 {
-    public Form? ParentForm { get; set; }
-    public SpriteRoot Sprite { get; set; }
+    public new Form? ParentForm { get; set; }
+    public SpriteRoot? Sprite { get; set; }
     public bool MultiColor { get; set; }
 
     public PropertiesDialog()
@@ -19,8 +20,11 @@ public partial class PropertiesDialog : Form
         InitializeComponent();
     }
 
-    private void PropertiesDialog_Load(object sender, System.EventArgs e)
+    private void PropertiesDialog_Load(object sender, EventArgs e)
     {
+        if (Sprite == null)
+            throw new SystemException("Sprite is not initialized.");
+
         foreach (var description in PreviewAnimationBehaviourHelper.GetDescriptions())
             cboBehaviourDuringAnimation.Items.Add(description);
 
@@ -39,7 +43,7 @@ public partial class PropertiesDialog : Form
 
         for (var i = 0; i < bytes.Length; i++)
         {
-            var bits = new BitArray(new byte[] { bytes[i] });
+            var bits = new BitArray([bytes[i]]);
             var bitsString = new StringBuilder();
             
             for (var j = 7; j >= 0; j--)
@@ -82,25 +86,28 @@ public partial class PropertiesDialog : Form
         txtBytes.Text = s.ToString();
     }
 
-    private void btnOk_Click(object sender, System.EventArgs e)
+    private void btnOk_Click(object sender, EventArgs e)
     {
+        if (Sprite == null)
+            throw new SystemException("Sprite is not initialized.");
+
         Sprite.Name = txtSpriteName.Text.Trim();
         MultiColor = chkMulticolor.Checked;
         Sprite.ExpandX = chkExpandX.Checked;
         Sprite.ExpandY = chkExpandY.Checked;
         Sprite.PreviewOffsetX = ParseLocationInt(txtPreviewX);
         Sprite.PreviewOffsetY = ParseLocationInt(txtPreviewY);
-        Sprite.PreviewAnimationBehaviour = PreviewAnimationBehaviourHelper.GetValue(cboBehaviourDuringAnimation.SelectedItem.ToString()!);
+        Sprite.PreviewAnimationBehaviour = PreviewAnimationBehaviourHelper.GetValue(cboBehaviourDuringAnimation.SelectedItem.ToString());
         DialogResult = DialogResult.OK;
     }
 
-    private void txtSpriteName_Validated(object sender, System.EventArgs e) =>
+    private void txtSpriteName_Validated(object sender, EventArgs e) =>
         txtSpriteName.Text = txtSpriteName.Text.ToUpper().Trim();
 
-    private void txtPreviewX_Validated(object sender, System.EventArgs e) =>
+    private void txtPreviewX_Validated(object sender, EventArgs e) =>
         txtPreviewX.Text = ParseLocationInt(txtPreviewX).ToString(CultureInfo.CurrentCulture);
 
-    private void txtPreviewY_Validated(object sender, System.EventArgs e) =>
+    private void txtPreviewY_Validated(object sender, EventArgs e) =>
         txtPreviewY.Text = ParseLocationInt(txtPreviewY).ToString(CultureInfo.CurrentCulture);
 
     private int ParseLocationInt(TextBox textBox)
@@ -115,10 +122,9 @@ public partial class PropertiesDialog : Form
             x = 9999;
 
         return x;
-
     }
 
-    private void btnEditorBackgroundColor_Click(object sender, System.EventArgs e)
+    private void btnEditorBackgroundColor_Click(object sender, EventArgs e)
     {
         if (ParentForm == null)
             return;

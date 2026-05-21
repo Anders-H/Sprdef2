@@ -34,9 +34,7 @@ public partial class ExportSpritesBasicDialog : Form
         spritePickerControl8.SetSprites(Sprites);
 
         foreach (var i in new ExportFormatComboItemList())
-        {
             cboExportFormat.Items.Add(i);
-        }
 
         cboExportFormat.SelectedIndex = 0;
         SelectedExportFormat = ExportFormat.CommodoreBasic20;
@@ -53,7 +51,7 @@ public partial class ExportSpritesBasicDialog : Form
         spritePickerControl7.StoreLocation();
         spritePickerControl8.StoreLocation();
 
-        if (SelectedExportFormat == ExportFormat.CommodoreBasic20)
+        if (SelectedExportFormat == ExportFormat.CommodoreBasic20 || SelectedExportFormat == ExportFormat.CbmPrgStudioAssembler)
         {
             if (NoSpriteSelected())
             {
@@ -89,10 +87,6 @@ public partial class ExportSpritesBasicDialog : Form
 
             if (spritePickerControl8.Sprite != null)
                 SelectedSprites.Add(spritePickerControl8.Sprite);
-        }
-        else if (SelectedExportFormat == ExportFormat.DataStatements)
-        {
-
         }
 
         DialogResult = DialogResult.OK;
@@ -182,17 +176,17 @@ public partial class ExportSpritesBasicDialog : Form
                 spritePickerControl8.Enabled = false;
                 Text = @"Export sprites to DATA statements (Commodore 64/128)";
                 break;
-            //case ExportFormat.DataOnlyPrg:
-            //    spritePickerControl1.Enabled = false;
-            //    spritePickerControl2.Enabled = false;
-            //    spritePickerControl3.Enabled = false;
-            //    spritePickerControl4.Enabled = false;
-            //    spritePickerControl5.Enabled = false;
-            //    spritePickerControl6.Enabled = false;
-            //    spritePickerControl7.Enabled = false;
-            //    spritePickerControl8.Enabled = false;
-            //    Text = @"Export sprites as PRG file";
-            //    break;
+            case ExportFormat.CbmPrgStudioAssembler:
+                spritePickerControl1.Enabled = true;
+                spritePickerControl2.Enabled = true;
+                spritePickerControl3.Enabled = true;
+                spritePickerControl4.Enabled = true;
+                spritePickerControl5.Enabled = true;
+                spritePickerControl6.Enabled = true;
+                spritePickerControl7.Enabled = true;
+                spritePickerControl8.Enabled = true;
+                Text = @"Export sprites to CBM Prg Studio assembly (Commodore 64/128)";
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }

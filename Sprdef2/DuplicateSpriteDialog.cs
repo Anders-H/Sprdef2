@@ -7,8 +7,8 @@ namespace Sprdef2;
 
 public partial class DuplicateSpriteDialog : Form
 {
-    public ListView SpriteListView { private get; set; }
-    public ImageList SpriteImageList { private get; set; }
+    public ListView? SpriteListView { private get; set; }
+    public ImageList? SpriteImageList { private get; set; }
     public SpriteRoot? DuplicateSprite { get; private set; }
 
     public DuplicateSpriteDialog()
@@ -30,6 +30,9 @@ public partial class DuplicateSpriteDialog : Form
 
     private void DuplicateSpriteDialog_Load(object sender, EventArgs e)
     {
+        if (SpriteListView == null || SpriteImageList == null)
+            throw new SystemException("SpriteListView or SpriteImageList is not initialized.");
+
         lvSpriteList.SmallImageList = SpriteImageList;
         lvSpriteList.BeginUpdate();
 

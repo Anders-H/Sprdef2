@@ -30,4 +30,28 @@ public static class DataStatementExporter
                 s.AppendLine();
         }
     }
+
+    public static void GetCbmPrgStudioAssembler(SpriteList sprites, ref StringBuilder s)
+    {
+        s.AppendLine("SPRITEDATA");
+        var spriteCount = 0;
+
+        foreach (var bytes in sprites.Select(sprite => sprite.GetBytes()))
+        {
+            s.AppendLine($"; Sprite {spriteCount++}");
+            s.Append("    BYTE ");
+
+            for (var i = 0; i < 63; i++)
+            {
+                if (i == 31)
+                    s.AppendLine($"${bytes[i]:X2}");
+                else if (i == 32)
+                    s.Append($"    BYTE ${bytes[i]:X2},");
+                else
+                    s.Append($"${bytes[i]:X2},");
+            }
+
+            s.AppendLine("$00");
+        }
+    }
 }
