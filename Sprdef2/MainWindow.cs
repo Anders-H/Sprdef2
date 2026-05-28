@@ -825,6 +825,15 @@ public partial class MainWindow : Form
             spriteEditor.SetEditorTool(EditorToolEnum.FreeHand);
     }
 
+    private void radioLine_CheckedChanged(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        if (radioLine.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.LineTool);
+    }
+
     private void windowToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
     {
         singleViewToolStripMenuItem.Enabled = MdiChildren.Length > 0;

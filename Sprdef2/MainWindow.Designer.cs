@@ -677,6 +677,7 @@
             this.radioLine.Text = "Line";
             this.radioLine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioLine.UseVisualStyleBackColor = true;
+            this.radioLine.CheckedChanged += new System.EventHandler(this.radioLine_CheckedChanged);
             // 
             // radioFreeHand
             // 
