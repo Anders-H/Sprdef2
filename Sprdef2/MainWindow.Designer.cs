@@ -61,6 +61,11 @@
             this.animateSpritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.singleViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportAnIssueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,14 +93,10 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorPicker1 = new C64ColorControls.ColorPicker();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnProperties = new System.Windows.Forms.Button();
-            this.radioPixelTool = new System.Windows.Forms.RadioButton();
+            this.radioLine = new System.Windows.Forms.RadioButton();
             this.radioFreeHand = new System.Windows.Forms.RadioButton();
-            this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.singleViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.radioPixelTool = new System.Windows.Forms.RadioButton();
+            this.btnProperties = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
@@ -268,7 +269,7 @@
             // 
             this.scrollUpToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_UpArrowLong_Blue_16x16_72;
             this.scrollUpToolStripMenuItem.Name = "scrollUpToolStripMenuItem";
-            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.scrollUpToolStripMenuItem.Text = "Scroll up";
             this.scrollUpToolStripMenuItem.Click += new System.EventHandler(this.scrollUpToolStripMenuItem_Click);
             // 
@@ -276,7 +277,7 @@
             // 
             this.scrollRightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_RightArrowLong_Blue_16x16_72;
             this.scrollRightToolStripMenuItem.Name = "scrollRightToolStripMenuItem";
-            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.scrollRightToolStripMenuItem.Text = "Scroll right";
             this.scrollRightToolStripMenuItem.Click += new System.EventHandler(this.scrollRightToolStripMenuItem_Click);
             // 
@@ -284,7 +285,7 @@
             // 
             this.scrollDownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_DownArrowLong_Blue_16x16_72;
             this.scrollDownToolStripMenuItem.Name = "scrollDownToolStripMenuItem";
-            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.scrollDownToolStripMenuItem.Text = "Scroll down";
             this.scrollDownToolStripMenuItem.Click += new System.EventHandler(this.scrollDownToolStripMenuItem_Click);
             // 
@@ -292,33 +293,33 @@
             // 
             this.scrollLeftToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_LeftArrowLong_Blue_16x16_72;
             this.scrollLeftToolStripMenuItem.Name = "scrollLeftToolStripMenuItem";
-            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.scrollLeftToolStripMenuItem.Text = "Scroll left";
             this.scrollLeftToolStripMenuItem.Click += new System.EventHandler(this.scrollLeftToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(146, 6);
             // 
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.PropertiesHS;
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.propertiesToolStripMenuItem.Text = "Properties...";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
             // 
             // flipLeftrightToolStripMenuItem
             // 
             this.flipLeftrightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipHorizontalHS;
             this.flipLeftrightToolStripMenuItem.Name = "flipLeftrightToolStripMenuItem";
-            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.flipLeftrightToolStripMenuItem.Text = "Flip left-right";
             this.flipLeftrightToolStripMenuItem.Click += new System.EventHandler(this.flipLeftrightToolStripMenuItem_Click);
             // 
@@ -326,7 +327,7 @@
             // 
             this.flipTopdownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipVerticalHS;
             this.flipTopdownToolStripMenuItem.Name = "flipTopdownToolStripMenuItem";
-            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.flipTopdownToolStripMenuItem.Text = "Flip top-down";
             this.flipTopdownToolStripMenuItem.Click += new System.EventHandler(this.flipTopdownToolStripMenuItem_Click);
             // 
@@ -360,6 +361,46 @@
             this.optionsToolStripMenuItem.Text = "Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
+            // windowToolStripMenuItem
+            // 
+            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.singleViewToolStripMenuItem,
+            this.cascadeToolStripMenuItem,
+            this.tileHorizontalToolStripMenuItem,
+            this.tileVerticalToolStripMenuItem});
+            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.windowToolStripMenuItem.Text = "&Window";
+            this.windowToolStripMenuItem.DropDownOpened += new System.EventHandler(this.windowToolStripMenuItem_DropDownOpened);
+            // 
+            // singleViewToolStripMenuItem
+            // 
+            this.singleViewToolStripMenuItem.Name = "singleViewToolStripMenuItem";
+            this.singleViewToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.singleViewToolStripMenuItem.Text = "Single view";
+            this.singleViewToolStripMenuItem.Click += new System.EventHandler(this.singleViewToolStripMenuItem_Click);
+            // 
+            // cascadeToolStripMenuItem
+            // 
+            this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.cascadeToolStripMenuItem.Text = "Cascade";
+            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
+            // 
+            // tileHorizontalToolStripMenuItem
+            // 
+            this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.tileHorizontalToolStripMenuItem.Text = "Tile horizontal";
+            this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.tileHorizontalToolStripMenuItem_Click);
+            // 
+            // tileVerticalToolStripMenuItem
+            // 
+            this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
+            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.tileVerticalToolStripMenuItem.Text = "Tile vertical";
+            this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.tileVerticalToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -372,14 +413,14 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // reportAnIssueToolStripMenuItem
             // 
             this.reportAnIssueToolStripMenuItem.Name = "reportAnIssueToolStripMenuItem";
-            this.reportAnIssueToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reportAnIssueToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.reportAnIssueToolStripMenuItem.Text = "Report an issue...";
             this.reportAnIssueToolStripMenuItem.Click += new System.EventHandler(this.reportAnIssueToolStripMenuItem_Click);
             // 
@@ -614,6 +655,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.Controls.Add(this.radioLine);
             this.panel1.Controls.Add(this.radioFreeHand);
             this.panel1.Controls.Add(this.radioPixelTool);
             this.panel1.Controls.Add(this.btnProperties);
@@ -623,15 +665,32 @@
             this.panel1.Size = new System.Drawing.Size(108, 490);
             this.panel1.TabIndex = 10;
             // 
-            // btnProperties
+            // radioLine
             // 
-            this.btnProperties.Location = new System.Drawing.Point(4, 4);
-            this.btnProperties.Name = "btnProperties";
-            this.btnProperties.Size = new System.Drawing.Size(100, 24);
-            this.btnProperties.TabIndex = 4;
-            this.btnProperties.Text = "Properties...";
-            this.btnProperties.UseVisualStyleBackColor = true;
-            this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
+            this.radioLine.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioLine.Image = global::Sprdef2.Properties.Resources.linetool;
+            this.radioLine.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.radioLine.Location = new System.Drawing.Point(4, 88);
+            this.radioLine.Name = "radioLine";
+            this.radioLine.Size = new System.Drawing.Size(100, 24);
+            this.radioLine.TabIndex = 7;
+            this.radioLine.Text = "Line";
+            this.radioLine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioLine.UseVisualStyleBackColor = true;
+            // 
+            // radioFreeHand
+            // 
+            this.radioFreeHand.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioFreeHand.Image = global::Sprdef2.Properties.Resources.FreeHandTool;
+            this.radioFreeHand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.radioFreeHand.Location = new System.Drawing.Point(4, 60);
+            this.radioFreeHand.Name = "radioFreeHand";
+            this.radioFreeHand.Size = new System.Drawing.Size(100, 24);
+            this.radioFreeHand.TabIndex = 6;
+            this.radioFreeHand.Text = "Freehand";
+            this.radioFreeHand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioFreeHand.UseVisualStyleBackColor = true;
+            this.radioFreeHand.CheckedChanged += new System.EventHandler(this.radioFreeHand_CheckedChanged);
             // 
             // radioPixelTool
             // 
@@ -649,59 +708,15 @@
             this.radioPixelTool.UseVisualStyleBackColor = true;
             this.radioPixelTool.CheckedChanged += new System.EventHandler(this.radioPixelTool_CheckedChanged);
             // 
-            // radioFreeHand
+            // btnProperties
             // 
-            this.radioFreeHand.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioFreeHand.Image = global::Sprdef2.Properties.Resources.FreeHandTool;
-            this.radioFreeHand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.radioFreeHand.Location = new System.Drawing.Point(4, 60);
-            this.radioFreeHand.Name = "radioFreeHand";
-            this.radioFreeHand.Size = new System.Drawing.Size(100, 24);
-            this.radioFreeHand.TabIndex = 6;
-            this.radioFreeHand.Text = "Freehand";
-            this.radioFreeHand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioFreeHand.UseVisualStyleBackColor = true;
-            this.radioFreeHand.CheckedChanged += new System.EventHandler(this.radioFreeHand_CheckedChanged);
-            // 
-            // cascadeToolStripMenuItem
-            // 
-            this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.cascadeToolStripMenuItem.Text = "Cascade";
-            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
-            // 
-            // tileHorizontalToolStripMenuItem
-            // 
-            this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tileHorizontalToolStripMenuItem.Text = "Tile horizontal";
-            this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.tileHorizontalToolStripMenuItem_Click);
-            // 
-            // tileVerticalToolStripMenuItem
-            // 
-            this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tileVerticalToolStripMenuItem.Text = "Tile vertical";
-            this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.tileVerticalToolStripMenuItem_Click);
-            // 
-            // windowToolStripMenuItem
-            // 
-            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.singleViewToolStripMenuItem,
-            this.cascadeToolStripMenuItem,
-            this.tileHorizontalToolStripMenuItem,
-            this.tileVerticalToolStripMenuItem});
-            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.windowToolStripMenuItem.Text = "&Window";
-            this.windowToolStripMenuItem.DropDownOpened += new System.EventHandler(this.windowToolStripMenuItem_DropDownOpened);
-            // 
-            // singleViewToolStripMenuItem
-            // 
-            this.singleViewToolStripMenuItem.Name = "singleViewToolStripMenuItem";
-            this.singleViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.singleViewToolStripMenuItem.Text = "Single view";
-            this.singleViewToolStripMenuItem.Click += new System.EventHandler(this.singleViewToolStripMenuItem_Click);
+            this.btnProperties.Location = new System.Drawing.Point(4, 4);
+            this.btnProperties.Name = "btnProperties";
+            this.btnProperties.Size = new System.Drawing.Size(100, 24);
+            this.btnProperties.TabIndex = 4;
+            this.btnProperties.Text = "Properties...";
+            this.btnProperties.UseVisualStyleBackColor = true;
+            this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
             // 
             // MainWindow
             // 
@@ -803,6 +818,7 @@
         private System.Windows.Forms.ToolStripMenuItem tileHorizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileVerticalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem singleViewToolStripMenuItem;
+        private System.Windows.Forms.RadioButton radioLine;
     }
 }
 

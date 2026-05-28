@@ -50,7 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\EditStateSprite\EditStateSprite\bin\Release\EditStateSprite.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -74,6 +76,12 @@
     </Compile>
     <Compile Include="DuplicateSpriteDialog.Designer.cs">
       <DependentUpon>DuplicateSpriteDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Export\ExportGui\ExportPreviewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Export\ExportGui\ExportPreviewDialog.Designer.cs">
+      <DependentUpon>ExportPreviewDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Export\ExportGui\MemoryLocationDialog.cs">
       <SubType>Form</SubType>
@@ -132,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DuplicateSpriteDialog.resx">
       <DependentUpon>DuplicateSpriteDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Export\ExportGui\ExportPreviewDialog.resx">
+      <DependentUpon>ExportPreviewDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Export\ExportGui\MemoryLocationDialog.resx">
       <DependentUpon>MemoryLocationDialog.cs</DependentUpon>
@@ -197,6 +208,7 @@
     <None Include="Resources\FlipVerticalHS.png" />
     <None Include="Resources\sprite.ico" />
     <None Include="Resources\duplicate.png" />
+    <None Include="Resources\linetool.png" />
     <Content Include="Sprdef2.ico" />
   </ItemGroup>
   <ItemGroup />

@@ -51,45 +51,50 @@ public partial class ExportSpritesBasicDialog : Form
         spritePickerControl7.StoreLocation();
         spritePickerControl8.StoreLocation();
 
-        if (SelectedExportFormat == ExportFormat.CommodoreBasic20 || SelectedExportFormat == ExportFormat.CbmPrgStudioAssembler)
-        {
-            if (NoSpriteSelected())
-            {
-                MessageBox.Show(this, @"You have not selected any sprites to export.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            if (ColorConflict())
-                MessageBox.Show(this, @"Some of the multi color sprites differ in the last two colors, and can not be displayed correctly at the same time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            SelectedSprites = [];
-
-            if (spritePickerControl1.Sprite != null)
-                SelectedSprites.Add(spritePickerControl1.Sprite);
-
-            if (spritePickerControl2.Sprite != null)
-                SelectedSprites.Add(spritePickerControl2.Sprite);
-
-            if (spritePickerControl3.Sprite != null)
-                SelectedSprites.Add(spritePickerControl3.Sprite);
-
-            if (spritePickerControl4.Sprite != null)
-                SelectedSprites.Add(spritePickerControl4.Sprite);
-
-            if (spritePickerControl5.Sprite != null)
-                SelectedSprites.Add(spritePickerControl5.Sprite);
-
-            if (spritePickerControl6.Sprite != null)
-                SelectedSprites.Add(spritePickerControl6.Sprite);
-
-            if (spritePickerControl7.Sprite != null)
-                SelectedSprites.Add(spritePickerControl7.Sprite);
-
-            if (spritePickerControl8.Sprite != null)
-                SelectedSprites.Add(spritePickerControl8.Sprite);
-        }
+        if (!StoreSprites())
+            return;
 
         DialogResult = DialogResult.OK;
+    }
+
+    private bool StoreSprites()
+    {
+        if (NoSpriteSelected())
+        {
+            MessageBox.Show(this, @"You have not selected any sprites to export.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return false;
+        }
+
+        if (ColorConflict())
+            MessageBox.Show(this, @"Some of the multi color sprites differ in the last two colors, and can not be displayed correctly at the same time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        SelectedSprites = [];
+
+        if (spritePickerControl1.Sprite != null)
+            SelectedSprites.Add(spritePickerControl1.Sprite);
+
+        if (spritePickerControl2.Sprite != null)
+            SelectedSprites.Add(spritePickerControl2.Sprite);
+
+        if (spritePickerControl3.Sprite != null)
+            SelectedSprites.Add(spritePickerControl3.Sprite);
+
+        if (spritePickerControl4.Sprite != null)
+            SelectedSprites.Add(spritePickerControl4.Sprite);
+
+        if (spritePickerControl5.Sprite != null)
+            SelectedSprites.Add(spritePickerControl5.Sprite);
+
+        if (spritePickerControl6.Sprite != null)
+            SelectedSprites.Add(spritePickerControl6.Sprite);
+
+        if (spritePickerControl7.Sprite != null)
+            SelectedSprites.Add(spritePickerControl7.Sprite);
+
+        if (spritePickerControl8.Sprite != null)
+            SelectedSprites.Add(spritePickerControl8.Sprite);
+
+        return SelectedSprites.Count > 0;
     }
 
     private bool NoSpriteSelected() =>
@@ -152,43 +157,31 @@ public partial class ExportSpritesBasicDialog : Form
     {
         SelectedExportFormat = ((ExportFormatComboItem)cboExportFormat.SelectedItem).ExportFormat;
 
-        switch (SelectedExportFormat)
+        Text = SelectedExportFormat switch
         {
-            case ExportFormat.CommodoreBasic20:
-                spritePickerControl1.Enabled = true;
-                spritePickerControl2.Enabled = true;
-                spritePickerControl3.Enabled = true;
-                spritePickerControl4.Enabled = true;
-                spritePickerControl5.Enabled = true;
-                spritePickerControl6.Enabled = true;
-                spritePickerControl7.Enabled = true;
-                spritePickerControl8.Enabled = true;
-                Text = @"Export sprites to Commodore BASIC 2.0 (Commodore 64)";
-                break;
-            case ExportFormat.DataStatements:
-                spritePickerControl1.Enabled = false;
-                spritePickerControl2.Enabled = false;
-                spritePickerControl3.Enabled = false;
-                spritePickerControl4.Enabled = false;
-                spritePickerControl5.Enabled = false;
-                spritePickerControl6.Enabled = false;
-                spritePickerControl7.Enabled = false;
-                spritePickerControl8.Enabled = false;
-                Text = @"Export sprites to DATA statements (Commodore 64/128)";
-                break;
-            case ExportFormat.CbmPrgStudioAssembler:
-                spritePickerControl1.Enabled = true;
-                spritePickerControl2.Enabled = true;
-                spritePickerControl3.Enabled = true;
-                spritePickerControl4.Enabled = true;
-                spritePickerControl5.Enabled = true;
-                spritePickerControl6.Enabled = true;
-                spritePickerControl7.Enabled = true;
-                spritePickerControl8.Enabled = true;
-                Text = @"Export sprites to CBM Prg Studio assembly (Commodore 64/128)";
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            ExportFormat.CommodoreBasic20 => @"Export sprites to Commodore BASIC 2.0 (Commodore 64)",
+            ExportFormat.DataStatements => @"Export sprites to DATA statements (Commodore 64/128)",
+            ExportFormat.CbmPrgStudioAssembler => @"Export sprites to CBM Prg Studio assembly (Commodore 64/128)",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
+    private void btnPreview_Click(object sender, EventArgs e)
+    {
+        if (!StoreSprites())
+            return;
+
+        var exp = new Exporter(SelectedSprites);
+        var result = exp.Export(SelectedExportFormat, out var success, out var message);
+
+        if (success)
+        {
+            using var x = new ExportPreviewDialog();
+            x.ExportPreview = result;
+            x.ShowDialog(this);
+            return;
         }
+
+        MessageBox.Show(this, message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 }

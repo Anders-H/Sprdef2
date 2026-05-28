@@ -38,7 +38,7 @@ public static class DataStatementExporter
 
         foreach (var bytes in sprites.Select(sprite => sprite.GetBytes()))
         {
-            s.AppendLine($"; Sprite {spriteCount++}");
+            s.AppendLine($"; Sprite {spriteCount++} (the last byte is a dead byte and can be removed if desired)");
             s.Append("    BYTE ");
 
             for (var i = 0; i < 63; i++)
