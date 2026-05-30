@@ -13,7 +13,7 @@ Download version 1.2: [SetupSprdef2.exe](https://github.com/Anders-H/Sprdef2/blo
 
 ## Version history
 
-1.3: (Not available for download yet) CBM Prg Studio export, a few minor bug fixes, and a new line tool.
+1.3: CBM Prg Studio export, a few minor bug fixes, a new line tool and undo/redo functionality.
 
 1.2: Free hand editing, better sprite preview options and fixed an export bug. Use right mouse button to delete a pixel.
 

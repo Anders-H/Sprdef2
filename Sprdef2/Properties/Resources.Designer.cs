@@ -63,6 +63,26 @@ namespace Sprdef2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _112_ArrowReturnLeft_Blue_16x16_72 {
+            get {
+                object obj = ResourceManager.GetObject("112_ArrowReturnLeft_Blue_16x16_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _112_ArrowReturnRight_Blue_16x16_72 {
+            get {
+                object obj = ResourceManager.GetObject("112_ArrowReturnRight_Blue_16x16_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _112_DownArrowLong_Blue_16x16_72 {
             get {
                 object obj = ResourceManager.GetObject("112_DownArrowLong_Blue_16x16_72", resourceCulture);

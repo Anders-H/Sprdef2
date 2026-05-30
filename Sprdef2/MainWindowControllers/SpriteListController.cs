@@ -100,7 +100,7 @@ public static class SpriteListController
     {
         var x = new SpriteEditorWindow();
         x.MdiParent = mdiParent;
-        x.ConnectSprite(sprite);
+        x.ConnectSprite(sprite, true);
         x.Icon = Properties.Resources.sprite;
         x.Show();
         x.WindowState = FormWindowState.Maximized;

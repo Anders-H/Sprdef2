@@ -9,22 +9,30 @@ namespace Sprdef2;
 
 public partial class SpriteEditorWindow : Form
 {
+    private readonly UndoBuffer _undoBuffer;
+    private bool _isUndo;
     private const string UninitializedSpriteName = "NOT INITIALIZED SPRITE";
     public SpriteRoot Sprite { get; private set; }
 
     public SpriteEditorWindow()
     {
+        _undoBuffer = new UndoBuffer();
+        _isUndo = false;
         Sprite = new SpriteRoot(false) { Name = UninitializedSpriteName };
         InitializeComponent();
     }
 
-    public void ConnectSprite(SpriteRoot sprite)
+    public void ConnectSprite(SpriteRoot sprite, bool pushState)
     {
         Sprite = sprite;
+
+        if (pushState)
+            _undoBuffer.PushState(sprite);
+        
         ((MainWindow)MdiParent).ColorPicker.MultiColor = sprite.MultiColor;
         ((MainWindow)MdiParent).ColorPicker.SetPaletteAsInt(0, (int)sprite.SpriteColorPalette[0]);
         ((MainWindow)MdiParent).ColorPicker.SetPaletteAsInt(1, (int)sprite.SpriteColorPalette[1]);
-        
+
         if (sprite.MultiColor)
         {
             ((MainWindow)MdiParent).ColorPicker.SetPaletteAsInt(2, (int)sprite.SpriteColorPalette[2]);
@@ -42,8 +50,13 @@ public partial class SpriteEditorWindow : Form
     public void ReconnectSprite() =>
         spriteEditorControl1.ConnectSprite(Sprite);
 
-    private void spriteEditorControl1_SpriteChanged(object sender, SpriteChangedEventArgs e) =>
+    private void spriteEditorControl1_SpriteChanged(object sender, SpriteChangedEventArgs e)
+    {
         Invalidate();
+
+        if (!_isUndo)
+            _undoBuffer.PushState(Sprite);
+    }
 
     public void colorPicker1_SelectedColorChanged(object sender, ColorButtonEventArgs e)
     {
@@ -91,6 +104,7 @@ public partial class SpriteEditorWindow : Form
         ((MainWindow)MdiParent).ColorPicker.GetSelectedButtons(out var primaryIndex, out var secondaryIndex);
         spriteEditorControl1.SetCurrentColorIndex(primaryIndex);
         spriteEditorControl1.SetSecondaryColorIndex(secondaryIndex);
+        ((MainWindow)MdiParent).SetMyTool();
     }
 
     public void colorPicker1_PaletteChanged(object sender, ColorButtonEventArgs e)
@@ -130,4 +144,43 @@ public partial class SpriteEditorWindow : Form
 
     private void spriteEditorControl1_ZoomChanged(object sender, EventArgs e) =>
         Invalidate();
+
+    public void Undo()
+    {
+        if (!_undoBuffer.Undo())
+        {
+            MessageBox.Show(this, @"Cannot undo at this time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+        var state = _undoBuffer.CurrentState;
+
+        if (state == null)
+            return;
+
+        _isUndo = true;
+        Sprite = state.Duplicate(); // ← klonar istället för direkt referens
+        ReconnectSprite();
+        _isUndo = false;
+        Invalidate();
+    }
+
+    public void Redo()
+    {
+        if (!_undoBuffer.Redo())
+        {
+            MessageBox.Show(this, @"Cannot redo at this time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+        var state = _undoBuffer.CurrentState;
+
+        if (state == null)
+            return;
+
+        _isUndo = true;
+        Sprite = state.Duplicate(); // ← klonar istället för direkt referens
+        ReconnectSprite();
+        _isUndo = false;
+        Invalidate();
+    }
 }

@@ -48,6 +48,9 @@
             this.moveSpriteUpInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveSpriteDownInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.scrollUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,8 +78,11 @@
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAddSprite = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btnRemoveSprite = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnUndo = new System.Windows.Forms.ToolStripButton();
+            this.btnRedo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnScrollUp = new System.Windows.Forms.ToolStripButton();
             this.btnScrollRight = new System.Windows.Forms.ToolStripButton();
             this.btnScrollDown = new System.Windows.Forms.ToolStripButton();
@@ -252,6 +258,9 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.redoToolStripMenuItem,
+            this.toolStripMenuItem6,
             this.scrollUpToolStripMenuItem,
             this.scrollRightToolStripMenuItem,
             this.scrollDownToolStripMenuItem,
@@ -265,11 +274,32 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_ArrowReturnLeft_Blue_16x16_72;
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolStripMenuItem
+            // 
+            this.redoToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_ArrowReturnRight_Blue_16x16_72;
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
+            // 
             // scrollUpToolStripMenuItem
             // 
             this.scrollUpToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_UpArrowLong_Blue_16x16_72;
             this.scrollUpToolStripMenuItem.Name = "scrollUpToolStripMenuItem";
-            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollUpToolStripMenuItem.Text = "Scroll up";
             this.scrollUpToolStripMenuItem.Click += new System.EventHandler(this.scrollUpToolStripMenuItem_Click);
             // 
@@ -277,7 +307,7 @@
             // 
             this.scrollRightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_RightArrowLong_Blue_16x16_72;
             this.scrollRightToolStripMenuItem.Name = "scrollRightToolStripMenuItem";
-            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollRightToolStripMenuItem.Text = "Scroll right";
             this.scrollRightToolStripMenuItem.Click += new System.EventHandler(this.scrollRightToolStripMenuItem_Click);
             // 
@@ -285,7 +315,7 @@
             // 
             this.scrollDownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_DownArrowLong_Blue_16x16_72;
             this.scrollDownToolStripMenuItem.Name = "scrollDownToolStripMenuItem";
-            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollDownToolStripMenuItem.Text = "Scroll down";
             this.scrollDownToolStripMenuItem.Click += new System.EventHandler(this.scrollDownToolStripMenuItem_Click);
             // 
@@ -293,33 +323,33 @@
             // 
             this.scrollLeftToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_LeftArrowLong_Blue_16x16_72;
             this.scrollLeftToolStripMenuItem.Name = "scrollLeftToolStripMenuItem";
-            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollLeftToolStripMenuItem.Text = "Scroll left";
             this.scrollLeftToolStripMenuItem.Click += new System.EventHandler(this.scrollLeftToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.PropertiesHS;
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.propertiesToolStripMenuItem.Text = "Properties...";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // flipLeftrightToolStripMenuItem
             // 
             this.flipLeftrightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipHorizontalHS;
             this.flipLeftrightToolStripMenuItem.Name = "flipLeftrightToolStripMenuItem";
-            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flipLeftrightToolStripMenuItem.Text = "Flip left-right";
             this.flipLeftrightToolStripMenuItem.Click += new System.EventHandler(this.flipLeftrightToolStripMenuItem_Click);
             // 
@@ -327,7 +357,7 @@
             // 
             this.flipTopdownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipVerticalHS;
             this.flipTopdownToolStripMenuItem.Name = "flipTopdownToolStripMenuItem";
-            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flipTopdownToolStripMenuItem.Text = "Flip top-down";
             this.flipTopdownToolStripMenuItem.Click += new System.EventHandler(this.flipTopdownToolStripMenuItem_Click);
             // 
@@ -433,8 +463,11 @@
             this.btnSave,
             this.toolStripSeparator3,
             this.btnAddSprite,
-            this.toolStripButton1,
+            this.btnRemoveSprite,
             this.toolStripSeparator2,
+            this.btnUndo,
+            this.btnRedo,
+            this.toolStripSeparator4,
             this.btnScrollUp,
             this.btnScrollRight,
             this.btnScrollDown,
@@ -494,20 +527,45 @@
             this.btnAddSprite.Text = "Add sprite...";
             this.btnAddSprite.Click += new System.EventHandler(this.btnAddSprite_Click);
             // 
-            // toolStripButton1
+            // btnRemoveSprite
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::Sprdef2.Properties.Resources._112_Minus_Orange_16x16_72;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "Remove sprite";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.btnRemoveSprite.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRemoveSprite.Image = global::Sprdef2.Properties.Resources._112_Minus_Orange_16x16_72;
+            this.btnRemoveSprite.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRemoveSprite.Name = "btnRemoveSprite";
+            this.btnRemoveSprite.Size = new System.Drawing.Size(23, 22);
+            this.btnRemoveSprite.Text = "Remove sprite";
+            this.btnRemoveSprite.Click += new System.EventHandler(this.btnRemoveSprite_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnUndo
+            // 
+            this.btnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnUndo.Image = global::Sprdef2.Properties.Resources._112_ArrowReturnLeft_Blue_16x16_72;
+            this.btnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(23, 22);
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
+            // btnRedo
+            // 
+            this.btnRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRedo.Image = global::Sprdef2.Properties.Resources._112_ArrowReturnRight_Blue_16x16_72;
+            this.btnRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRedo.Name = "btnRedo";
+            this.btnRedo.Size = new System.Drawing.Size(23, 22);
+            this.btnRedo.Text = "Redo";
+            this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // btnScrollUp
             // 
@@ -795,7 +853,7 @@
         private System.Windows.Forms.ToolStripButton btnSave;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem removeSpriteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btnRemoveSprite;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
@@ -820,6 +878,12 @@
         private System.Windows.Forms.ToolStripMenuItem tileVerticalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem singleViewToolStripMenuItem;
         private System.Windows.Forms.RadioButton radioLine;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripButton btnUndo;
+        private System.Windows.Forms.ToolStripButton btnRedo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 

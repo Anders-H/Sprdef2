@@ -134,6 +134,7 @@
     <Compile Include="Export\ExportGui\SpritePickerControl.Designer.cs">
       <DependentUpon>SpritePickerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UndoBuffer.cs" />
     <EmbeddedResource Include="AddSpriteDialog.resx">
       <DependentUpon>AddSpriteDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -209,6 +210,8 @@
     <None Include="Resources\sprite.ico" />
     <None Include="Resources\duplicate.png" />
     <None Include="Resources\linetool.png" />
+    <None Include="Resources\112_ArrowReturnLeft_Blue_16x16_72.png" />
+    <None Include="Resources\112_ArrowReturnRight_Blue_16x16_72.png" />
     <Content Include="Sprdef2.ico" />
   </ItemGroup>
   <ItemGroup />

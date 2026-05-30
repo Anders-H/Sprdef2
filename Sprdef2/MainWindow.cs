@@ -10,7 +10,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 using C64ColorControls;
 
@@ -90,7 +89,6 @@ public partial class MainWindow : Form
         {
             SpriteListController.AddSprite(this, lvSpriteList, imageList1, Rnd.Next(0, 50), Rnd.Next(0, 140));
         }
-
     }
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>
@@ -134,7 +132,7 @@ public partial class MainWindow : Form
             if (x.MultiColor != w.Sprite.MultiColor)
                 w.ToggleColorMode();
 
-            w.ConnectSprite(w.Sprite);
+            w.ConnectSprite(w.Sprite, true);
 
             foreach (ListViewItem item in lvSpriteList.Items)
             {
@@ -213,7 +211,6 @@ public partial class MainWindow : Form
     public void SpriteWindowChanged(SpriteRoot sprite, SpriteEditorWindow window)
     {
         colorPicker1.MultiColor = sprite.MultiColor;
-
         colorPicker1.SetPaletteAsInt(0, (int)sprite.SpriteColorPalette[0]);
         colorPicker1.SetPaletteAsInt(1, (int)sprite.SpriteColorPalette[1]);
 
@@ -619,7 +616,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void toolStripButton1_Click(object sender, EventArgs e) =>
+    private void btnRemoveSprite_Click(object sender, EventArgs e) =>
         removeSpriteToolStripMenuItem_Click(sender, e);
 
     private void exportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -834,6 +831,19 @@ public partial class MainWindow : Form
             spriteEditor.SetEditorTool(EditorToolEnum.LineTool);
     }
 
+    public void SetMyTool()
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        if (radioPixelTool.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.PixelEditor);
+        else if (radioFreeHand.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.FreeHand);
+        else if (radioLine.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.LineTool);
+    }
+
     private void windowToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
     {
         singleViewToolStripMenuItem.Enabled = MdiChildren.Length > 0;
@@ -888,4 +898,26 @@ public partial class MainWindow : Form
         tileVerticalToolStripMenuItem.Checked = true;
         LayoutMdi(MdiLayout.TileVertical);
     }
+
+    private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        spriteEditor.Undo();
+    }
+
+    private void btnUndo_Click(object sender, EventArgs e) =>
+        undoToolStripMenuItem_Click(sender, e);
+
+    private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        spriteEditor.Redo();
+    }
+
+    private void btnRedo_Click(object sender, EventArgs e) =>
+        redoToolStripMenuItem_Click(sender, e);
 }
