@@ -7,7 +7,9 @@ A Commodore 64/128 sprite editor that runs under a patched Windows 10 or Windows
 ## Features
 
 * Edit projects containing multiple sprites with all available attributes
-* Commodore BASIC 2.0 export for Commodore 64
+* Keyboard editing (like SPRIDEF on the Commodore 128), freehand drawing and line tool
+* Undo and redo
+* Commodore BASIC 2.0 export for Commodore 64 and CBM Prg Studio export
 
 Download version 1.3: [SetupSprdef2.exe](https://github.com/Anders-H/Sprdef2/blob/main/SetupSprdef2.exe) Click the "Download raw file" icon to the right to download or [download the zip file](https://github.com/Anders-H/Sprdef2/blob/main/SetupSprdef2.zip).
 
