@@ -201,11 +201,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="web\site.webmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="web\android-chrome-192x192.png" />
+    <Content Include="web\android-chrome-512x512.png" />
+    <Content Include="web\apple-touch-icon.png" />
+    <Content Include="web\favicon-16x16.png" />
+    <Content Include="web\favicon-32x32.png" />
+    <Content Include="web\favicon.ico" />
     <Content Include="web\index.html" />
     <None Include="Resources\add2-16.png" />
     <None Include="Resources\NewDocumentHS.png" />
