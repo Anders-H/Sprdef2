@@ -75,6 +75,12 @@ public partial class MainWindow : Form
 
     private void addSpriteToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (Sprites.Count >= 256)
+        {
+            MessageBox.Show(this, @"No room for more sprites.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
         if (lvSpriteList.SelectedItems.Count > 0)
             CreateListItemPreview((SpriteRoot)lvSpriteList.SelectedItems[0].Tag, lvSpriteList.SelectedItems[0]);
 
@@ -89,6 +95,8 @@ public partial class MainWindow : Form
         {
             SpriteListController.AddSprite(this, lvSpriteList, imageList1, Rnd.Next(0, 50), Rnd.Next(0, 140));
         }
+
+        lblSpriteCount.Text = $@"Sprites: {Sprites.Count}";
     }
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e) =>
@@ -559,6 +567,7 @@ public partial class MainWindow : Form
         CheckOnlyExistingSpritesAreOpenInEditor();
         Refresh();
         timer1.Enabled = true;
+        lblSpriteCount.Text = $@"Sprites: {Sprites.Count}";
     }
 
     private void CheckOnlyExistingSpritesExistsInList()
@@ -640,16 +649,54 @@ public partial class MainWindow : Form
         }
 
         var exp = new Exporter(x.SelectedSprites);
-        var result = exp.Export(x.SelectedExportFormat, out var success, out var message);
 
-        if (success)
+        switch (x.SelectedExportFormat)
         {
-            Clipboard.SetText(result);
-            MessageBox.Show(this, @"Export successful. The result is copied to clipboard.", $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-        else
-        {
-            MessageBox.Show(this, @"The BASIC code is copied to clipboard.", $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            case ExportFormat.CommodoreBasic20:
+            case ExportFormat.DataStatements:
+            case ExportFormat.CbmPrgStudioAssembler:
+            {
+                var result = exp.ExportTextToClipboard(x.SelectedExportFormat, out var success, out var message);
+
+                if (success)
+                {
+                    Clipboard.SetText(result);
+                    MessageBox.Show(this, @"Export successful. The result is copied to clipboard.", $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(this, message, $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                break;
+            }
+            case ExportFormat.PrgFile:
+            case ExportFormat.D64Image:
+                {
+                var count = x.SelectedSprites?.Count ?? 0;
+
+                if (count <= 0)
+                    return;
+
+                using var binExpDlg = new BinaryExportDialog();
+                binExpDlg.SpriteCount = count;
+
+                if (binExpDlg.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                var filename = binExpDlg.Filename;
+                var startAddress = (ushort)binExpDlg.StartAddress;
+                var success = exp.ExportBinaryToFile(filename, startAddress, x.SelectedExportFormat, out var message);
+
+                if (success)
+                    MessageBox.Show(this, $@"Export successful. The file ""{filename}"" is saved.", $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show(this, message, $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                break;
+            }
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -746,6 +793,12 @@ public partial class MainWindow : Form
 
     private void duplicateSpriteToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (Sprites.Count >= 256)
+        {
+            MessageBox.Show(this, @"No room for more sprites.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
         if (lvSpriteList.SelectedIndices.Count <= 0)
             return;
 
@@ -757,6 +810,7 @@ public partial class MainWindow : Form
         SpriteListController.CheckThatAllSpritesIsRepresentedInList(Sprites, lvSpriteList, imageList1);
         SpriteListController.FireWindowForSprite(newSprite, this);
         SpriteListController.FindSpriteInSpriteList(newSprite, this, imageList1);
+        lblSpriteCount.Text = $@"Sprites: {Sprites.Count}";
     }
 
     private void lvSpriteList_MouseDown(object sender, MouseEventArgs e)

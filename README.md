@@ -15,8 +15,14 @@ Download version 1.3: [SetupSprdef2.exe](https://github.com/Anders-H/Sprdef2/blo
 
 ## Version history
 
+1.4: (Not available for download yet) Export to prg file for Commodore 64/128 and D64 image file.
+
 1.3: CBM Prg Studio export, a few minor bug fixes, a new line tool and undo/redo functionality.
 
 1.2: Free hand editing, better sprite preview options and fixed an export bug. Use right mouse button to delete a pixel.
 
 1.1: New keyboard shortcuts, and added animation view.
+
+---
+
+Website: <a href="https://sprdef2.winsoft.se/" target="_blank">https://sprdef2.winsoft.se/</a>

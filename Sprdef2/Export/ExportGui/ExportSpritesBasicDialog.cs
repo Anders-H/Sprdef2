@@ -157,13 +157,31 @@ public partial class ExportSpritesBasicDialog : Form
     {
         SelectedExportFormat = ((ExportFormatComboItem)cboExportFormat.SelectedItem).ExportFormat;
 
-        Text = SelectedExportFormat switch
+        switch (SelectedExportFormat)
         {
-            ExportFormat.CommodoreBasic20 => @"Export sprites to Commodore BASIC 2.0 (Commodore 64)",
-            ExportFormat.DataStatements => @"Export sprites to DATA statements (Commodore 64/128)",
-            ExportFormat.CbmPrgStudioAssembler => @"Export sprites to CBM Prg Studio assembly (Commodore 64/128)",
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            case ExportFormat.CommodoreBasic20:
+                Text = @"Export sprites to Commodore BASIC 2.0 (Commodore 64)";
+                btnPreview.Enabled = true;
+                break;
+            case ExportFormat.DataStatements:
+                Text = @"Export sprites to DATA statements (Commodore 64/128)";
+                btnPreview.Enabled = true;
+                break;
+            case ExportFormat.CbmPrgStudioAssembler:
+                Text = @"Export sprites to CBM Prg Studio assembly (Commodore 64/128)";
+                btnPreview.Enabled = true;
+                break;
+            case ExportFormat.PrgFile:
+                Text = @"Export sprites to PRG file (Commodore 64/128)";
+                btnPreview.Enabled = false;
+                break;
+            case ExportFormat.D64Image:
+                Text = @"Export sprites to D64 disk image (Commodore 64/128)";
+                btnPreview.Enabled = false;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void btnPreview_Click(object sender, EventArgs e)
@@ -172,7 +190,7 @@ public partial class ExportSpritesBasicDialog : Form
             return;
 
         var exp = new Exporter(SelectedSprites);
-        var result = exp.Export(SelectedExportFormat, out var success, out var message);
+        var result = exp.ExportTextToClipboard(SelectedExportFormat, out var success, out var message);
 
         if (success)
         {

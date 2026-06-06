@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprdef2 - The C64 Sprite Editor for Windows computers</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #16a34a;
+            --success-hover: #15803d;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+            --max-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+            nav a:hover, nav a.active {
+                color: var(--primary);
+            }
+
+        /* --- PAGE MANAGEMENT (SHOW/HIDE) --- */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+            .page.active {
+                display: block;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+            .hero h1 {
+                font-size: 3rem;
+                font-weight: 800;
+                margin-bottom: 1.5rem;
+                color: var(--dark);
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+                color: var(--gray);
+                max-width: 700px;
+                margin: 0 auto 2.5rem auto;
+            }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            margin-right: 1rem;
+        }
+
+            .btn-primary:hover {
+                background-color: var(--primary-hover);
+            }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--dark);
+            border: 1px solid var(--border);
+        }
+
+            .btn-secondary:hover {
+                background-color: #f1f5f9;
+            }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+            font-size: 1.2rem;
+            padding: 1rem 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+            .btn-success:hover {
+                background-color: var(--success-hover);
+            }
+
+        /* --- FEATURES SECTION --- */
+        .section-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+            .feature-card h3 {
+                margin-bottom: 1rem;
+                color: var(--dark);
+            }
+
+        /* --- TESTIMONIAL --- */
+        .testimonial-box {
+            background-color: #eef2ff;
+            border-left: 4px solid var(--primary);
+            padding: 2rem;
+            border-radius: 0 8px 8px 0;
+            max-width: 700px;
+            margin: 4rem auto;
+            font-style: italic;
+        }
+
+            .testimonial-box span {
+                display: block;
+                margin-top: 1rem;
+                font-style: normal;
+                font-weight: 600;
+                color: var(--gray);
+            }
+
+        /* --- ABOUT PAGE SPECIFIC --- */
+        .about-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+            .about-content p {
+                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
+                color: #334155;
+            }
+
+        .values-list {
+            margin: 2rem 0;
+            list-style-position: inside;
+        }
+
+            .values-list li {
+                margin-bottom: 1rem;
+                font-size: 1.1rem;
+            }
+
+        /* --- DOWNLOAD PAGE SPECIFIC --- */
+        .download-zone {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .download-meta {
+            margin-top: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* TABLE STYLES */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+            .spec-table th, .spec-table td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .spec-table th {
+                background-color: #f1f5f9;
+                font-weight: 600;
+            }
+
+        /* INSTRUCTIONS */
+        .instructions ol {
+            padding-left: 1.5rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--dark);
+            color: #94a3b8;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- SCREENSHOT STYLES --- */
+        .screenshot-container {
+            max-width: 700px;
+            margin: 2.5rem auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .app-screenshot {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+            .app-screenshot:hover {
+                transform: scale(1.01);
+            }
+
+        /* --- INLINE LINK STYLES --- */
+        p a, li a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1.5px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+            p a:hover, li a:hover {
+                color: var(--primary-hover);
+                border-bottom-color: var(--primary-hover);
+            }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION HEADER -->
+    <header>
+        <div class="nav-container">
+            <a class="logo" href="#" onclick="showPage('home')">Sprdef2</a>
+            <nav>
+                <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
+                <a id="nav-about" onclick="showPage('about')">About</a>
+                <a id="nav-download" onclick="showPage('download')">Download</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ================= HOME PAGE ================= -->
+    <div id="page-home" class="page active">
+        <section class="hero">
+            <h1>The Modern Commodore 64 Sprite Editor for Windows</h1>
+            <p>Build, tweak, and perfect your graphics on a modern Windows PC, then send them straight to your retro hardware. Sprdef2 bridges the gap between design and deployment, giving you the ultimate workflow for your next Commodore 64 masterpiece.</p>
+            <div>
+                <a class="btn btn-primary" onclick="showPage('download')">Download</a>
+                <a class="btn btn-secondary" onclick="showPage('about')">Learn More</a>
+            </div>
+            <div class="screenshot-container">
+                <img src="images/sprdef2-main-screen.png" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
+            </div>
+        </section>
+
+        <section class="section-container" style="background-color: #ffffff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%;">
+            <div style="max-width: var(--max-width); margin: 0 auto;">
+                <h2 class="section-title">Why Choose Sprdef2?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Seamless CBM Prg Studio Integration</h3>
+                        <p>Work smarter, not harder. Sprdef2 connects directly with your existing development environment to keep your workflow unified and efficient.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Instant Real C64 Export</h3>
+                        <p>From PC to D64 in a flash. Export your sprite data directly to your Commodore 64, cutting out tedious conversion steps and saving valuable time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Built for Windows, Made for Retro</h3>
+                        <p>Enjoy the comfort, speed, and precision of a modern Windows application while creating pixel-perfect graphics tailored strictly to C64 specifications.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>100% Free & Open Source</h3>
+                        <p>No paywalls, no hidden fees. Built out of pure passion for the retro computing community, Sprdef2 is completely free to use and open for everyone to contribute.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="testimonial-box">
+            "Creating game graphics with Sprdef2 was super quick and, honestly, just pure fun!"
+            <span>– Happy User</span>
+        </div>
+    </div>
+
+    <!-- ================= ABOUT PAGE ================= -->
+    <div id="page-about" class="page">
+        <section class="section-container">
+            <div class="about-content">
+                <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">About Sprdef2</h2>
+                <p>This project started with a simple belief: Developing software for the Commodore 64 should be a smooth, efficient, and thoroughly enjoyable experience. As a retro developer myself, I noticed a gap in the workflow when it came to sprite design. <b>I wanted a modern Windows tool that didn't get in the way of creativity</b> — a tool that does the right things exceptionally well.</p>
+                <p><b>Sprdef2</b> was built to fix that. By focusing on seamless integration with CBM Prg Studio and enabling direct data export to the C64, it removes the tedious bottlenecks from your pipeline so you can focus on what actually matters: making great games. This editor is my contribution to the amazing retro computing community that keeps the C64 alive. It’s free, and it is open source!</p>
+                
+                <p>License <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0</a></p>
+                
+                <h3 style="margin: 2rem 0 1rem 0;">Core Values</h3>
+                <ul class="values-list">
+                    <li>
+                        <strong>Workflow-Driven Integration:</strong> We believe tools should eliminate friction, not create it. Sprdef2 is designed to adapt to how modern retro-developers actually work. By integrating seamlessly with essential software like CBM Prg Studio and offering direct export to the Commodore 64, it bridges the gap between modern PC convenience and classic hardware. It’s not just about editing sprites; it’s about perfecting the pipeline.
+                    </li>
+                    <li>
+                        <strong>Purpose-Built Simplicity:</strong> Software should do the right things, exceptionally well. We don’t believe in bloatware or over-complicating the creative process. Sprdef2 focuses on delivering the exact features a C64 developer needs, without the clutter. Every function is intentional, intuitive, and built with a clear purpose: to make sprite design clean, fast, and efficient.
+                    </li>
+                    <li>
+                        <strong>Keeping the Joy of Retro Alive:</strong> Developing for classic hardware should be as fun as playing the games. Passion is at the heart of homebrew development. We build tools that protect and enhance that passion. By removing tedious technical hurdles and streamlining the design process, Sprdef2 keeps the workflow engaging, letting developers focus on the pure joy of creating for the Commodore 64.
+                    </li>
+                </ul>
+
+                <h3 style="margin: 2rem 0 1rem 0;">Version History</h3>
+                <p>Check out what's new in each version of Sprdef2 in the <a href="https://github.com/Anders-H/Sprdef2/blob/main/README.md" target="_blank">readme file</a>.</p>
+
+                <div class="screenshot-container">
+                    <img src="images/sprdef2-main-screen.png" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem 0;">The Developer</h3>
+                <p>As a dedicated computer programmer, I know that having the right tools makes all the difference. I don't just love classic systems; I love the craft of making software that respects the developer's time and workflow. Sprdef2 was designed with a clear philosophy: software should do exactly what you need it to do, efficiently and without clutter. By creating a seamless bridge to the Commodore 64, this editor is my contribution to keeping the vibrant C64 development community thriving with tools that just work.</p>
+
+                <h3 style="margin: 2rem 0 1rem 0;">Open source!</h3>
+                <p>The <a href="https://github.com/Anders-H/Sprdef2" target="_blank">source code</a> for Sprdef2 is available under the Apache 2.0 license. Contributions are welcome!</p>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- ================= DOWNLOAD PAGE ================= -->
+    <div id="page-download" class="page">
+        <section class="section-container">
+            <div class="about-content" style="text-align: center;">
+                <h2 class="section-title" style="margin-bottom: 1rem;">Download Sprdef2 for Windows</h2>
+                <p style="color: var(--gray); margin-bottom: 2rem;">Get the latest version of Sprdef2 for free. Streamline your Commodore 64 development with the sprite editor that connects directly to CBM Prg Studio and exports data straight to your C64.</p>
+                <p>License <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0</a></p>
+
+                <div class="download-zone">
+                    <a href="https://github.com/Anders-H/Sprdef2/raw/refs/heads/main/SetupSprdef2.zip" class="btn btn-success">Download SetupSprdef2.exe v1.3</a>
+                    <p class="download-meta">Size: 1.634 MB | Released: May 2026 | OS: Windows 10/11 (32/64-bit)</p>
+                </div>
+            </div>
+
+            <div class="about-content" style="margin-top: 4rem;">
+                <h3>System Requirements</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Requirement</th>
+                            <th>Minimum</th>
+                            <th>Recommended</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Operating System</strong></td>
+                            <td>Windows 10 (32/64-bit)</td>
+                            <td>Windows 10/11</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processor</strong></td>
+                            <td>1 GHz or faster</td>
+                            <td>Dual-Core 2 GHz+</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RAM</strong></td>
+                            <td>4 GB</td>
+                            <td>8 GB or more</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Storage</strong></td>
+                            <td>5 MB free space</td>
+                            <td>SSD with 5 MB free space</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin-bottom: 1rem;">Installation Instructions</h3>
+                <div class="instructions">
+                    <ol>
+                        <li>Click the <strong>Download</strong> button above to save the installer to your PC.</li>
+                        <li>Unzip the <code>SetupSprdef2.exe</code> file (or <a href="https://github.com/Anders-H/Sprdef2/raw/refs/heads/main/SetupSprdef2.exe">download the uncompressed version</a>).</li>
+                        <li>Follow the on-screen instructions (takes less than a minute).</li>
+                        <li>Launch Sprdef2 and click "Add sprite" to get started!</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Anders Hesselbom. All rights reserved. Windows is a registered trademark of Microsoft Corporation.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR PAGE SWITCHING -->
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
