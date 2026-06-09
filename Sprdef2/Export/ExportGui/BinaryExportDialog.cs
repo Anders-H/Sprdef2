@@ -1,10 +1,13 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Sprdef2.C64Structures;
+using Sprdef2.Export.ExportLogic;
 
 namespace Sprdef2.Export.ExportGui;
 
 public partial class BinaryExportDialog : Form
 {
+    public ExportFormat Format { get; set; }
     public int SpriteCount { get; set; }
     public string Filename { get; private set; }
     public int StartAddress { get; private set; }
@@ -20,6 +23,19 @@ public partial class BinaryExportDialog : Form
 
     private void BinaryExportDialog_Load(object sender, System.EventArgs e)
     {
+        switch (Format)
+        {
+            case ExportFormat.CommodoreBasic20:
+            case ExportFormat.DataStatements:
+            case ExportFormat.CbmPrgStudioAssembler:
+                throw new ArgumentException();
+            case ExportFormat.PrgFile:
+            case ExportFormat.D64Image:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
         var highestStartNumber = 256 - SpriteCount;
 
         foreach (var b in new SpriteMemPointerList())
@@ -56,12 +72,28 @@ public partial class BinaryExportDialog : Form
         DialogResult = DialogResult.OK;
     }
 
-    private void btnBrowse_Click(object sender, System.EventArgs e)
+    private void btnBrowse_Click(object sender, EventArgs e)
     {
         using var x = new SaveFileDialog();
-        x.Filter = @"Commodore Program Files (*.prg)|*.prg|All Files (*.*)|*.*";
+        x.Filter = @"Commodore Program Files (*.prg)|*.prg|Disk images (*.d64)|*.d64|All Files (*.*)|*.*";
         x.FileName = txtFilename.Text;
         x.Title = @"Select the output file name for the binary export";
+
+        switch (Format)
+        {
+            case ExportFormat.CommodoreBasic20:
+            case ExportFormat.DataStatements:
+            case ExportFormat.CbmPrgStudioAssembler:
+                throw new ArgumentException();
+            case ExportFormat.PrgFile:
+                x.FilterIndex = 1;
+                break;
+            case ExportFormat.D64Image:
+                x.FilterIndex = 2;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
 
         if (x.ShowDialog(this) != DialogResult.OK)
             return;
@@ -70,7 +102,7 @@ public partial class BinaryExportDialog : Form
         txtFilename.Focus();
     }
 
-    private void btnSprdef_Click(object sender, System.EventArgs e) =>
+    private void btnSprdef_Click(object sender, EventArgs e) =>
         Find(0, 56);
 
     private void Find(int bankNumber, int spritePointer)

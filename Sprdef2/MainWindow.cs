@@ -386,23 +386,31 @@ public partial class MainWindow : Form
                 mdiChild.Close();
 
             Sprites = loadedSprites;
-            lvSpriteList.Items.Clear();
             Filename = x.FileName;
-
-            foreach (var s in Sprites)
-            {
-                var item = lvSpriteList.Items.Add(s.Name);
-                var key = $"key{Key++}";
-                var image = s.GetBitmap16x16NoAttributes();
-                imageList1.Images.Add(key, image);
-                item.ImageKey = key;
-                item.Tag = s;
-            }
+            ConstructSpriteListInGui();
         }
         catch (Exception ex)
         {
             MessageBox.Show(this, $@"Load failed. {ex.Message}", @"Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+    }
+
+    private void ConstructSpriteListInGui()
+    {
+        lvSpriteList.BeginUpdate();
+        lvSpriteList.Items.Clear();
+
+        foreach (var s in Sprites)
+        {
+            var item = lvSpriteList.Items.Add(s.Name);
+            var key = $"key{Key++}";
+            var image = s.GetBitmap16x16NoAttributes();
+            imageList1.Images.Add(key, image);
+            item.ImageKey = key;
+            item.Tag = s;
+        }
+
+        lvSpriteList.EndUpdate();
     }
 
     private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -679,6 +687,7 @@ public partial class MainWindow : Form
                     return;
 
                 using var binExpDlg = new BinaryExportDialog();
+                binExpDlg.Format = x.SelectedExportFormat;
                 binExpDlg.SpriteCount = count;
 
                 if (binExpDlg.ShowDialog(this) != DialogResult.OK)
@@ -690,7 +699,7 @@ public partial class MainWindow : Form
 
                 if (success)
                     MessageBox.Show(this, $@"Export successful. The file ""{filename}"" is saved.", $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
+                else 
                     MessageBox.Show(this, message, $@"Export to {ExportFormatHelper.GetExportFormatTitle(x.SelectedExportFormat)}", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 break;
@@ -755,10 +764,18 @@ public partial class MainWindow : Form
             return;
 
         var item = lvSpriteList.Items[index];
-        lvSpriteList.BeginUpdate();
-        lvSpriteList.Items.Remove(item);
-        lvSpriteList.Items.Insert(index - 1, item);
-        lvSpriteList.EndUpdate();
+
+        if (item.Tag is not SpriteRoot sprite)
+            return;
+        
+        var i = Sprites.IndexOf(sprite);
+
+        if (i < 0)
+            return;
+
+        (Sprites[i], Sprites[i - 1]) = (Sprites[i - 1], Sprites[i]);
+        ConstructSpriteListInGui();
+        SpriteListController.FindSpriteInList(sprite, lvSpriteList);
     }
 
     private void moveSpriteDownInListToolStripMenuItem_Click(object sender, EventArgs e)
@@ -768,14 +785,22 @@ public partial class MainWindow : Form
 
         var index = lvSpriteList.SelectedIndices[0];
 
-        if (index >= lvSpriteList.Items.Count - 1)
+        if (index < 0 || index > Sprites.Count - 2)
             return;
 
         var item = lvSpriteList.Items[index];
-        lvSpriteList.BeginUpdate();
-        lvSpriteList.Items.Remove(item);
-        lvSpriteList.Items.Insert(index + 1, item);
-        lvSpriteList.EndUpdate();
+
+        if (item.Tag is not SpriteRoot sprite)
+            return;
+
+        var i = Sprites.IndexOf(sprite);
+
+        if (i < 0)
+            return;
+
+        (Sprites[i], Sprites[i + 1]) = (Sprites[i + 1], Sprites[i]);
+        ConstructSpriteListInGui();
+        SpriteListController.FindSpriteInList(sprite, lvSpriteList);
     }
 
     private void MainWindow_Load(object sender, EventArgs e)

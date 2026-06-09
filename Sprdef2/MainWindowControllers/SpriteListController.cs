@@ -27,11 +27,11 @@ public static class SpriteListController
                         break;
                     }
 
-                    if (listSprite == sprite)
-                    {
-                        found = true;
-                        break;
-                    }
+                    if (listSprite != sprite)
+                        continue;
+
+                    found = true;
+                    break;
                 }
 
                 if (found)
@@ -135,4 +135,20 @@ public static class SpriteListController
         item.EnsureVisible();
     }
 
+    public static void FindSpriteInList(SpriteRoot sprite, ListView lvSpriteList)
+    {
+        lvSpriteList.SelectedItems.Clear();
+
+        foreach (ListViewItem i in lvSpriteList.Items)
+        {
+            var spriteInList = i.Tag as SpriteRoot;
+
+            if (spriteInList != sprite)
+                continue;
+
+            i.Selected = true;
+            i.EnsureVisible();
+            break;
+        }
+    }
 }

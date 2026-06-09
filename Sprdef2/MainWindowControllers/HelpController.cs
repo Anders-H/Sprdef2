@@ -8,7 +8,7 @@ public static class HelpController
     public static void Help(IWin32Window owner, string text)
     {
         const string url = @"https://github.com/Anders-H/Sprdef2/blob/main/README.md";
-        var prompt = $@"Sprdef2 version {MainWindow.ApplicationVersion.ToString("n1", CultureInfo.InvariantCulture)}
+        var prompt = $@"Sprdef2 version {MainWindow.ApplicationVersion.ToString("n1", CultureInfo.InvariantCulture)} written by Anders Hesselbom.
 
 Do you want to visit {url}?";
 
