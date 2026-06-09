@@ -15,7 +15,7 @@ Download version 1.3: [SetupSprdef2.exe](https://github.com/Anders-H/Sprdef2/blo
 
 ## Version history
 
-1.4: (Not available for download yet) Export to prg file for Commodore 64/128 and D64 image file.
+1.4: Export to prg file for Commodore 64/128 and D64 image file.
 
 1.3: CBM Prg Studio export, a few minor bug fixes, a new line tool and undo/redo functionality.
 
