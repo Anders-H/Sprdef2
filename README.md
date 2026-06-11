@@ -11,9 +11,11 @@ A Commodore 64/128 sprite editor that runs under a patched Windows 10 or Windows
 * Undo and redo
 * Commodore BASIC 2.0 export for Commodore 64 and CBM Prg Studio export
 
-Download version 1.3: [SetupSprdef2.exe](https://github.com/Anders-H/Sprdef2/blob/main/SetupSprdef2.exe) Click the "Download raw file" icon to the right to download or [download the zip file](https://github.com/Anders-H/Sprdef2/blob/main/SetupSprdef2.zip).
+Download version 1.4: [SetupSprdef2.exe](https://github.com/Anders-H/Sprdef2/blob/main/SetupSprdef2.exe) Click the "Download raw file" icon to the right to download or [download the zip file](https://github.com/Anders-H/Sprdef2/blob/main/SetupSprdef2.zip).
 
 ## Version history
+
+1.5: (Not yet available for download) A new rectangle tool and a new circle tool.
 
 1.4: Export to prg file for Commodore 64/128 and D64 image file.
 
