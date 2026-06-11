@@ -46,7 +46,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\C64Color\C64ColorControls\bin\Release\C64ColorControls.dll</HintPath>
     </Reference>
-    <Reference Include="EditStateSprite, Version=1.20.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EditStateSprite, Version=1.26.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\EditStateSprite\EditStateSprite\bin\Release\EditStateSprite.dll</HintPath>
     </Reference>
@@ -207,6 +207,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\boxtool.png" />
+    <None Include="Resources\circletool.png" />
     <Content Include="web\android-chrome-192x192.png" />
     <Content Include="web\android-chrome-512x512.png" />
     <Content Include="web\apple-touch-icon.png" />

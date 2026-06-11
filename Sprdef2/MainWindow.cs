@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using C64ColorControls;
+using Palette = EditStateSprite.Col.Palette;
 
 namespace Sprdef2;
 
@@ -910,6 +911,24 @@ public partial class MainWindow : Form
             spriteEditor.SetEditorTool(EditorToolEnum.LineTool);
     }
 
+    private void radioBox_CheckedChanged(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        if (radioBox.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.BoxTool);
+    }
+
+    private void radioCircle_CheckedChanged(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        if (radioCircle.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.CircleTool);
+    }
+
     public void SetMyTool()
     {
         if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
@@ -921,6 +940,10 @@ public partial class MainWindow : Form
             spriteEditor.SetEditorTool(EditorToolEnum.FreeHand);
         else if (radioLine.Checked)
             spriteEditor.SetEditorTool(EditorToolEnum.LineTool);
+        else if (radioBox.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.BoxTool);
+        else if (radioCircle.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.CircleTool);
     }
 
     private void windowToolStripMenuItem_DropDownOpened(object sender, EventArgs e)

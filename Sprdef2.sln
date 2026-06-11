@@ -1,13 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.7.11819.209 insiders
+VisualStudioVersion = 18.7.11819.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sprdef2", "Sprdef2\Sprdef2.csproj", "{71BB19FF-1B9B-48EB-A232-35F7B22CC6D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{09F07F97-C575-4ADE-8047-662DAD491663}"
 	ProjectSection(SolutionItems) = preProject
-		personal_notes.txt = personal_notes.txt
 		README.md = README.md
 	EndProjectSection
 EndProject

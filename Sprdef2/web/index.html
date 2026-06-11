@@ -333,6 +333,7 @@
                 <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
                 <a id="nav-about" onclick="showPage('about')">About</a>
                 <a id="nav-download" onclick="showPage('download')">Download</a>
+                <a id="nav-versionhistory" onclick="showPage('versionhistory')">Version history</a>
             </nav>
         </div>
     </header>
@@ -347,7 +348,7 @@
                 <a class="btn btn-secondary" onclick="showPage('about')">Learn More</a>
             </div>
             <div class="screenshot-container">
-                <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_3.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
+                <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_5.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
             </div>
         </section>
 
@@ -404,11 +405,8 @@
                     </li>
                 </ul>
 
-                <h3 style="margin: 2rem 0 1rem 0;">Version History</h3>
-                <p>Check out what's new in each version of Sprdef2 in the <a href="https://github.com/Anders-H/Sprdef2/blob/main/README.md" target="_blank">readme file</a>.</p>
-
                 <div class="screenshot-container">
-                    <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_3.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
+                    <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_5.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
                 </div>
 
                 <h3 style="margin: 2rem 0 1rem 0;">The Developer</h3>
@@ -430,7 +428,7 @@
                 <p>License: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0</a></p>
 
                 <div class="download-zone">
-                    <a href="https://github.com/Anders-H/Sprdef2/raw/refs/heads/main/SetupSprdef2.zip" class="btn btn-success">Download SetupSprdef2.exe v1.4</a>
+                    <a href="https://github.com/Anders-H/Sprdef2/raw/refs/heads/main/SetupSprdef2.zip" class="btn btn-success">Download SetupSprdef2.exe v1.5</a>
                     <p class="download-meta">Size: 1.637 MB | Released: June 2026 | OS: Windows 10/11 (32/64-bit)</p>
                 </div>
             </div>
@@ -482,6 +480,25 @@
         </section>
     </div>
 
+    <!-- ================= VERSION HISTORY PAGE ================= -->
+    <div id="page-versionhistory" class="page">
+        <section class="section-container">
+            <div class="about-content">
+                <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Version History</h2>
+                <ul class="values-list">
+                    <li><strong>1.5:</strong> A new rectangle tool and a new circle tool.</li>
+                    <li><strong>1.4:</strong> Export to prg file for Commodore 64/128 and D64 image file.</li>
+                    <li><strong>1.3:</strong> CBM Prg Studio export, a few minor bug fixes, a new line tool and undo/redo functionality.</li>
+                    <li><strong>1.2:</strong> Free hand editing, better sprite preview options and fixed an export bug. Use right mouse button to delete a pixel.</li>
+                    <li><strong>1.1:</strong> New keyboard shortcuts, and added animation view.</li>
+                </ul>
+                <div style="margin-top: 2rem;">
+                    <a class="btn btn-primary" onclick="showPage('download')">Download</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Anders Hesselbom. All rights reserved. Windows is a registered trademark of Microsoft Corporation.</p>
@@ -497,7 +514,16 @@
             document.getElementById('page-' + pageId).classList.add('active');
             document.getElementById('nav-' + pageId).classList.add('active');
             window.scrollTo(0, 0);
+            history.pushState(null, '', '#' + pageId);
         }
+
+        // Visa rätt sida baserat på hash vid laddning
+        (function () {
+            const hash = window.location.hash.replace('#', '');
+            const validPages = ['home', 'about', 'download', 'versionhistory'];
+            if (hash && validPages.includes(hash))
+                showPage(hash);
+        })();
     </script>
 </body>
 </html>

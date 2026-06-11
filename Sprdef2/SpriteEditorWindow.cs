@@ -135,6 +135,12 @@ public partial class SpriteEditorWindow : Form
             case EditorToolEnum.LineTool:
                 spriteEditorControl1.SetEditorTool(EditorToolEnum.LineTool);
                 break;
+            case EditorToolEnum.BoxTool:
+                spriteEditorControl1.SetEditorTool(EditorToolEnum.BoxTool);
+                break;
+            case EditorToolEnum.CircleTool:
+                spriteEditorControl1.SetEditorTool(EditorToolEnum.CircleTool);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
         }
