@@ -1,5 +1,5 @@
 #define MyAppName "Sprdef2"
-#define MyAppVersion "1.4"
+#define MyAppVersion "1.5"
 #define MyAppPublisher "WinSoft"
 #define MyAppURL "https://github.com/Anders-H/Sprdef2/blob/main/README.md"
 #define MyAppExeName "Sprdef2.exe"
@@ -23,7 +23,7 @@ SetupIconFile=D:\GitRepos\Sprdef2\sprite.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-
+                                                                                                          
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
