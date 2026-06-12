@@ -308,6 +308,27 @@
                 transform: scale(1.01);
             }
 
+        /* --- MORE PAGE / NAV DIMMED STATE --- */
+        nav.dimmed a {
+            color: #cbd5e1;
+        }
+
+        nav.dimmed a:hover {
+            color: #cbd5e1;
+        }
+
+        /* --- MORE PAGE SPECIFIC --- */
+        .more-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+            .more-content p {
+                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
+                color: #334155;
+            }
+
         /* --- INLINE LINK STYLES --- */
         p a, li a {
             color: var(--primary);
@@ -333,7 +354,7 @@
                 <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
                 <a id="nav-about" onclick="showPage('about')">About</a>
                 <a id="nav-download" onclick="showPage('download')">Download</a>
-                <a id="nav-versionhistory" onclick="showPage('versionhistory')">Version history</a>
+                <a id="nav-versionhistory" onclick="showPage('versionhistory')">Versions</a>
             </nav>
         </div>
     </header>
@@ -364,8 +385,7 @@
                         <h3>Instant Real C64 Export</h3>
                         <p>From PC to D64 in a flash. Export your sprite data directly to your Commodore 64, cutting out tedious conversion steps and saving valuable time. Supports .prg and .d64 formats.</p>
                     </div>
-                    <div class="feature-card">
-                        <h3>Built for Windows, Made for Retro</h3>
+                    <div class="feature-card feature-card-hide-on-three">
                         <p>Enjoy the comfort, speed, and precision of a modern Windows application while creating pixel-perfect graphics tailored strictly to C64 specifications.</p>
                     </div>
                     <div class="feature-card">
@@ -476,6 +496,14 @@
                         <li>Launch Sprdef2 and click "Add sprite" to get started!</li>
                     </ol>
                 </div>
+                
+                <div style="margin-top: 8rem;">
+                    <h3>Got Swish?</h3>
+                    <p>Support me by buying me a cup of coffee as a thank you for Sprdef2, 20 SEK (equivalent to approximately 2 EUR/USD/GBP).</p>
+                    <div class="screenshot-container">
+                        <img src="./swish.png" alt="Swish" style="width: 100%; max-width: 300px; height: auto;">
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -485,6 +513,9 @@
         <section class="section-container">
             <div class="about-content">
                 <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Version History</h2>
+                <p>
+                    Last updated 2026-06-11.
+                </p>
                 <ul class="values-list">
                     <li><strong>1.5:</strong> A new rectangle tool and a new circle tool.</li>
                     <li><strong>1.4:</strong> Export to prg file for Commodore 64/128 and D64 image file.</li>
@@ -494,6 +525,36 @@
                 </ul>
                 <div style="margin-top: 2rem;">
                     <a class="btn btn-primary" onclick="showPage('download')">Download</a>
+                </div>
+
+                <div style="margin-top: 8rem;">
+                    <h3>Got Swish?</h3>
+                    <p>Support me by buying me a cup of coffee as a thank you for Sprdef2, 20 SEK (equivalent to approximately 2 EUR/USD/GBP).</p>
+                    <div class="screenshot-container">
+                        <img src="./swish.png" alt="Swish" style="width: 100%; max-width: 300px; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================= MORE PAGE ================= -->
+    <div id="page-more" class="page">
+        <section class="section-container">
+            <div class="more-content">
+                <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">More</h2>
+                <p>Here you will find additional resources, links, and information related to Sprdef2 and the Commodore 64 development community.</p>
+                <h3 style="margin: 2rem 0 1rem 0;">Useful Links</h3>
+                <ul class="values-list">
+                    <li><a href="https://github.com/Anders-H/Sprdef2" target="_blank">Sprdef2 on GitHub</a> — Source code, issues, and contributions.</li>
+                    <li><a href="https://ahesselbom.se/" target="_blank">https://ahesselbom.se/</a> — My personal website.</li>
+                    <li><a href="https://linktr.ee/hesselbom" target="_blank">https://linktr.ee/hesselbom</a> — My linktree.</li>
+                    <li><a href="https://www.lemon64.com/" target="_blank">Lemon64</a> — A great community site for Commodore 64 enthusiasts.</li>
+                    <li><a href="https://www.c64-wiki.com/" target="_blank">C64 Wiki</a> — Comprehensive reference for all things Commodore 64.</li>
+                    <li><a href="https://csdb.dk/" target="_blank">CSDb</a> — The C64 Scene Database, home of demos, games, and tools.</li>
+                </ul>
+                <div style="margin-top: 2rem;">
+                    <a class="btn btn-secondary" onclick="showPage('home')">Back to Home</a>
                 </div>
             </div>
         </section>
@@ -509,18 +570,33 @@
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
+            const nav = document.querySelector('nav');
             const navLinks = document.querySelectorAll('nav a');
             navLinks.forEach(link => link.classList.remove('active'));
             document.getElementById('page-' + pageId).classList.add('active');
-            document.getElementById('nav-' + pageId).classList.add('active');
+            if (pageId === 'more') {
+                nav.classList.add('dimmed');
+            } else {
+                nav.classList.remove('dimmed');
+                document.getElementById('nav-' + pageId).classList.add('active');
+            }
             window.scrollTo(0, 0);
             history.pushState(null, '', '#' + pageId);
         }
 
+        // Dölj feature-card när exakt tre kolumner visas
+        const featuresGrid = document.querySelector('.features-grid');
+        const hiddenCard = document.querySelector('.feature-card-hide-on-three');
+
+        new ResizeObserver(() => {
+            const cols = getComputedStyle(featuresGrid).gridTemplateColumns.split(' ').length;
+            hiddenCard.style.display = cols === 3 ? 'none' : '';
+        }).observe(featuresGrid);
+
         // Visa rätt sida baserat på hash vid laddning
         (function () {
             const hash = window.location.hash.replace('#', '');
-            const validPages = ['home', 'about', 'download', 'versionhistory'];
+            const validPages = ['home', 'about', 'download', 'versionhistory', 'more'];
             if (hash && validPages.includes(hash))
                 showPage(hash);
         })();
