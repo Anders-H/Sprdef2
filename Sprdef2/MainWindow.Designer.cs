@@ -112,12 +112,12 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorPicker1 = new C64ColorControls.ColorPicker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radioCircle = new System.Windows.Forms.RadioButton();
             this.radioBox = new System.Windows.Forms.RadioButton();
             this.radioLine = new System.Windows.Forms.RadioButton();
             this.radioFreeHand = new System.Windows.Forms.RadioButton();
             this.radioPixelTool = new System.Windows.Forms.RadioButton();
             this.btnProperties = new System.Windows.Forms.Button();
-            this.radioCircle = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
@@ -369,7 +369,8 @@
             // 
             this.undoToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_ArrowReturnLeft_Blue_16x16_72;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
@@ -377,20 +378,21 @@
             // 
             this.redoToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_ArrowReturnRight_Blue_16x16_72;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.redoToolStripMenuItem.Text = "Redo";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
             // 
             // scrollUpToolStripMenuItem
             // 
             this.scrollUpToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_UpArrowLong_Blue_16x16_72;
             this.scrollUpToolStripMenuItem.Name = "scrollUpToolStripMenuItem";
-            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollUpToolStripMenuItem.Text = "Scroll up";
             this.scrollUpToolStripMenuItem.Click += new System.EventHandler(this.scrollUpToolStripMenuItem_Click);
             // 
@@ -398,7 +400,7 @@
             // 
             this.scrollRightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_RightArrowLong_Blue_16x16_72;
             this.scrollRightToolStripMenuItem.Name = "scrollRightToolStripMenuItem";
-            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollRightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollRightToolStripMenuItem.Text = "Scroll right";
             this.scrollRightToolStripMenuItem.Click += new System.EventHandler(this.scrollRightToolStripMenuItem_Click);
             // 
@@ -406,7 +408,7 @@
             // 
             this.scrollDownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_DownArrowLong_Blue_16x16_72;
             this.scrollDownToolStripMenuItem.Name = "scrollDownToolStripMenuItem";
-            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollDownToolStripMenuItem.Text = "Scroll down";
             this.scrollDownToolStripMenuItem.Click += new System.EventHandler(this.scrollDownToolStripMenuItem_Click);
             // 
@@ -414,33 +416,33 @@
             // 
             this.scrollLeftToolStripMenuItem.Image = global::Sprdef2.Properties.Resources._112_LeftArrowLong_Blue_16x16_72;
             this.scrollLeftToolStripMenuItem.Name = "scrollLeftToolStripMenuItem";
-            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.scrollLeftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scrollLeftToolStripMenuItem.Text = "Scroll left";
             this.scrollLeftToolStripMenuItem.Click += new System.EventHandler(this.scrollLeftToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.PropertiesHS;
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.propertiesToolStripMenuItem.Text = "Properties...";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // flipLeftrightToolStripMenuItem
             // 
             this.flipLeftrightToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipHorizontalHS;
             this.flipLeftrightToolStripMenuItem.Name = "flipLeftrightToolStripMenuItem";
-            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.flipLeftrightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flipLeftrightToolStripMenuItem.Text = "Flip left-right";
             this.flipLeftrightToolStripMenuItem.Click += new System.EventHandler(this.flipLeftrightToolStripMenuItem_Click);
             // 
@@ -448,7 +450,7 @@
             // 
             this.flipTopdownToolStripMenuItem.Image = global::Sprdef2.Properties.Resources.FlipVerticalHS;
             this.flipTopdownToolStripMenuItem.Name = "flipTopdownToolStripMenuItem";
-            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.flipTopdownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flipTopdownToolStripMenuItem.Text = "Flip top-down";
             this.flipTopdownToolStripMenuItem.Click += new System.EventHandler(this.flipTopdownToolStripMenuItem_Click);
             // 
@@ -829,6 +831,20 @@
             this.panel1.Size = new System.Drawing.Size(108, 490);
             this.panel1.TabIndex = 10;
             // 
+            // radioCircle
+            // 
+            this.radioCircle.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioCircle.Image = global::Sprdef2.Properties.Resources.circletool;
+            this.radioCircle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.radioCircle.Location = new System.Drawing.Point(4, 144);
+            this.radioCircle.Name = "radioCircle";
+            this.radioCircle.Size = new System.Drawing.Size(100, 24);
+            this.radioCircle.TabIndex = 5;
+            this.radioCircle.Text = "Circle";
+            this.radioCircle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioCircle.UseVisualStyleBackColor = true;
+            this.radioCircle.CheckedChanged += new System.EventHandler(this.radioCircle_CheckedChanged);
+            // 
             // radioBox
             // 
             this.radioBox.Appearance = System.Windows.Forms.Appearance.Button;
@@ -896,20 +912,6 @@
             this.btnProperties.Text = "Properties...";
             this.btnProperties.UseVisualStyleBackColor = true;
             this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
-            // 
-            // radioCircle
-            // 
-            this.radioCircle.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioCircle.Image = global::Sprdef2.Properties.Resources.circletool;
-            this.radioCircle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.radioCircle.Location = new System.Drawing.Point(4, 144);
-            this.radioCircle.Name = "radioCircle";
-            this.radioCircle.Size = new System.Drawing.Size(100, 24);
-            this.radioCircle.TabIndex = 5;
-            this.radioCircle.Text = "Circle";
-            this.radioCircle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioCircle.UseVisualStyleBackColor = true;
-            this.radioCircle.CheckedChanged += new System.EventHandler(this.radioCircle_CheckedChanged);
             // 
             // MainWindow
             // 
