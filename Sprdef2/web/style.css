@@ -1,0 +1,333 @@
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success: #16a34a;
+    --success-hover: #15803d;
+    --dark: #0f172a;
+    --light: #f8fafc;
+    --gray: #64748b;
+    --border: #e2e8f0;
+    --max-width: 1100px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+/* --- NAVIGATION --- */
+header {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+nav a {
+    color: var(--gray);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+    nav a:hover, nav a.active {
+        color: var(--primary);
+    }
+
+/* --- PAGE MANAGEMENT (SHOW/HIDE) --- */
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+    .page.active {
+        display: block;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: var(--dark);
+    }
+
+    .hero p {
+        font-size: 1.25rem;
+        color: var(--gray);
+        max-width: 700px;
+        margin: 0 auto 2.5rem auto;
+    }
+
+/* --- BUTTONS --- */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    margin-right: 1rem;
+}
+
+    .btn-primary:hover {
+        background-color: var(--primary-hover);
+    }
+
+.btn-secondary {
+    background-color: white;
+    color: var(--dark);
+    border: 1px solid var(--border);
+}
+
+    .btn-secondary:hover {
+        background-color: #f1f5f9;
+    }
+
+.btn-success {
+    background-color: var(--success);
+    color: white;
+    font-size: 1.2rem;
+    padding: 1rem 2.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+    .btn-success:hover {
+        background-color: var(--success-hover);
+    }
+
+/* --- FEATURES SECTION --- */
+.section-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+    .feature-card h3 {
+        margin-bottom: 1rem;
+        color: var(--dark);
+    }
+
+/* --- TESTIMONIAL --- */
+.testimonial-box {
+    background-color: #eef2ff;
+    border-left: 4px solid var(--primary);
+    padding: 2rem;
+    border-radius: 0 8px 8px 0;
+    max-width: 700px;
+    margin: 4rem auto;
+    font-style: italic;
+}
+
+    .testimonial-box span {
+        display: block;
+        margin-top: 1rem;
+        font-style: normal;
+        font-weight: 600;
+        color: var(--gray);
+    }
+
+/* --- ABOUT PAGE SPECIFIC --- */
+.about-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+    .about-content p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        color: #334155;
+    }
+
+.values-list {
+    margin: 2rem 0;
+    list-style-position: inside;
+}
+
+    .values-list li {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+    }
+
+/* --- DOWNLOAD PAGE SPECIFIC --- */
+.download-zone {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.download-meta {
+    margin-top: 1rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* TABLE STYLES */
+.spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+    .spec-table th, .spec-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .spec-table th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+    }
+
+/* INSTRUCTIONS */
+.instructions ol {
+    padding-left: 1.5rem;
+}
+
+.instructions li {
+    margin-bottom: 0.75rem;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: var(--dark);
+    color: #94a3b8;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 5rem;
+    font-size: 0.9rem;
+}
+
+/* --- SCREENSHOT STYLES --- */
+.screenshot-container {
+    max-width: 700px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.app-screenshot {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
+
+    .app-screenshot:hover {
+        transform: scale(1.01);
+    }
+
+/* --- MORE PAGE / NAV DIMMED STATE --- */
+nav.dimmed a {
+    color: #cbd5e1;
+}
+
+    nav.dimmed a:hover {
+        color: #cbd5e1;
+    }
+
+/* --- MORE PAGE SPECIFIC --- */
+.more-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+    .more-content p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        color: #334155;
+    }
+
+/* --- INLINE LINK STYLES --- */
+p a, li a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1.5px solid transparent;
+    transition: all 0.2s ease;
+}
+
+    p a:hover, li a:hover {
+        color: var(--primary-hover);
+        border-bottom-color: var(--primary-hover);
+    }

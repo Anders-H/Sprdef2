@@ -1,6 +1,5 @@
 ﻿#nullable enable
 using EditStateSprite;
-using EditStateSprite.Col;
 using EditStateSprite.SpriteModifiers;
 using Sprdef2.Export.ExportGui;
 using Sprdef2.Export.ExportLogic;
@@ -20,6 +19,7 @@ public partial class MainWindow : Form
 {
     public static ulong Key;
     public static Random Rnd { get; }
+    private RecentFiles _recentFiles;
     private int _lastSelectedIndex = -1;
     private string _filename;
     private bool _changingFocusBecauseOfSpriteListUsage;
@@ -49,6 +49,7 @@ public partial class MainWindow : Form
 
     public MainWindow()
     {
+        _recentFiles = new RecentFiles();
         _filename = "";
         _changingFocusBecauseOfSpriteListUsage = false;
         _changingFocusBecauseOfSpriteWindowChange = false;
@@ -378,17 +379,24 @@ public partial class MainWindow : Form
         if (x.ShowDialog(this) != DialogResult.OK)
             return;
 
+        DoOpen(x.FileName);
+    }
+
+    private void DoOpen(string filename)
+    {
         try
         {
             var loadedSprites = new SpriteList();
-            loadedSprites.Load(x.FileName);
+            loadedSprites.Load(filename);
 
             foreach (var mdiChild in MdiChildren)
                 mdiChild.Close();
 
             Sprites = loadedSprites;
-            Filename = x.FileName;
+            Filename = filename;
             ConstructSpriteListInGui();
+            _recentFiles.Push(filename);
+            _recentFiles.UpdateGui(toolStripMenuItem1, menuRecent1, menuRecent2, menuRecent3, menuRecent4, menuRecent5, menuRecent6, menuRecent7, menuRecent8, menuRecent9, menuRecent10);
         }
         catch (Exception ex)
         {
@@ -446,6 +454,8 @@ public partial class MainWindow : Form
         {
             Sprites.Save(filename);
             Filename = filename;
+            _recentFiles.Push(filename);
+            _recentFiles.UpdateGui(toolStripMenuItem1, menuRecent1, menuRecent2, menuRecent3, menuRecent4, menuRecent5, menuRecent6, menuRecent7, menuRecent8, menuRecent9, menuRecent10);
         }
         catch (Exception ex)
         {
@@ -806,6 +816,18 @@ public partial class MainWindow : Form
 
     private void MainWindow_Load(object sender, EventArgs e)
     {
+        menuRecent1.Click += menuRecent_Click;
+        menuRecent2.Click += menuRecent_Click;
+        menuRecent3.Click += menuRecent_Click;
+        menuRecent4.Click += menuRecent_Click;
+        menuRecent5.Click += menuRecent_Click;
+        menuRecent6.Click += menuRecent_Click;
+        menuRecent7.Click += menuRecent_Click;
+        menuRecent8.Click += menuRecent_Click;
+        menuRecent9.Click += menuRecent_Click;
+        menuRecent10.Click += menuRecent_Click;
+
+        _recentFiles.UpdateGui(toolStripMenuItem1, menuRecent1, menuRecent2, menuRecent3, menuRecent4, menuRecent5, menuRecent6, menuRecent7, menuRecent8, menuRecent9, menuRecent10);
         NewSpriteIsMulticolor = Properties.Settings.Default.NewSpriteIsMulticolor;
         PreviewZoom = Properties.Settings.Default.DoubleSizedPreview;
     }
@@ -929,6 +951,15 @@ public partial class MainWindow : Form
             spriteEditor.SetEditorTool(EditorToolEnum.CircleTool);
     }
 
+    private void radioFloodFill_CheckedChanged(object sender, EventArgs e)
+    {
+        if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
+            return;
+
+        if (radioFloodFill.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.FloodFill);
+    }
+
     public void SetMyTool()
     {
         if (ActiveMdiChild is not SpriteEditorWindow spriteEditor)
@@ -944,6 +975,8 @@ public partial class MainWindow : Form
             spriteEditor.SetEditorTool(EditorToolEnum.BoxTool);
         else if (radioCircle.Checked)
             spriteEditor.SetEditorTool(EditorToolEnum.CircleTool);
+        else if (radioFloodFill.Checked)
+            spriteEditor.SetEditorTool(EditorToolEnum.FloodFill);
     }
 
     private void windowToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
@@ -1022,4 +1055,46 @@ public partial class MainWindow : Form
 
     private void btnRedo_Click(object sender, EventArgs e) =>
         redoToolStripMenuItem_Click(sender, e);
+
+    private void pickToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (Sprites.Count <= 0)
+        {
+            MessageBox.Show(this, @"No sprites available to pick.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+        var selectedSpriteIndex = 0;
+
+        if (ActiveMdiChild != null && ActiveMdiChild.GetType() == typeof(SpriteEditorWindow))
+        {
+            var w = (SpriteEditorWindow)ActiveMdiChild;
+            selectedSpriteIndex = Sprites.IndexOf(w.Sprite);
+        }
+
+        var x = new PickSpriteDialog();
+        x.SpriteList = Sprites;
+        x.SelectedSpriteIndex = selectedSpriteIndex;
+
+        if (x.ShowDialog(this) != DialogResult.OK)
+            return;
+
+        SpriteListController.FindSpriteInSpriteList(Sprites[x.SelectedSpriteIndex], this, imageList1);
+    }
+
+    private void menuRecent_Click(object sender, EventArgs e)
+    {
+        if (Sprites.Count > 0)
+        {
+            if (MessageBox.Show(this, @"Are you sure you want to open another document? All current unsaved sprites will be lost.", @"Open", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                return;
+        }
+
+        var s = sender as ToolStripMenuItem;
+
+        if (s?.Tag is not string filename)
+            return;
+
+        DoOpen(filename);
+    }
 }

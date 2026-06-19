@@ -8,341 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sprdef2 - The C64 Sprite Editor for Windows computers</title>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --success: #16a34a;
-            --success-hover: #15803d;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --border: #e2e8f0;
-            --max-width: 1100px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        /* --- NAVIGATION --- */
-        header {
-            background-color: #ffffff;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        nav a {
-            color: var(--gray);
-            text-decoration: none;
-            font-weight: 500;
-            margin-left: 2rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-            nav a:hover, nav a.active {
-                color: var(--primary);
-            }
-
-        /* --- PAGE MANAGEMENT (SHOW/HIDE) --- */
-        .page {
-            display: none;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-            .page.active {
-                display: block;
-            }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 5rem 2rem;
-            text-align: center;
-        }
-
-            .hero h1 {
-                font-size: 3rem;
-                font-weight: 800;
-                margin-bottom: 1.5rem;
-                color: var(--dark);
-            }
-
-            .hero p {
-                font-size: 1.25rem;
-                color: var(--gray);
-                max-width: 700px;
-                margin: 0 auto 2.5rem auto;
-            }
-
-        /* --- BUTTONS --- */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            margin-right: 1rem;
-        }
-
-            .btn-primary:hover {
-                background-color: var(--primary-hover);
-            }
-
-        .btn-secondary {
-            background-color: white;
-            color: var(--dark);
-            border: 1px solid var(--border);
-        }
-
-            .btn-secondary:hover {
-                background-color: #f1f5f9;
-            }
-
-        .btn-success {
-            background-color: var(--success);
-            color: white;
-            font-size: 1.2rem;
-            padding: 1rem 2.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-
-            .btn-success:hover {
-                background-color: var(--success-hover);
-            }
-
-        /* --- FEATURES SECTION --- */
-        .section-container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-            .feature-card h3 {
-                margin-bottom: 1rem;
-                color: var(--dark);
-            }
-
-        /* --- TESTIMONIAL --- */
-        .testimonial-box {
-            background-color: #eef2ff;
-            border-left: 4px solid var(--primary);
-            padding: 2rem;
-            border-radius: 0 8px 8px 0;
-            max-width: 700px;
-            margin: 4rem auto;
-            font-style: italic;
-        }
-
-            .testimonial-box span {
-                display: block;
-                margin-top: 1rem;
-                font-style: normal;
-                font-weight: 600;
-                color: var(--gray);
-            }
-
-        /* --- ABOUT PAGE SPECIFIC --- */
-        .about-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-            .about-content p {
-                margin-bottom: 1.5rem;
-                font-size: 1.1rem;
-                color: #334155;
-            }
-
-        .values-list {
-            margin: 2rem 0;
-            list-style-position: inside;
-        }
-
-            .values-list li {
-                margin-bottom: 1rem;
-                font-size: 1.1rem;
-            }
-
-        /* --- DOWNLOAD PAGE SPECIFIC --- */
-        .download-zone {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        .download-meta {
-            margin-top: 1rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* TABLE STYLES */
-        .spec-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-            .spec-table th, .spec-table td {
-                padding: 1rem;
-                text-align: left;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .spec-table th {
-                background-color: #f1f5f9;
-                font-weight: 600;
-            }
-
-        /* INSTRUCTIONS */
-        .instructions ol {
-            padding-left: 1.5rem;
-        }
-
-        .instructions li {
-            margin-bottom: 0.75rem;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--dark);
-            color: #94a3b8;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 5rem;
-            font-size: 0.9rem;
-        }
-
-        /* --- SCREENSHOT STYLES --- */
-        .screenshot-container {
-            max-width: 700px;
-            margin: 2.5rem auto;
-            padding: 0 1rem;
-            text-align: center;
-        }
-
-        .app-screenshot {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border);
-            transition: transform 0.3s ease;
-        }
-
-            .app-screenshot:hover {
-                transform: scale(1.01);
-            }
-
-        /* --- MORE PAGE / NAV DIMMED STATE --- */
-        nav.dimmed a {
-            color: #cbd5e1;
-        }
-
-        nav.dimmed a:hover {
-            color: #cbd5e1;
-        }
-
-        /* --- MORE PAGE SPECIFIC --- */
-        .more-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-            .more-content p {
-                margin-bottom: 1.5rem;
-                font-size: 1.1rem;
-                color: #334155;
-            }
-
-        /* --- INLINE LINK STYLES --- */
-        p a, li a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1.5px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-            p a:hover, li a:hover {
-                color: var(--primary-hover);
-                border-bottom-color: var(--primary-hover);
-            }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
@@ -353,8 +19,8 @@
             <nav>
                 <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
                 <a id="nav-about" onclick="showPage('about')">About</a>
+                <a id="nav-versionhistory" onclick="showPage('versionhistory')">Version History</a>
                 <a id="nav-download" onclick="showPage('download')">Download</a>
-                <a id="nav-versionhistory" onclick="showPage('versionhistory')">Versions</a>
             </nav>
         </div>
     </header>
@@ -363,13 +29,13 @@
     <div id="page-home" class="page active">
         <section class="hero">
             <h1>The Modern Commodore 64 Sprite Editor for Windows</h1>
-            <p>Build, tweak, and perfect your graphics on a modern Windows PC, then send them straight to your retro hardware. Sprdef2 bridges the gap between design and deployment, giving you the ultimate workflow for your next Commodore 64 masterpiece.</p>
+            <p>Build, tweak, and perfect your graphics on a modern Windows PC, then send them straight to your retro hardware. <b>Sprdef2</b> bridges the gap between design and deployment, giving you the ultimate workflow for your next C64 masterpiece.</p>
             <div>
                 <a class="btn btn-primary" onclick="showPage('download')">Download</a>
                 <a class="btn btn-secondary" onclick="showPage('about')">Learn More</a>
             </div>
             <div class="screenshot-container">
-                <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_5.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
+                <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_6.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
             </div>
         </section>
 
@@ -410,9 +76,9 @@
                 <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">About Sprdef2</h2>
                 <p>This project started with a simple belief: Developing software for the Commodore 64 should be a smooth, efficient, and thoroughly enjoyable experience. As a retro developer myself, I noticed a gap in the workflow when it came to sprite design. <b>I wanted a modern Windows tool that didn't get in the way of creativity</b> — a tool that does the right things exceptionally well.</p>
                 <p><b>Sprdef2</b> was built to fix that. By focusing on seamless integration with CBM Prg Studio and enabling direct data export to the C64, it removes the tedious bottlenecks from your pipeline so you can focus on what actually matters: making great games. This editor is my contribution to the amazing retro computing community that keeps the C64 alive. It’s free, and it is open source!</p>
-                
+
                 <p>License: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0</a></p>
-                
+
                 <h3 style="margin: 2rem 0 1rem 0;">Core Values</h3>
                 <ul class="values-list">
                     <li>
@@ -427,7 +93,7 @@
                 </ul>
 
                 <div class="screenshot-container">
-                    <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_5.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
+                    <img src="https://raw.githubusercontent.com/Anders-H/Sprdef2/main/screenshotv1_6.jpg" alt="Sprdef2 Dashboard Screenshot" class="app-screenshot">
                 </div>
 
                 <h3 style="margin: 2rem 0 1rem 0;">The Developer</h3>
@@ -436,6 +102,44 @@
                 <h3 style="margin: 2rem 0 1rem 0;">Open source!</h3>
                 <p>The <a href="https://github.com/Anders-H/Sprdef2" target="_blank">source code</a> for Sprdef2 is available under the Apache 2.0 license. Contributions are welcome!</p>
 
+                <div style="margin-top: 8rem;">
+                    <h3>Got Swish?</h3>
+                    <p>Support me by buying me a cup of coffee as a thank you for Sprdef2, 20 SEK (equivalent to approximately 2 EUR/USD/GBP).</p>
+                    <div class="screenshot-container">
+                        <img src="./swish.png" alt="Swish" style="width: 100%; max-width: 300px; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================= VERSION HISTORY PAGE ================= -->
+    <div id="page-versionhistory" class="page">
+        <section class="section-container">
+            <div class="about-content">
+                <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Version History</h2>
+                <p>
+                    Last updated 2026-06-19.
+                </p>
+                <ul class="values-list">
+                    <li><strong>1.6:</strong> A new flood fill tool, a new sprite picker, a recent file list and new keyboard shortcuts.</li>
+                    <li><strong>1.5:</strong> A new rectangle tool and a new circle tool.</li>
+                    <li><strong>1.4:</strong> Export to prg file for Commodore 64/128 and D64 image file.</li>
+                    <li><strong>1.3:</strong> CBM Prg Studio export, a few minor bug fixes, a new line tool and undo/redo functionality.</li>
+                    <li><strong>1.2:</strong> Free hand editing, better sprite preview options and fixed an export bug. Use right mouse button to delete a pixel.</li>
+                    <li><strong>1.1:</strong> New keyboard shortcuts, and added animation view.</li>
+                </ul>
+                <div style="margin-top: 2rem;">
+                    <a class="btn btn-primary" onclick="showPage('download')">Download</a>
+                </div>
+
+                <div style="margin-top: 8rem;">
+                    <h3>Got Swish?</h3>
+                    <p>Support me by buying me a cup of coffee as a thank you for Sprdef2, 20 SEK (equivalent to approximately 2 EUR/USD/GBP).</p>
+                    <div class="screenshot-container">
+                        <img src="./swish.png" alt="Swish" style="width: 100%; max-width: 300px; height: auto;">
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -449,8 +153,8 @@
                 <p>License: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0</a></p>
 
                 <div class="download-zone">
-                    <a href="https://github.com/Anders-H/Sprdef2/raw/refs/heads/main/SetupSprdef2.zip" class="btn btn-success">Download SetupSprdef2.exe v1.5</a>
-                    <p class="download-meta">Size: 1.637 MB | Released: June 2026 | OS: Windows 10/11 (32/64-bit)</p>
+                    <a href="https://github.com/Anders-H/Sprdef2/raw/refs/heads/main/SetupSprdef2.zip" class="btn btn-success">Download SetupSprdef2.exe v1.6</a>
+                    <p class="download-meta">Size: 1.641 MB | Released: June 2026 | OS: Windows 10/11 (32/64-bit)</p>
                 </div>
             </div>
 
@@ -496,36 +200,6 @@
                         <li>Follow the on-screen instructions (takes less than a minute).</li>
                         <li>Launch Sprdef2 and click "Add sprite" to get started!</li>
                     </ol>
-                </div>
-                
-                <div style="margin-top: 8rem;">
-                    <h3>Got Swish?</h3>
-                    <p>Support me by buying me a cup of coffee as a thank you for Sprdef2, 20 SEK (equivalent to approximately 2 EUR/USD/GBP).</p>
-                    <div class="screenshot-container">
-                        <img src="./swish.png" alt="Swish" style="width: 100%; max-width: 300px; height: auto;">
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- ================= VERSION HISTORY PAGE ================= -->
-    <div id="page-versionhistory" class="page">
-        <section class="section-container">
-            <div class="about-content">
-                <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Version History</h2>
-                <p>
-                    Last updated 2026-06-11.
-                </p>
-                <ul class="values-list">
-                    <li><strong>1.5:</strong> A new rectangle tool and a new circle tool.</li>
-                    <li><strong>1.4:</strong> Export to prg file for Commodore 64/128 and D64 image file.</li>
-                    <li><strong>1.3:</strong> CBM Prg Studio export, a few minor bug fixes, a new line tool and undo/redo functionality.</li>
-                    <li><strong>1.2:</strong> Free hand editing, better sprite preview options and fixed an export bug. Use right mouse button to delete a pixel.</li>
-                    <li><strong>1.1:</strong> New keyboard shortcuts, and added animation view.</li>
-                </ul>
-                <div style="margin-top: 2rem;">
-                    <a class="btn btn-primary" onclick="showPage('download')">Download</a>
                 </div>
 
                 <div style="margin-top: 8rem;">
