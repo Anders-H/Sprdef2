@@ -149,7 +149,7 @@
 
                 <div class="download-zone">
                     <a href="https://github.com/Anders-H/Sprdef2/raw/refs/heads/main/SetupSprdef2.zip" class="btn btn-success">Download SetupSprdef2.exe v1.6</a>
-                    <p class="download-meta">Size: 1.641 MB | Released: June 2026 | OS: Windows 10/11 (32/64-bit)</p>
+                    <p class="download-meta">Size: 1.641 MB | Released: {{UpdateMonth}} | OS: Windows 10/11 (32/64-bit)</p>
                 </div>
             </div>
 
