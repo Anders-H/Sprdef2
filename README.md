@@ -13,7 +13,7 @@ A Commodore 64/128 sprite editor that runs under a patched Windows 10 or Windows
 
 Website: <a href="https://sprdef2.winsoft.se/" target="_blank">https://sprdef2.winsoft.se/</a>
 
-Download version 1.6: [https://sprdef2.winsoft.se/#download](https://sprdef2.winsoft.se/#download)
+Download version 1.7: [https://sprdef2.winsoft.se/#download](https://sprdef2.winsoft.se/#download)
 
 Version history: [https://sprdef2.winsoft.se/#versionhistory](https://sprdef2.winsoft.se/#versionhistory)
 

@@ -162,15 +162,20 @@ public partial class SpriteEditorWindow : Form
             return;
         }
 
-        var state = _undoBuffer.CurrentState;
-
-        if (state == null)
-            return;
-
         _isUndo = true;
-        Sprite = state.Duplicate(); // ← klonar istället för direkt referens
-        ReconnectSprite();
-        _isUndo = false;
+
+        try
+        {
+            if (!_undoBuffer.RestoreCurrentState(Sprite))
+                return;
+
+            ConnectSprite(Sprite, false);
+        }
+        finally
+        {
+            _isUndo = false;
+        }
+
         Invalidate();
     }
 
@@ -181,15 +186,20 @@ public partial class SpriteEditorWindow : Form
             MessageBox.Show(this, @"Cannot redo at this time.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
-        var state = _undoBuffer.CurrentState;
-
-        if (state == null)
-            return;
-
         _isUndo = true;
-        Sprite = state.Duplicate(); // ← klonar istället för direkt referens
-        ReconnectSprite();
-        _isUndo = false;
+
+        try
+        {
+            if (!_undoBuffer.RestoreCurrentState(Sprite))
+                return;
+
+            ConnectSprite(Sprite, false);
+        }
+        finally
+        {
+            _isUndo = false;
+        }
+
         Invalidate();
     }
 }
