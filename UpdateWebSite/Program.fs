@@ -8,6 +8,7 @@ let templateFilename = "D:\\GitRepos\\Sprdef2\\Sprdef2\\web\\index.html.template
 let outputFilename = "D:\\GitRepos\\Sprdef2\\Sprdef2\\web\\index.html"
 
 let versionHistory = @"
+<li><strong>1.8:</strong> New sprites can be initialized by pasting CBM Prg Studio assembler BYTE statements.</li>
 <li><strong>1.7:</strong> A better undo buffer.</li>
 <li><strong>1.6:</strong> A new flood fill tool, a new sprite picker, a recent file list and new keyboard shortcuts.</li>
 <li><strong>1.5:</strong> A new rectangle tool and a new circle tool.</li>
@@ -18,9 +19,12 @@ let versionHistory = @"
 
 let constants = 
     [
+        "{{CurrentVersion}}", "1.8"
         "{{VersionHistory}}", versionHistory
-        "{{LastUpdated}}", "2026-08-14"
+        "{{LastUpdated}}", "2026-08-21"
         "{{UpdateMonth}}", "August 2026"
+        "{{FileSize}}", "1.643 MB"
+        "{{CurrentYear}}", DateTime.Now.Year.ToString("0000")
     ] |> Map.ofList
 
 [<EntryPoint>]

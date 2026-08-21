@@ -2,6 +2,7 @@
 using System.Linq;
 using EditStateSprite;
 using System.Windows.Forms;
+using Sprdef2.Import;
 
 namespace Sprdef2.MainWindowControllers;
 
@@ -53,6 +54,7 @@ public static class SpriteListController
     {
         SpriteRoot? newSprite = null;
         var multicolor = false;
+        var cbmPrgStudioAssemblerData = "";
 
         switch (MainWindow.NewSpriteIsMulticolor)
         {
@@ -72,9 +74,14 @@ public static class SpriteListController
                         return;
 
                     if (add.DuplicateSprite == null)
+                    {
                         multicolor = add.Multicolor;
+                        cbmPrgStudioAssemblerData = add.CbmPrgStudioDataStatements;
+                    }
                     else
+                    {
                         newSprite = add.DuplicateSprite.Duplicate();
+                    }
                 }
 
                 break;
@@ -89,6 +96,21 @@ public static class SpriteListController
             X = x + 30,
             Y = y + 30
         };
+
+        if (!string.IsNullOrWhiteSpace(cbmPrgStudioAssemblerData))
+        {
+            var parser = new CbmPrgStudioAssemblerParser(newSprite);
+
+            if (!parser.Parse(cbmPrgStudioAssemblerData))
+            {
+                var message = string.IsNullOrWhiteSpace( parser.ErrorMessage)
+                    ? @"Failed to set data from CBM Prg Studio assembler statements."
+                    : parser.ErrorMessage;
+
+                MessageBox.Show(message, @"Add sprite", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
 
         MainWindow.Sprites.Add(newSprite);
         CheckThatAllSpritesIsRepresentedInList(MainWindow.Sprites, spriteListView, imageList);

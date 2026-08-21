@@ -1,6 +1,6 @@
-﻿namespace Sprdef2.Export.ExportGui
+﻿namespace Sprdef2
 {
-    partial class ExportPreviewDialog
+    partial class CbmPrgStudioDataDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.cbmOk = new System.Windows.Forms.Button();
+            this.cbmCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -37,35 +38,46 @@
             this.textBox1.Location = new System.Drawing.Point(4, 4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(876, 312);
+            this.textBox1.Size = new System.Drawing.Size(400, 196);
             this.textBox1.TabIndex = 0;
             // 
-            // btnClose
+            // cbmOk
             // 
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(804, 320);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
-            this.btnClose.TabIndex = 1;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
+            this.cbmOk.Location = new System.Drawing.Point(248, 204);
+            this.cbmOk.Name = "cbmOk";
+            this.cbmOk.Size = new System.Drawing.Size(75, 23);
+            this.cbmOk.TabIndex = 1;
+            this.cbmOk.Text = "OK";
+            this.cbmOk.UseVisualStyleBackColor = true;
+            this.cbmOk.Click += new System.EventHandler(this.cbmOk_Click);
             // 
-            // ExportPreviewDialog
+            // cbmCancel
             // 
+            this.cbmCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cbmCancel.Location = new System.Drawing.Point(328, 204);
+            this.cbmCancel.Name = "cbmCancel";
+            this.cbmCancel.Size = new System.Drawing.Size(75, 23);
+            this.cbmCancel.TabIndex = 2;
+            this.cbmCancel.Text = "Cancel";
+            this.cbmCancel.UseVisualStyleBackColor = true;
+            // 
+            // CbmPrgStudioDataDialog
+            // 
+            this.AcceptButton = this.cbmOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(885, 347);
-            this.Controls.Add(this.btnClose);
+            this.CancelButton = this.cbmCancel;
+            this.ClientSize = new System.Drawing.Size(408, 231);
+            this.Controls.Add(this.cbmCancel);
+            this.Controls.Add(this.cbmOk);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ExportPreviewDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Preview export";
-            this.Load += new System.EventHandler(this.ExportPreviewDialog_Load);
+            this.Name = "CbmPrgStudioDataDialog";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "CBM Prg Studio assembler DATA statements";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -74,6 +86,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button cbmOk;
+        private System.Windows.Forms.Button cbmCancel;
     }
 }

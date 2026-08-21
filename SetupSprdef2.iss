@@ -1,5 +1,5 @@
 #define MyAppName "Sprdef2"
-#define MyAppVersion "1.7"
+#define MyAppVersion "1.8"
 #define MyAppPublisher "WinSoft"
 #define MyAppURL "https://github.com/Anders-H/Sprdef2/blob/main/README.md"
 #define MyAppExeName "Sprdef2.exe"

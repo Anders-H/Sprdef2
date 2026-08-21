@@ -11,21 +11,39 @@ public partial class AddSpriteDialog : Form
     public ImageList? SpriteImageList { private get; set; }
     public bool Multicolor { get; private set; }
     public SpriteRoot? DuplicateSprite { get; private set; }
+    public string CbmPrgStudioDataStatements { get; private set; }
 
     public AddSpriteDialog()
     {
         Multicolor = false;
+        CbmPrgStudioDataStatements = "";
         InitializeComponent();
     }
 
     private void button1_Click(object sender, EventArgs e)
     {
+        if (radioCbmPrgStudioAssembler.Checked)
+        {
+            if (!GetCbmPrgStudioDataStatements(out var dataStatements))
+                return;
+
+            CbmPrgStudioDataStatements = dataStatements;
+        }
+
         Multicolor = false;
         DialogResult = DialogResult.OK;
     }
 
     private void button2_Click(object sender, EventArgs e)
     {
+        if (radioCbmPrgStudioAssembler.Checked)
+        {
+            if (!GetCbmPrgStudioDataStatements(out var dataStatements))
+                return;
+
+            CbmPrgStudioDataStatements = dataStatements;
+        }
+
         Multicolor = true;
         DialogResult = DialogResult.OK;
     }
@@ -52,5 +70,17 @@ public partial class AddSpriteDialog : Form
 
         DuplicateSprite = x.DuplicateSprite;
         DialogResult = DialogResult.OK;
+    }
+
+    public bool GetCbmPrgStudioDataStatements(out string dataStatements)
+    {
+        dataStatements = "";
+        using var x = new CbmPrgStudioDataDialog();
+
+        if (x.ShowDialog() != DialogResult.OK)
+            return false;
+
+        dataStatements = x.AssemblerData;
+        return true;
     }
 }
